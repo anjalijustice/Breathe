@@ -7,7 +7,6 @@ export default function App() {
       <Image style={styles.banner}
         source={require('./img/banner.jpg')}
       />
-      <Text>Now I have to make buttons for menu Items</Text>
       
       <View style={styles.buttonsContainer}>
         <TouchableOpacity
@@ -15,6 +14,7 @@ export default function App() {
           activeOpacity = { .5 }
           onPress={ console.log("Open Schedule")}
         >
+          <Image style={styles.imgStyle} source={require('./img/scheduleIcon.jpg')} />
           <Text style={styles.TextStyle}> SCHEDULE </Text>       
         </TouchableOpacity>
 
@@ -23,6 +23,7 @@ export default function App() {
           activeOpacity = { .5 }
           onPress={ console.log("Open Map")}
         >
+          <Image style={styles.imgStyle} source={require('./img/mapIcon.svg')} />
           <Text style={styles.TextStyle}> MAP </Text>       
         </TouchableOpacity>
       </View>
@@ -32,6 +33,7 @@ export default function App() {
           activeOpacity = { .5 }
           onPress={ console.log("Open Food")}
         >
+          <Image style={styles.imgStyle} source={require('./img/foodIcon.svg')} />
           <Text style={styles.TextStyle}> FOOD </Text>       
         </TouchableOpacity>
 
@@ -40,9 +42,31 @@ export default function App() {
           activeOpacity = { .5 }
           onPress={ console.log("Open My Schedule")}
         >
+          <Image style={styles.imgStyle} source={require('./img/myScheduleIcon.png')} />
           <Text style={styles.TextStyle}> MY SCHEDULE </Text>       
         </TouchableOpacity>
       </View>
+      <View style={styles.buttonsContainer}>
+        <TouchableOpacity
+          style={styles.buttons}
+          activeOpacity = { .5 }
+          onPress={ console.log("Open Gallery")}
+        >
+          <Image style={styles.imgStyle} source={require('./img/galleryIcon.png')} />
+          <Text style={styles.TextStyle}> GALLERY </Text>       
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.buttons}
+          activeOpacity = { .5 }
+          onPress={ console.log("Placeholder")}
+        >
+          <Text style={styles.TextStyle}> Placeholder </Text>       
+        </TouchableOpacity>
+      </View>
+
+      <Image style={styles.footer}
+        source={require('./img/breathe2.jpg')}
+      />
 
     </View>
   );
@@ -75,7 +99,18 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign:'center',
   },
+  imgStyle: {
+    width: '40%',
+    height: '40%',
+    resizeMode: 'contain',
+  },
   buttonsContainer: {
     flexDirection: 'row',
+  },
+  footer: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    height: 150,
   }
 });
