@@ -8,32 +8,41 @@ export default function App() {
         source={require('./img/banner.jpg')}
       />
       <Text>Now I have to make buttons for menu Items</Text>
+      
+      <View style={styles.buttonsContainer}>
+        <TouchableOpacity
+          style={styles.buttons}
+          activeOpacity = { .5 }
+          onPress={ console.log("Open Schedule")}
+        >
+          <Text style={styles.TextStyle}> SCHEDULE </Text>       
+        </TouchableOpacity>
 
-      {/* <Button 
-        style={styles.buttons}
-        onPress={() => {
-          console.log('Open Schedule');
-        }}
-        //Add event handler later, just getting basic button functionality and styling done now
-        title="Schedule"
-      /> */}
+        <TouchableOpacity
+          style={styles.buttons}
+          activeOpacity = { .5 }
+          onPress={ console.log("Open Map")}
+        >
+          <Text style={styles.TextStyle}> MAP </Text>       
+        </TouchableOpacity>
+      </View>
+      <View style={styles.buttonsContainer}>
+        <TouchableOpacity
+          style={styles.buttons}
+          activeOpacity = { .5 }
+          onPress={ console.log("Open Food")}
+        >
+          <Text style={styles.TextStyle}> FOOD </Text>       
+        </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.buttons}
-        activeOpacity = { .5 }
-        onPress={ console.log("Open Schedule")}
-      >
-        <Text style={styles.TextStyle}> SCHEDULE </Text>       
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.buttons}
-        activeOpacity = { .5 }
-        onPress={ console.log("Open Map")}
-      >
-        <Text style={styles.TextStyle}> MAP </Text>       
-      </TouchableOpacity>
-
+        <TouchableOpacity
+          style={styles.buttons}
+          activeOpacity = { .5 }
+          onPress={ console.log("Open My Schedule")}
+        >
+          <Text style={styles.TextStyle}> MY SCHEDULE </Text>       
+        </TouchableOpacity>
+      </View>
 
     </View>
   );
@@ -52,10 +61,10 @@ const styles = StyleSheet.create({
     borderRadius: 60,
     height: 120,
     width: 120,
+    margin: 25,
     backgroundColor: '#b0c4de',
     justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'row',
     shadowColor: 'rgba(0,0,0, .4)', // IOS
     shadowOffset: { height: 1, width: 1 }, // IOS
     shadowOpacity: 1, // IOS
@@ -66,4 +75,7 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign:'center',
   },
+  buttonsContainer: {
+    flexDirection: 'row',
+  }
 });
