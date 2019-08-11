@@ -3,12 +3,16 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { Text } from 'react-native';
 import HomeScreen from './screens/home'
 import ScheduleScreen from './screens/schedule'
+import FoodScreen from './screens/food'
+import MapScreen from './screens/map'
 
 
 const RootStack = createStackNavigator(
   {
     Home: HomeScreen,
     Schedule: ScheduleScreen,
+    Food: FoodScreen,
+    Map: MapScreen,
   },
   {
     initialRouteName: 'Home',

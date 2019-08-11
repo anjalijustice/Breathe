@@ -1,13 +1,10 @@
 import React from 'react';
-import {StyleSheet, ImageBackground, View, FlatList, ActivityIndicator, Text} from 'react-native';
-import ScheduleCard from '../components/scheduleCard';
+import {StyleSheet, View, ImageBackground, FlatList, ActivityIndicator } from 'react-native';
+import FoodCard from '../components/foodCard';
 
-//TODO: add date selector at top of schedule
-//Figure out how to sort events by date and time
-
-class ScheduleScreen extends React.Component {
+class FoodScreen extends React.Component {
     static navigationOptions = {
-        title: 'Schedule',
+        title: 'Food',
     };
 
     constructor(props) {
@@ -22,7 +19,7 @@ class ScheduleScreen extends React.Component {
     }
 
     fetchData= async () => {
-        const response = await fetch('https://randomuser.me/api?results=20');
+        const response = await fetch('https://randomuser.me/api?results=5');
         const json = await response.json();
         this.setState({data: json.results, isLoading: false})
 
@@ -39,13 +36,12 @@ class ScheduleScreen extends React.Component {
         else{
             return(
             <View style={styles.container}>
-                <ImageBackground source={require('../img/breathe1.jpg')} style={styles.backgroundImage}>
+                <ImageBackground source={require('../img/breathe5.jpg')} style={styles.backgroundImage}>
                 <FlatList 
-                    // style={styles.container}
                     style={styles.list}
                     data={this.state.data}
                     keyExtractor={(item, index) => index.toString()}
-                    renderItem={({item}) => <ScheduleCard item={item} />}
+                    renderItem={({item}) => <FoodCard item={item} />}
                 />
                 </ImageBackground>
             </View>
@@ -59,22 +55,12 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       alignItems: 'center',
-      //Change background to an image eventually
       backgroundColor: '#b0e0e6',
-    },
-    loader: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
     },
     backgroundImage: {
         width: '100%',
         height: '100%',
-        // opacity: 0.5,
-    },
-    list: {
-        opacity: 1,
     }
 });
 
-export default ScheduleScreen
+export default FoodScreen
