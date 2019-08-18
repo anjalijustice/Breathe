@@ -36,7 +36,7 @@ class FoodScreen extends React.Component {
         else{
             return(
             <View style={styles.container}>
-                <ImageBackground source={require('../img/breathe5.jpg')} style={styles.backgroundImage}>
+                <ImageBackground source={require('../../assets/img/breathe5.jpg')} style={styles.backgroundImage}>
                 <FlatList 
                     style={styles.list}
                     data={this.state.data}

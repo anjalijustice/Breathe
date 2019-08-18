@@ -1,10 +1,10 @@
 import React from 'react';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { Text } from 'react-native';
-import HomeScreen from './screens/home'
-import ScheduleScreen from './screens/schedule'
-import FoodScreen from './screens/food'
-import MapScreen from './screens/map'
+import HomeScreen from './src/screens/home'
+import ScheduleScreen from './src/screens/schedule'
+import FoodScreen from './src/screens/food'
+import MapScreen from './src/screens/map'
 
 
 const RootStack = createStackNavigator(

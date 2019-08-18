@@ -7,7 +7,7 @@ class LogoTitle extends React.Component {
     render() {
       return (
         <Image
-          source={require('../img/banner.jpg')}
+          source={require('../../assets/img/banner.jpg')}
           style={styles.banner}
         />
       );
@@ -148,7 +148,7 @@ class HomeScreen extends React.Component {
             </View>
 
             <Image style={styles.footer}
-                source={require('../img/breathe2.jpg')}
+                source={require('../../assets/img/breathe2.jpg')}
             />
 
             </View>

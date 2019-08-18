@@ -39,7 +39,7 @@ class ScheduleScreen extends React.Component {
         else{
             return(
             <View style={styles.container}>
-                <ImageBackground source={require('../img/breathe1.jpg')} style={styles.backgroundImage}>
+                <ImageBackground source={require('../../assets/img/breathe1.jpg')} style={styles.backgroundImage}>
                 <FlatList 
                     // style={styles.container}
                     style={styles.list}
