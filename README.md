@@ -7,5 +7,5 @@ Once you've cloned the repo, type this command
 in your terminal in the Breathe folder.
 
 Next, simply run
-```npm start``
+```npm start```
 to run your app
