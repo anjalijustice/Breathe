@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, View, ImageBackground, FlatList, ActivityIndicator } from 'react-native';
-import FoodCard from '../components/foodCard';
+import FoodCard from 'breathe/src/components/FoodCard';
 
 class FoodScreen extends React.Component {
     static navigationOptions = {
@@ -36,7 +36,7 @@ class FoodScreen extends React.Component {
         else{
             return(
             <View style={styles.container}>
-                <ImageBackground source={require('../../assets/img/breathe5.jpg')} style={styles.backgroundImage}>
+                <ImageBackground source={require('breathe/assets/img/breathe5.jpg')} style={styles.backgroundImage}>
                 <FlatList 
                     style={styles.list}
                     data={this.state.data}
@@ -63,4 +63,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default FoodScreen
+export default FoodScreen;

@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, ImageBackground, View, FlatList, ActivityIndicator, Text} from 'react-native';
-import ScheduleCard from '../components/scheduleCard';
+import ScheduleCard from 'breathe/src/components/ScheduleCard';
+import Services from 'breathe/src/services';
 
 //TODO: add date selector at top of schedule
 //Figure out how to sort events by date and time
@@ -21,11 +22,9 @@ class ScheduleScreen extends React.Component {
        this.fetchData();
     }
 
-    fetchData= async () => {
-        const response = await fetch('https://randomuser.me/api?results=20');
-        const json = await response.json();
-        this.setState({data: json.results, isLoading: false})
-
+    fetchData = async () => {
+        const workshops = await Services.Workshops();
+        this.setState({data: workshops, isLoading: false});
     }
 
     render() {
@@ -39,7 +38,7 @@ class ScheduleScreen extends React.Component {
         else{
             return(
             <View style={styles.container}>
-                <ImageBackground source={require('../../assets/img/breathe1.jpg')} style={styles.backgroundImage}>
+                <ImageBackground source={require('breathe/assets/img/breathe1.jpg')} style={styles.backgroundImage}>
                 <FlatList 
                     // style={styles.container}
                     style={styles.list}

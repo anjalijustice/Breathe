@@ -1,13 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { stackNavigator } from 'react-navigation';
-// import { styles } from '../style/stylesheet'
+// import { styles } from 'breathe/src/style/stylesheet'
 
 class LogoTitle extends React.Component {
     render() {
       return (
         <Image
-          source={require('../../assets/img/banner.jpg')}
+          source={require('breathe/assets/img/banner.jpg')}
           style={styles.banner}
         />
       );
@@ -30,7 +30,7 @@ class HomeScreen extends React.Component {
             //     activeOpacity = { .5 }
             //     onPress={() => this.props.navigation.navigate('Schedule')}
             //     >
-            //     <Image style={styles.imgStyle} source={require('../img/scheduleIcon.jpg')} />
+            //     <Image style={styles.imgStyle} source={require('breatheimg/scheduleIcon.jpg')} />
             //     </TouchableOpacity>
             //     <Text style={styles.TextStyle}> SCHEDULE </Text>       
             //     </View>
@@ -40,7 +40,7 @@ class HomeScreen extends React.Component {
             //     activeOpacity = { .5 }
             //     onPress={() => this.props.navigation.navigate('Map')}
             //     >
-            //     <Image style={styles.imgStyle} source={require('../img/mapIcon.svg')} />
+            //     <Image style={styles.imgStyle} source={require('breatheimg/mapIcon.svg')} />
             //     </TouchableOpacity>
             //     <Text style={styles.TextStyle}> MAP </Text>       
             //     </View>
@@ -53,7 +53,7 @@ class HomeScreen extends React.Component {
             //     activeOpacity = { .5 }
             //     onPress={ console.log("Open Gallery")}
             //     >
-            //     <Image style={styles.imgStyle} source={require('../img/galleryIcon.png')} />
+            //     <Image style={styles.imgStyle} source={require('breatheimg/galleryIcon.png')} />
             //     </TouchableOpacity>
             //     <Text style={styles.TextStyle}> GALLERY </Text>       
             //     </View>   
@@ -63,7 +63,7 @@ class HomeScreen extends React.Component {
             //     activeOpacity = { .5 }
             //     onPress={ console.log("Open My Schedule")}
             //     >
-            //     <Image style={styles.imgStyle} source={require('../img/myScheduleIcon.png')} />
+            //     <Image style={styles.imgStyle} source={require('breatheimg/myScheduleIcon.png')} />
             //     </TouchableOpacity>
             //     <Text style={styles.TextStyle}> MY SCHEDULE </Text>   
             //     </View>    
@@ -76,7 +76,7 @@ class HomeScreen extends React.Component {
             //     activeOpacity = { .5 }
             //     onPress={() => this.props.navigation.navigate('Food')}
             //     >
-            //     <Image style={styles.imgStyle} source={require('../img/foodIcon.svg')} />
+            //     <Image style={styles.imgStyle} source={require('breatheimg/foodIcon.svg')} />
             //     </TouchableOpacity>
             //     <Text style={styles.TextStyle}> FOOD </Text>  
             //     </View>
@@ -92,7 +92,7 @@ class HomeScreen extends React.Component {
             // </View> */}
 
             // <Image style={styles.footer}
-            //     source={require('../img/breathe2.jpg')}
+            //     source={require('breatheimg/breathe2.jpg')}
             // />
 
             // </View>
@@ -109,7 +109,7 @@ class HomeScreen extends React.Component {
                 onPress={() => this.props.navigation.navigate('Schedule')}
                 >
                 <Text style={styles.TextStyle}> SCHEDULE </Text>       
-                {/* <Image style={styles.imgStyle} source={require('../img/scheduleIcon.jpg')} /> */}
+                {/* <Image style={styles.imgStyle} source={require('breatheimg/scheduleIcon.jpg')} /> */}
                 </TouchableOpacity>
                 </View>
                 <View>
@@ -119,7 +119,7 @@ class HomeScreen extends React.Component {
                 onPress={() => this.props.navigation.navigate('Map')}
                 >
                 <Text style={styles.TextStyle}> MAP </Text>       
-                {/* <Image style={styles.imgStyle} source={require('../img/mapIcon.svg')} /> */}
+                {/* <Image style={styles.imgStyle} source={require('breatheimg/mapIcon.svg')} /> */}
                 </TouchableOpacity>
                 </View>
             {/* </View> */}
@@ -132,7 +132,7 @@ class HomeScreen extends React.Component {
                 onPress={ console.log("Open My Schedule")}
                 >
                 <Text style={styles.TextStyle}> MY SCHEDULE </Text> 
-                {/* <Image style={styles.imgStyle} source={require('../img/myScheduleIcon.png')} /> */}
+                {/* <Image style={styles.imgStyle} source={require('breatheimg/myScheduleIcon.png')} /> */}
                 </TouchableOpacity>
                 </View> 
                 <View>
@@ -142,13 +142,13 @@ class HomeScreen extends React.Component {
                 onPress={ console.log("Open Gallery")}
                 >
                 <Text style={styles.TextStyle}> GALLERY </Text>       
-                {/* <Image style={styles.imgStyle} source={require('../img/galleryIcon.png')} /> */}
+                {/* <Image style={styles.imgStyle} source={require('breatheimg/galleryIcon.png')} /> */}
                 </TouchableOpacity>
                 </View>      
             </View>
 
             <Image style={styles.footer}
-                source={require('../../assets/img/breathe2.jpg')}
+                source={require('breathe/assets/img/breathe2.jpg')}
             />
 
             </View>
@@ -220,4 +220,4 @@ const styles = StyleSheet.create({
     }
   });
 
-export default HomeScreen
+export default HomeScreen;

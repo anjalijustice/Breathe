@@ -16,17 +16,17 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/screens/food.js">
+        <entry file="file://$PROJECT_DIR$/src/screens/FoodSharing.js">
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/screens/gallery.js">
+        <entry file="file://$PROJECT_DIR$/src/screens/Gallery.js">
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/screens/home.js">
+        <entry file="file://$PROJECT_DIR$/src/screens/HomePage.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="46">
               <caret line="10" column="12" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="12" />
@@ -59,7 +59,7 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/scheduleCard.js">
+        <entry file="file://$PROJECT_DIR$/src/components/ScheduleCard.js">
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
@@ -223,13 +223,13 @@
     <entry file="file://$PROJECT_DIR$/src/style/stylesheet.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/scheduleCard.js">
+    <entry file="file://$PROJECT_DIR$/src/components/ScheduleCard.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/screens/food.js">
+    <entry file="file://$PROJECT_DIR$/src/screens/FoodSharing.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/screens/gallery.js">
+    <entry file="file://$PROJECT_DIR$/src/screens/Gallery.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/App.js">
