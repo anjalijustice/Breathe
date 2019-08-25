@@ -1,12 +1,15 @@
-class UserService {
-    getUsers() {
-        fetch('/users').then((users) => {return users.json()});
+export default class UserService {
+    static getUsers() {
+        return fetch('http://127.0.0.1:8080/users').then((users) => {return users.json()});
     }
-    getUser(id) {
-        fetch('/users/id').then((user) => {return user.json()});
+    static getUser(installationId) {
+        return fetch('http://127.0.0.1:8080/users/' + installationId)
+        .then(user => {return user.json()})
+        .catch(error => {return null})
     }
-    addUser(user) {
-        fetch('/users', {
+    static createUser(user) {
+      console.log(JSON.stringify({user}));
+        return fetch('http://127.0.0.1:8080/users', {
             method: 'POST',
             headers: {
               Accept: 'application/json',

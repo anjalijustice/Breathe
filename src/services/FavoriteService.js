@@ -1,3 +1,3 @@
-class FavoriteService {
+export default class FavoriteService {
     
 }

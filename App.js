@@ -1,5 +1,6 @@
 import React from 'react';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
+import Constants from 'expo-constants';
 import { Text } from 'react-native';
 import HomeScreen from 'breathe/src/screens/HomePage';
 import ScheduleScreen from './src/screens/Schedule';
@@ -10,6 +11,7 @@ import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import { View } from 'react-native';
 import rootReducer from './src/reducers';
+import Services from 'breathe/src/services';
 
 const store = createStore(rootReducer);
 
@@ -39,6 +41,24 @@ const RootStack = createStackNavigator(
 const AppContainer = createAppContainer(RootStack);
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  componentWillMount () {
+    this.getOrCreateUser();
+ }
+
+  async getOrCreateUser() {
+    let user = await Services.Users.getUser(Constants.installationId);
+    if (user == null) {
+      user = await Services.Users.createUser({
+        installationId: Constants.installationId,
+      });
+    }
+    this.setState({user: user});
+  }
   render() {
     return <AppContainer />;
   }
