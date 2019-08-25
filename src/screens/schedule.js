@@ -33,9 +33,7 @@ class ScheduleScreen extends React.Component {
     }
 
     fetchData = async () => {
-        // const workshops = await Services.Workshops();
-        const getData = await fetch("https://jsonplaceholder.typicode.com/comments");
-        const workshops = await getData.json();
+        const workshops = await Services.Workshops.getWorkshops();
         this.setState({data: workshops, isLoading: false});
         //Sort data by date and time
         // this.state.data.sort(function(a,b){
