@@ -20,6 +20,7 @@ class ScheduleScreen extends React.Component {
         super(props);
 
         this.state = {
+            user: props.user,
             isLoading: true,
             data: [],
             dateSelected: '11',
@@ -79,6 +80,7 @@ class ScheduleScreen extends React.Component {
             )
         }
         else{
+            console.log(this.state.user)
             return(
             <View style={styles.container}>
                 {/* Horizontal calendar component to select day, changes dateSelected state when pressed*/}
