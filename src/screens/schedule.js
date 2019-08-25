@@ -23,7 +23,6 @@ class ScheduleScreen extends React.Component {
     }
 
     fetchData = async () => {
-        console.log(this.state);
         const workshops = await Services.Workshops.getWorkshops();
         this.setState({data: workshops, isLoading: false});
     }
