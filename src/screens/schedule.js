@@ -14,6 +14,7 @@ class ScheduleScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            user: props.user,
             isLoading: true,
             data: [],
         }
@@ -36,6 +37,7 @@ class ScheduleScreen extends React.Component {
             )
         }
         else{
+            console.log(this.state.user)
             return(
             <View style={styles.container}>
                 <ImageBackground source={require('breathe/assets/img/breathe1.jpg')} style={styles.backgroundImage}>

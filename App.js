@@ -60,6 +60,6 @@ export default class App extends React.Component {
     this.setState({user: user});
   }
   render() {
-    return <AppContainer />;
+    return <AppContainer user={this.state.user} />;
   }
 }
