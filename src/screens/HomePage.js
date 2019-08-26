@@ -1,5 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
+import Constants from 'expo-constants';
+import Services from 'breathe/src/services';
 import { stackNavigator } from 'react-navigation';
 // import { styles } from 'breathe/src/style/stylesheet'
 
@@ -14,7 +16,26 @@ class LogoTitle extends React.Component {
     }
   }
 
-class HomeScreen extends React.Component {   
+class HomeScreen extends React.Component { 
+    constructor(props) {
+      super(props);
+      this.state = {};
+    }  
+
+    componentWillMount () {
+      this.getOrCreateUser();
+    }
+
+    async getOrCreateUser() {
+      let user = await Services.Users.getUser(Constants.installationId);
+      if (user == null) {
+        user = await Services.Users.createUser({
+          installationId: Constants.installationId,
+        });
+      }
+      this.setState({user: user});
+    }
+
     static navigationOptions = {
         headerTitle: <LogoTitle />,
         backgroundColor: '#b0e0e6'
@@ -106,7 +127,7 @@ class HomeScreen extends React.Component {
                 <TouchableOpacity
                 style={styles.newbuttons}
                 activeOpacity = { .5 }
-                onPress={() => this.props.navigation.navigate('Schedule')}
+                onPress={() => this.props.navigation.navigate('Schedule', {user: this.state.user})}
                 >
                 <Text style={styles.TextStyle}> SCHEDULE </Text>       
                 {/* <Image style={styles.imgStyle} source={require('breatheimg/scheduleIcon.jpg')} /> */}
@@ -129,7 +150,6 @@ class HomeScreen extends React.Component {
                 <TouchableOpacity
                 style={styles.newbuttons}
                 activeOpacity = { .5 }
-                onPress={ console.log("Open My Schedule")}
                 >
                 <Text style={styles.TextStyle}> MY SCHEDULE </Text> 
                 {/* <Image style={styles.imgStyle} source={require('breatheimg/myScheduleIcon.png')} /> */}
@@ -139,7 +159,6 @@ class HomeScreen extends React.Component {
                 <TouchableOpacity
                 style={styles.newbuttons}
                 activeOpacity = { .5 }
-                onPress={ console.log("Open Gallery")}
                 >
                 <Text style={styles.TextStyle}> GALLERY </Text>       
                 {/* <Image style={styles.imgStyle} source={require('breatheimg/galleryIcon.png')} /> */}

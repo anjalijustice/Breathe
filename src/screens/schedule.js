@@ -14,7 +14,7 @@ class ScheduleScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: props.user,
+            user: props.navigation.getParam('user', {}),
             isLoading: true,
             data: [],
         }
@@ -37,7 +37,6 @@ class ScheduleScreen extends React.Component {
             )
         }
         else{
-            console.log(this.state.user)
             return(
             <View style={styles.container}>
                 <ImageBackground source={require('breathe/assets/img/breathe1.jpg')} style={styles.backgroundImage}>
@@ -46,7 +45,7 @@ class ScheduleScreen extends React.Component {
                     style={styles.list}
                     data={this.state.data}
                     keyExtractor={(item, index) => index.toString()}
-                    renderItem={({item}) => <ScheduleCard item={item} />}
+                    renderItem={({item}) => <ScheduleCard item={item} user={this.state.user} />}
                 />
                 </ImageBackground>
             </View>

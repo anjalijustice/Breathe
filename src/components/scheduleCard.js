@@ -1,8 +1,15 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { getTimeFromDateTime } from 'breathe/src/utils/dateTime';
+import Services from 'breathe/src/services';
 
 export default class ScheduleCard extends React.Component {
+  addFavorite = async () => {
+    let workshopId = this.props.item.id;
+    let userId = this.props.user.id;
+    await Services.Favorites.createFavorite(userId, workshopId);
+  }
+  
   render(){ 
     // Fetch event data from database and loop through results to add data to scheduleCards?
     return (

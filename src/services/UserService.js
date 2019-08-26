@@ -8,7 +8,6 @@ export default class UserService {
         .catch(error => {return null})
     }
     static createUser(user) {
-      console.log(JSON.stringify({user}));
         return fetch('http://127.0.0.1:8080/users', {
             method: 'POST',
             headers: {
