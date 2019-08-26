@@ -1,12 +1,19 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { getTimeFromDateTime } from '../../src/utils/dateTime';
+import Services from 'breathe/src/services';
 
 export default class ScheduleCard extends React.Component {
   onPress = (item) => {
     this.props.updateModal(item)
   }
 
+  addFavorite = async () => {
+    let workshopId = this.props.item.id;
+    let userId = this.props.user.id;
+    await Services.Favorites.createFavorite(userId, workshopId);
+  }
+  
   render(){ 
     return (
       <TouchableOpacity 

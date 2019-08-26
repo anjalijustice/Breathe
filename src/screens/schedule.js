@@ -20,7 +20,7 @@ class ScheduleScreen extends React.Component {
         super(props);
 
         this.state = {
-            user: props.user,
+            user: props.navigation.getParam('user', {}),
             isLoading: true,
             data: [],
             dateSelected: '11',
@@ -67,7 +67,7 @@ class ScheduleScreen extends React.Component {
     //Function allows selective rendering based on a given condition (date in this case)
     _renderItem = ({item}) => {
         if(item.postId == this.state.dateSelected){
-            return <ScheduleCard item={item} updateModal={this.updateModal}/>
+            return <ScheduleCard item={item} updateModal={this.updateModal} user={this.state.user}/>
         }
     }
     
@@ -80,7 +80,6 @@ class ScheduleScreen extends React.Component {
             )
         }
         else{
-            console.log(this.state.user)
             return(
             <View style={styles.container}>
                 {/* Horizontal calendar component to select day, changes dateSelected state when pressed*/}
