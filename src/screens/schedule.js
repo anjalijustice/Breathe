@@ -25,8 +25,14 @@ class ScheduleScreen extends React.Component {
     fetchData = async () => {
         const workshops = await Services.Workshops();
         this.setState({data: workshops, isLoading: false});
+        //Sort data by date and time
+        this.state.data.sort(function(a,b){
+            // Turn your strings into dates, and then subtract them
+            // to get a value that is either negative, positive, or zero.
+            return new Date(b.date) - new Date(a.date);
+        });
     }
-
+    
     render() {
         if(this.isLoading) {
             return(
@@ -38,15 +44,26 @@ class ScheduleScreen extends React.Component {
         else{
             return(
             <View style={styles.container}>
+                {/* Day 1 */}
                 <ImageBackground source={require('breathe/assets/img/breathe1.jpg')} style={styles.backgroundImage}>
                 <FlatList 
                     // style={styles.container}
                     style={styles.list}
                     data={this.state.data}
                     keyExtractor={(item, index) => index.toString()}
-                    renderItem={({item}) => <ScheduleCard item={item} />}
+                    //Use if statement to select only items from day 1
+                    renderItem={({item}) => {
+                        if(item.start_time.getDate() == day1){
+                            <ScheduleCard item={item} />
+                        }
+                    }
+                    }
                 />
                 </ImageBackground>
+            </View>
+            <View>
+            {/* Day 2 */}
+
             </View>
             )
         }
