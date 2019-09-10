@@ -8,6 +8,12 @@ export default class HorizontalCalendar extends React.Component {
             dateSelected: null,
         }
     }
+
+    onPress = (date) => {
+        this.setState({
+            dateSelected: date
+        })
+    }
     render(){ 
         return (
             //Need to make buttons' style change on click. 
@@ -16,7 +22,10 @@ export default class HorizontalCalendar extends React.Component {
             <View style={styles.container}>
                 <Text style={styles.monthText}>July</Text>
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.button}>
+                    <TouchableOpacity 
+                        style={this.state.dateSelected == '11' ? styles.buttonSelected : styles.button}
+                        onPress={this.onPress.bind(this, '11')}
+                    >
                         <Text style={styles.buttonText}>11</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.button}>
@@ -46,7 +55,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent:'space-evenly',
     },
-    button: {
+    buttonSelected: {
         borderRadius: 35,
         height: 70,
         width: 70,
@@ -60,6 +69,9 @@ const styles = StyleSheet.create({
         shadowOpacity: 1, // IOS
         shadowRadius: 1, //IOS
         elevation: 2, // Android
+    },
+    button: {
+        backgroundColor: 'white',
     },
     buttonText: {
         fontSize: 20,
