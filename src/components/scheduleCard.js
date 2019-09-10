@@ -1,14 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { getTimeFromDateTime } from 'breathe/src/utils/dateTime';
+import { getTimeFromDateTime } from '../../src/utils/dateTime';
 
 export default class ScheduleCard extends React.Component {
   render(){ 
-    // Fetch event data from database and loop through results to add data to scheduleCards?
     return (
       <TouchableOpacity style={styles.card}>
-        <Text style={styles.cardText}>{this.props.item.title}</Text>
-        <Text style={styles.cardSubText}>{getTimeFromDateTime(this.props.item.startTime)} - {getTimeFromDateTime(this.props.item.endTime)}</Text>
+        <Text style={styles.cardText}>{this.props.item.name}</Text>
+        {/* <Text style={styles.cardSubText}>{getTimeFromDateTime(this.props.item.startTime)} - {getTimeFromDateTime(this.props.item.endTime)}</Text> */}
       </TouchableOpacity>
     )
   }
