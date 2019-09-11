@@ -24,11 +24,12 @@ export default class ScheduleCard extends React.Component {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: 'rgba(255,255,255,0.5)',
+    backgroundColor: 'rgba(255,255,255,0.6)',
     marginLeft: '2%',
     width: '96%',
-    borderWidth: 1,
-    borderColor: 'black',
+    marginTop: 5,
+    // borderWidth: 1,
+    // borderColor: 'black',
     shadowColor: '#000',
     shadowOpacity: 0.2,
     shadowRadius: 1,
@@ -42,13 +43,17 @@ const styles = StyleSheet.create({
     fontSize: 16,
     margin: 10,
     marginBottom: 0,
+    opacity: 1,
     textAlign: 'center',
-    color: 'white'
+    color: 'black',
+    fontWeight: '500',
   },
   cardSubText: {
     fontSize: 12,
     textAlign: 'center',
-    color: 'white',
+    color: 'black',
+    opacity: 1,
+    fontWeight: '500',
     margin: 0,
     marginBottom: 10,
     padding: 0,

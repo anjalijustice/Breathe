@@ -4,9 +4,9 @@ import ScheduleCard from '../../src/components/scheduleCard';
 import TimeBanner from '../../src/components/timeBanner';
 import HorizontalCalendar from '../../src/components/horizontalCalendar';
 import Modal from "react-native-modal";
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import Services from '../../src/services';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 //TODO: add date selector at top of schedule
 //Figure out how to sort events by date and time
@@ -86,7 +86,7 @@ class ScheduleScreen extends React.Component {
                 {/* Horizontal calendar component to select day, changes dateSelected state when pressed*/}
                 <HorizontalCalendar dateSelected={this.state.dateSelected} changeDate={this.changeDate}/>
                 
-                <ImageBackground source={require('../../assets/img/breathe1.jpg')} style={styles.backgroundImage}>
+                <ImageBackground source={require('../../assets/img/breathe6.jpg')} style={styles.backgroundImage}>
                 <Modal 
                     isVisible={this.state.isVisible}
                     onBackdropPress={() => this.setState({ isVisible: false })}
@@ -99,7 +99,7 @@ class ScheduleScreen extends React.Component {
                             <Text style={styles.info}>Time ~ Location ~ Type</Text>
                             <Text style={styles.body}>{this.state.modalItem.body}</Text>
                             <TouchableOpacity style={styles.addFavorite} onPress={this.addFavorite}>
-                                <Text style={styles.body}>Add to My Schedule</Text>
+                                <Text style={styles.favText}>Add to My Schedule</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -107,7 +107,7 @@ class ScheduleScreen extends React.Component {
                 {/* Created a timeBanner component, but need to figure out how to separate json values by time
                 and where to put the banner so that it moves with the list
                 Consider separating the one json array into multiple arrays separated by time? */}
-                <TimeBanner item={'8:00'} />
+                {/* <TimeBanner item={'8:00'} /> */}
                 <FlatList 
                     // style={styles.container}
                     style={styles.list}
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        backgroundColor: '#b0e0e6',
+        backgroundColor: 'rgb(220, 230, 232)',
     },
     modalContainer: {
         alignItems: 'center',
@@ -160,6 +160,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginTop: 10,
         fontSize: 18,
+        fontWeight: '600',
     },
     info: {
         margin: 10,
@@ -170,12 +171,15 @@ const styles = StyleSheet.create({
     },
     addFavorite: {
         backgroundColor: '#C6E7EC',
-        padding: 10,
         margin: 20,
         borderRadius: 20,
-        height: 50,
-        width: 200,
     },
+    favText: {
+        fontWeight: '500',
+        margin: 10,
+        textAlign: 'center',
+        fontSize: 12,
+    }
 });
 
 export default ScheduleScreen

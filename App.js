@@ -1,10 +1,11 @@
 import React from 'react';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
-import { Text } from 'react-native';
 import HomeScreen from './src/screens/HomePage';
-import ScheduleScreen from './src/screens/schedule';
+import ScheduleScreen from './src/screens/Schedule';
 import FoodScreen from './src/screens/FoodSharing';
-import MapScreen from './src/screens/map';
+import MapScreen from './src/screens/Map';
+import GalleryScreen from './src/screens/Gallery';
+import FavoritesScreen from './src/screens/Favorites';
 
 const RootStack = createStackNavigator(
   {
@@ -12,17 +13,21 @@ const RootStack = createStackNavigator(
     Schedule: ScheduleScreen,
     Food: FoodScreen,
     Map: MapScreen,
+    Favorites: FavoritesScreen,
+    Gallery: GalleryScreen,
   },
   {
     initialRouteName: 'Home',
     defaultNavigationOptions: {
       headerStyle: {
-        backgroundColor: '#b0e0e6',
+        backgroundColor: 'rgb(220, 230, 232)',
         height: 80,
+        borderBottomWidth: 0,
       },
       headerTitleStyle: {
         fontWeight: 'bold',
         fontSize: 32,
+        color: 'rgb(82, 141, 161)'
       },
   },
 })

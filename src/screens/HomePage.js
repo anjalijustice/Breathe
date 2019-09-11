@@ -17,7 +17,7 @@ class LogoTitle extends React.Component {
 class HomeScreen extends React.Component {   
     static navigationOptions = {
         headerTitle: <LogoTitle />,
-        backgroundColor: '#b0e0e6'
+        backgroundColor: 'rgb(220, 230, 232)'
     };
  
     render(){
@@ -129,7 +129,7 @@ class HomeScreen extends React.Component {
                 <TouchableOpacity
                 style={styles.newbuttons}
                 activeOpacity = { .5 }
-                onPress={ console.log("Open My Schedule")}
+                onPress={() => this.props.navigation.navigate('Favorites')}
                 >
                 <Text style={styles.TextStyle}> MY SCHEDULE </Text> 
                 {/* <Image style={styles.imgStyle} source={require('breatheimg/myScheduleIcon.png')} /> */}
@@ -139,7 +139,7 @@ class HomeScreen extends React.Component {
                 <TouchableOpacity
                 style={styles.newbuttons}
                 activeOpacity = { .5 }
-                onPress={ console.log("Open Gallery")}
+                onPress={() => this.props.navigation.navigate('Gallery')}
                 >
                 <Text style={styles.TextStyle}> GALLERY </Text>       
                 {/* <Image style={styles.imgStyle} source={require('breatheimg/galleryIcon.png')} /> */}
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       alignItems: 'center',
-      backgroundColor: '#b0e0e6',
+      backgroundColor: 'rgb(220, 230, 232)',
     },
     banner: {
       marginTop: 30,
@@ -187,7 +187,8 @@ const styles = StyleSheet.create({
       width: 320,
       margin: 25,
       // marginBottom: 10,
-      backgroundColor: '#FCFCFC',
+      // backgroundColor: '#FCFCFC',
+      backgroundColor: 'rgb(82, 141, 161)',
       justifyContent: 'center',
       alignItems: 'center',
       shadowColor: 'rgba(0,0,0, .4)', // IOS
@@ -197,7 +198,7 @@ const styles = StyleSheet.create({
       elevation: 2, // Android
     },
     TextStyle: {
-      color: 'black',
+      color: 'white',
       textAlign:'center',
       fontSize: 16,
       fontWeight: 'bold',
