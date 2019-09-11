@@ -14,13 +14,13 @@ export default class ScheduleCard extends React.Component {
 const styles = StyleSheet.create({
   card: {
     backgroundColor: '#b0e0e6',
-    height: 50,
     justifyContent: 'center',
     alignItems: 'center',
   },
   cardText: {
     fontSize: 20,
     textAlign: 'center',
-    color: 'black'
+    color: 'black',
+    margin: 10,
   },
 });

@@ -4,37 +4,41 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 export default class HorizontalCalendar extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            dateSelected: null,
-        }
     }
 
     onPress = (date) => {
-        this.setState({
-            dateSelected: date
-        })
+        this.props.changeDate(date)
     }
     render(){ 
         return (
-            //Need to make buttons' style change on click. 
-            //Make an event handler to deal with changing the dateSelected when a touchableopacity is clicked
-            //Figure out how ot access the state of this component from the schedule page
             <View style={styles.container}>
                 <Text style={styles.monthText}>July</Text>
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity 
-                        style={this.state.dateSelected == '11' ? styles.buttonSelected : styles.button}
+                        style={this.props.dateSelected == '11' ? styles.buttonSelected : styles.button}
                         onPress={this.onPress.bind(this, '11')}
                     >
+                        <Text style={styles.buttonDay}>THU</Text>
                         <Text style={styles.buttonText}>11</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button}>
+                    <TouchableOpacity 
+                        style={this.props.dateSelected == '12' ? styles.buttonSelected : styles.button}
+                        onPress={this.onPress.bind(this, '12')}
+                    >
+                        <Text style={styles.buttonDay}>FRI</Text>    
                         <Text style={styles.buttonText}>12</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button}>
+                    <TouchableOpacity 
+                        style={this.props.dateSelected == '13' ? styles.buttonSelected : styles.button}
+                        onPress={this.onPress.bind(this, '13')}
+                    >
+                        <Text style={styles.buttonDay}>SAT</Text>
                         <Text style={styles.buttonText}>13</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.button}>
+                    </TouchableOpacity><TouchableOpacity 
+                        style={this.props.dateSelected == '14' ? styles.buttonSelected : styles.button}
+                        onPress={this.onPress.bind(this, '14')}
+                    >
+                        <Text style={styles.buttonDay}>SUN</Text>                   
                         <Text style={styles.buttonText}>14</Text>
                     </TouchableOpacity>
 
@@ -48,20 +52,20 @@ export default class HorizontalCalendar extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'white',
+        backgroundColor: '#ECECEC',
         width: '100%',
     },
     buttonContainer: {
         flexDirection: 'row',
         justifyContent:'space-evenly',
+        marginTop: 0,
+        marginBottom: 10,
     },
     buttonSelected: {
-        borderRadius: 35,
-        height: 70,
-        width: 70,
-        margin: 10,
-        marginBottom: 10,
-        backgroundColor: '#b0c4de',
+        borderRadius: 31,
+        height: 62,
+        width: 62,
+        backgroundColor: '#C6E7EC',
         justifyContent: 'center',
         alignItems: 'center',
         shadowColor: 'rgba(0,0,0, .4)', // IOS
@@ -71,14 +75,26 @@ const styles = StyleSheet.create({
         elevation: 2, // Android
     },
     button: {
-        backgroundColor: 'white',
+        borderRadius: 31,
+        height: 62,
+        width: 62,
+        backgroundColor: '#ECECEC',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     buttonText: {
-        fontSize: 20,
+        fontSize: 16,
         textAlign: 'center',
         color: 'black'
     },
+    buttonDay: {
+        fontSize: 12,
+        textAlign: 'center',
+    },
     monthText: {
         textAlign: 'center',
+        fontSize: 20,
+        marginTop: 5,
+        marginBottom: 0,
     }
 });
