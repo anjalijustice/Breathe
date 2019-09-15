@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "expo": "^34.0.1",
+    "expo-constants": "^6.0.0",
     "node": "^12.8.1",
     "react": "16.8.3",
     "react-dom": "^16.8.6",

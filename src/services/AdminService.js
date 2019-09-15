@@ -1,3 +1,3 @@
-class AdminService {
+export default class AdminService {
     
 }

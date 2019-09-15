@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, View, ImageBackground, FlatList, ActivityIndicator } from 'react-native';
-import FoodCard from '../../src/components/foodCard';
+import FoodCard from 'breathe/src/components/FoodCard';
 
 class FoodScreen extends React.Component {
     static navigationOptions = {

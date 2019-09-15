@@ -1,11 +1,13 @@
 import React from 'react';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
-import HomeScreen from './src/screens/HomePage';
-import ScheduleScreen from './src/screens/Schedule';
-import FoodScreen from './src/screens/FoodSharing';
-import MapScreen from './src/screens/Map';
-import GalleryScreen from './src/screens/Gallery';
-import FavoritesScreen from './src/screens/Favorites';
+import { 
+  HomeScreen, 
+  ScheduleScreen, 
+  FoodScreen,
+  MapScreen,
+  FavoritesScreen,
+  GalleryScreen
+} from 'breathe/src/screens/';
 
 const RootStack = createStackNavigator(
   {

@@ -1,20 +1,26 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { getTimeFromDateTime } from '../../src/utils/dateTime';
+import Services from 'breathe/src/services';
 
 export default class ScheduleCard extends React.Component {
   onPress = (item) => {
     this.props.updateModal(item)
   }
 
+  addFavorite = async () => {
+    let workshopId = this.props.item.id;
+    let userId = this.props.user.id;
+    await Services.Favorites.createFavorite(userId, workshopId);
+  }
+  
   render(){ 
     return (
       <TouchableOpacity 
         style={styles.card}
         onPress={this.onPress.bind(this,this.props.item)}
       >
-        
-        <Text style={styles.cardText}>{this.props.item.name}</Text>
+        <Text style={styles.cardText}>{this.props.item.title}</Text>
         <Text style={styles.cardSubText}>Duration ~ Location ~ Type</Text>
         {/* <Text style={styles.cardSubText}>{getTimeFromDateTime(this.props.item.startTime)} - {getTimeFromDateTime(this.props.item.endTime)}</Text> */}
       </TouchableOpacity>
