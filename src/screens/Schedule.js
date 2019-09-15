@@ -28,7 +28,8 @@ class ScheduleScreen extends React.Component {
             isVisible: false,
             favorites: [],
         }
-      }
+    }
+    
     componentWillMount () {
        this.fetchData();
     }
