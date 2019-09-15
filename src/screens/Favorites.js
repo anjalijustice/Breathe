@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, ImageBackground, View, FlatList, ActivityIndicator, Text} from 'react-native';
-import ScheduleCard from '../../src/components/scheduleCard';
-import TimeBanner from '../../src/components/timeBanner';
+import ScheduleCard from 'breathe/src/components/ScheduleCard';
+import TimeBanner from 'breathe/src/components/timeBanner';
 import Modal from "react-native-modal";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 

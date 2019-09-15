@@ -1,12 +1,13 @@
 import React from 'react';
 import {StyleSheet, ImageBackground, View, FlatList, ActivityIndicator, Text} from 'react-native';
-import ScheduleCard from '../../src/components/scheduleCard';
-import TimeBanner from '../../src/components/timeBanner';
-import HorizontalCalendar from '../../src/components/horizontalCalendar';
+import ScheduleCard from 'breathe/src/components/ScheduleCard';
+import TimeBanner from 'breathe/src/components/timeBanner';
+import HorizontalCalendar from 'breathe/src/components/horizontalCalendar';
 import Modal from "react-native-modal";
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { getDayFromDateTime } from 'breathe/src/utils/dateTime'
 
-import Services from '../../src/services';
+import Services from '../services';
 
 //TODO: add date selector at top of schedule
 //Figure out how to sort events by date and time
@@ -58,16 +59,15 @@ class ScheduleScreen extends React.Component {
         })
     }
 
-    addFavorite = () => {
-        this.setState({
-            favorites: this.state.favorites.concat(this.state.modalItem)
-        })
-    }
-
+    addFavorite = async (item) => {
+        let workshopId = item.id;
+        let userId = this.state.user.id;
+        await Services.Favorites.createFavorite(userId, workshopId);
+      }
 
     //Function allows selective rendering based on a given condition (date in this case)
     _renderItem = ({item}) => {
-        if(item.postId == this.state.dateSelected){
+        if(getDayFromDateTime(item.startTime) == this.state.dateSelected){
             return <ScheduleCard item={item} updateModal={this.updateModal} user={this.state.user}/>
         }
     }
@@ -98,8 +98,8 @@ class ScheduleScreen extends React.Component {
                             {/* <Text style={styles.body}>{this.state.modalItem.time} ~ {this.state.modalItem.location} ~ {this.state.modalItem.type}</Text> */}
                             <Text style={styles.info}>Time ~ Location ~ Type</Text>
                             <Text style={styles.body}>{this.state.modalItem.body}</Text>
-                            <TouchableOpacity style={styles.addFavorite} onPress={this.addFavorite}>
-                                <Text style={styles.favText}>Add to My Schedule</Text>
+                            <TouchableOpacity style={styles.addFavorite} onPress={() => {this.addFavorite(this.state.modalItem); this.setState({isVisible: false})}}>
+                                <Text style={styles.favText} onPress={this.addFavorite}>Add to My Schedule</Text>
                             </TouchableOpacity>
                         </View>
                     </View>

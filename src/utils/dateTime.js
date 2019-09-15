@@ -15,3 +15,9 @@ export function getTimeFromDateTime (dateTimeString) {
 
     return hours + ':' + minutes + ' ' + ampm;
 }
+
+export function getDayFromDateTime (dateTime) {
+    date = dateTime.split('T')[0];
+    day = date.split('-')[2];
+    return day;
+}
