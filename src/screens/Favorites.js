@@ -2,8 +2,12 @@ import React from 'react';
 import {StyleSheet, ImageBackground, View, FlatList, ActivityIndicator, Text} from 'react-native';
 import ScheduleCard from 'breathe/src/components/ScheduleCard';
 import TimeBanner from 'breathe/src/components/timeBanner';
+import HorizontalCalendar from 'breathe/src/components/horizontalCalendar';
 import Modal from "react-native-modal";
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { getDayFromDateTime } from 'breathe/src/utils/dateTime'
+
+import Services from '../services';
 
 export default class FavoritesScreen extends React.Component {
     static navigationOptions = {
@@ -12,12 +16,37 @@ export default class FavoritesScreen extends React.Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
+            user: props.navigation.getParam('user', {}),
             isLoading: true,
             data: [],
+            dateSelected: '11',
             modalItem: {},
             isVisible: false,
+            favorites: [],
         }
+    }
+    
+    componentWillMount () {
+       this.fetchData();
+    }
+
+    fetchData = async () => {
+        const favorites = await Services.Favorites.getFavoritesByUser(this.state.user.id);
+        this.setState({data: favorites, isLoading: false});
+        //Sort data by date and time
+        // this.state.data.sort(function(a,b){
+        //     // Turn your strings into dates, and then subtract them
+        //     // to get a value that is either negative, positive, or zero.
+        //     return new Date(b.date) - new Date(a.date);
+        // });
+    }
+
+    changeDate = (date) => {
+        this.setState({
+            dateSelected: date,
+        })
     }
 
     updateModal = (item) => {
@@ -27,70 +56,72 @@ export default class FavoritesScreen extends React.Component {
         })
     }
 
+    deleteFavorite = async (item) => {
+        let userId = this.state.user.id;
+        let workshopId = item.id;
+        await Services.Favorites.deleteFavorite(userId, workshopId);
+        this.setState({
+            data: this.state.data.filter(function(value, index, arr) {
+                return value.id != item.id;
+            })
+        });
+    }
+
     //Function allows selective rendering based on a given condition (date in this case)
     _renderItem = ({item}) => {
-        if(item.postId == '1'){
-            return <ScheduleCard item={item} updateModal={this.updateModal}/>
+        if(getDayFromDateTime(item.startTime) == this.state.dateSelected){
+            return <ScheduleCard item={item} updateModal={this.updateModal} user={this.state.user}/>
         }
     }
-
-    componentWillMount () {
-        this.fetchData();
-    }
-
-    fetchData = async () => {
-        // const workshops = await Services.Workshops();
-        const getData = await fetch("https://jsonplaceholder.typicode.com/comments");
-        const workshops = await getData.json();
-        this.setState({data: workshops, isLoading: false});
-        //Sort data by date and time
-        // this.state.data.sort(function(a,b){
-        //     // Turn your strings into dates, and then subtract them
-        //     // to get a value that is either negative, positive, or zero.
-        //     return new Date(b.date) - new Date(a.date);
-        // });
-    }
-
+    
     render() {
-    if(this.isLoading) {
-        return(
-        <View style={styles.loader}>
-            <ActivityIndicator />
-        </View>
-        )
-    }
-    else{
-        return(
-        <View style={styles.container}>
-            <ImageBackground source={require('../../assets/img/breathe4.jpg')} style={styles.backgroundImage}>
-            <Modal 
-                isVisible={this.state.isVisible}
-                onBackdropPress={() => this.setState({ isVisible: false })}
-                backdropOpacity={.4}
-            >
-                <View style={styles.modalContainer}>
-                    <View style={styles.modal}>
-                        <Text style={styles.name}>{this.state.modalItem.name}</Text>
-                        {/* <Text style={styles.body}>{this.state.modalItem.time} ~ {this.state.modalItem.location} ~ {this.state.modalItem.type}</Text> */}
-                        <Text style={styles.info}>Time ~ Location ~ Type</Text>
-                        <Text style={styles.body}>{this.state.modalItem.body}</Text>
-                        <TouchableOpacity style={styles.addFavorite} onPress={this.addFavorite}>
-                            <Text style={styles.favText}>Remove From My Schedule</Text>
-                        </TouchableOpacity>
+        if(this.isLoading) {
+            return(
+            <View style={styles.loader}>
+                <ActivityIndicator />
+            </View>
+            )
+        }
+        else{
+            return(
+            <View style={styles.container}>
+                {/* Horizontal calendar component to select day, changes dateSelected state when pressed*/}
+                <HorizontalCalendar dateSelected={this.state.dateSelected} changeDate={this.changeDate}/>
+                
+                <ImageBackground source={require('../../assets/img/breathe6.jpg')} style={styles.backgroundImage}>
+                <Modal 
+                    isVisible={this.state.isVisible}
+                    onBackdropPress={() => this.setState({ isVisible: false })}
+                    backdropOpacity={.4}
+                >
+                    <View style={styles.modalContainer}>
+                        <View style={styles.modal}>
+                            <Text style={styles.name}>{this.state.modalItem.name}</Text>
+                            {/* <Text style={styles.body}>{this.state.modalItem.time} ~ {this.state.modalItem.location} ~ {this.state.modalItem.type}</Text> */}
+                            <Text style={styles.info}>Time ~ Location ~ Type</Text>
+                            <Text style={styles.body}>{this.state.modalItem.body}</Text>
+                            <TouchableOpacity style={styles.deleteFavorite} onPress={() => {this.deleteFavorite(this.state.modalItem); this.setState({isVisible: false})}}>
+                                <Text style={styles.favText} onPress={this.deleteFavorite}>Remove From My Schedule</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                </View>
-            </Modal>
-            <FlatList 
-                style={styles.list}
-                data={this.state.data}
-                keyExtractor={(item, index) => index.toString()}
-                extraData={this.state}
-                renderItem={this._renderItem}
-            />
-            </ImageBackground>
-        </View>
-        )
-    }
+                </Modal>
+                {/* Created a timeBanner component, but need to figure out how to separate json values by time
+                and where to put the banner so that it moves with the list
+                Consider separating the one json array into multiple arrays separated by time? */}
+                {/* <TimeBanner item={'8:00'} /> */}
+                <FlatList 
+                    // style={styles.container}
+                    style={styles.list}
+                    data={this.state.data}
+                    keyExtractor={(item, index) => index.toString()}
+                    extraData={this.state}
+                    renderItem={this._renderItem}
+                />
+                </ImageBackground>
+            </View>
+            )
+        }
         
     }
 }
@@ -140,7 +171,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 14,
     },
-    addFavorite: {
+    deleteFavorite: {
         backgroundColor: '#C6E7EC',
         margin: 20,
         borderRadius: 20,
