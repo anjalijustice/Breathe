@@ -150,7 +150,7 @@ class HomeScreen extends React.Component {
                 <TouchableOpacity
                 style={styles.newbuttons}
                 activeOpacity = { .5 }
-                onPress={() => this.props.navigation.navigate('Favorites')}
+                onPress={() => this.props.navigation.navigate('Favorites', {user: this.state.user})}
                 >
                 <Text style={styles.TextStyle}> MY SCHEDULE </Text> 
                 {/* <Image style={styles.imgStyle} source={require('breatheimg/myScheduleIcon.png')} /> */}
