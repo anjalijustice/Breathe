@@ -8,7 +8,7 @@ export default class UserService {
         .catch(error => {return null})
     }
     static createUser(user) {
-        return fetch('http://127.0.0.1:8080/users', {
+        return fetch('https://breathe-api.herokuapp.com/users', {
             method: 'POST',
             headers: {
               Accept: 'application/json',
