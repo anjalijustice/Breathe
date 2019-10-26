@@ -99,7 +99,6 @@ class ScheduleScreen extends React.Component {
                             <Text style={styles.body}>{this.state.modalItem.startTime} ~ 
                             {this.state.modalItem.location} ~ {this.state.modalItem.type}</Text>
                             <Text style={styles.body}>{this.state.modalItem.description}</Text>
-
                             <TouchableOpacity style={styles.addFavorite} onPress={() => 
                                 {this.addFavorite(this.state.modalItem); this.setState({isVisible: false})}}>
                                 <Text style={styles.favText} onPress={this.addFavorite}>Add to Favorites</Text>
