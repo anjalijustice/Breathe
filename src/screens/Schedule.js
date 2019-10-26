@@ -5,7 +5,8 @@ import TimeBanner from 'breathe/src/components/timeBanner';
 import HorizontalCalendar from 'breathe/src/components/horizontalCalendar';
 import Modal from "react-native-modal";
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { getDayFromDateTime } from 'breathe/src/utils/dateTime'
+import { getDayFromDateTime, getTimeFromDateTime } from 'breathe/src/utils/dateTime';
+
 
 import Services from '../services';
 
@@ -95,11 +96,13 @@ class ScheduleScreen extends React.Component {
                     <View style={styles.modalContainer}>
                         <View style={styles.modal}>
                             <Text style={styles.name}>{this.state.modalItem.name}</Text>
-                            {/* <Text style={styles.body}>{this.state.modalItem.time} ~ {this.state.modalItem.location} ~ {this.state.modalItem.type}</Text> */}
-                            <Text style={styles.info}>Time ~ Location ~ Type</Text>
-                            <Text style={styles.body}>{this.state.modalItem.body}</Text>
-                            <TouchableOpacity style={styles.addFavorite} onPress={() => {this.addFavorite(this.state.modalItem); this.setState({isVisible: false})}}>
-                                <Text style={styles.favText} onPress={this.addFavorite}>Add to My Schedule</Text>
+                            <Text style={styles.body}>{this.state.modalItem.startTime} ~ 
+                            {this.state.modalItem.location} ~ {this.state.modalItem.type}</Text>
+                            <Text style={styles.body}>{this.state.modalItem.description}</Text>
+
+                            <TouchableOpacity style={styles.addFavorite} onPress={() => 
+                                {this.addFavorite(this.state.modalItem); this.setState({isVisible: false})}}>
+                                <Text style={styles.favText} onPress={this.addFavorite}>Add to Favorites</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -143,6 +146,7 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         borderColor: 'rgba(0, 0, 0, 0.1)',
         textAlign: 'center',
+        overflow: 'scroll',
     },
     loader: {
         flex: 1,

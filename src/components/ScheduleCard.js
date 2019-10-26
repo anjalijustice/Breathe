@@ -15,8 +15,7 @@ export default class ScheduleCard extends React.Component {
         onPress={this.onPress.bind(this,this.props.item)}
       >
         <Text style={styles.cardText}>{this.props.item.title}</Text>
-        <Text style={styles.cardSubText}>Duration ~ Location ~ Type</Text>
-        {/* <Text style={styles.cardSubText}>{getTimeFromDateTime(this.props.item.startTime)} - {getTimeFromDateTime(this.props.item.endTime)}</Text> */}
+        <Text style={styles.cardSubText}>{getTimeFromDateTime(this.props.item.startTime)} - {getTimeFromDateTime(this.props.item.endTime)}</Text>
       </TouchableOpacity>
     )
   }
@@ -28,8 +27,6 @@ const styles = StyleSheet.create({
     marginLeft: '2%',
     width: '96%',
     marginTop: 5,
-    // borderWidth: 1,
-    // borderColor: 'black',
     shadowColor: '#000',
     shadowOpacity: 0.2,
     shadowRadius: 1,
