@@ -35,12 +35,6 @@ class ScheduleScreen extends React.Component {
     fetchData = async () => {
         const workshops = await Services.Workshops.getWorkshops();
         this.setState({data: workshops, isLoading: false});
-        //Sort data by date and time
-        // this.state.data.sort(function(a,b){
-        //     // Turn your strings into dates, and then subtract them
-        //     // to get a value that is either negative, positive, or zero.
-        //     return new Date(b.date) - new Date(a.date);
-        // });
     }
 
     changeDate = (date) => {
