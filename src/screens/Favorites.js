@@ -96,10 +96,9 @@ export default class FavoritesScreen extends React.Component {
                 >
                     <View style={styles.modalContainer}>
                         <View style={styles.modal}>
-                            <Text style={styles.name}>{this.state.modalItem.name}</Text>
-                            {/* <Text style={styles.body}>{this.state.modalItem.time} ~ {this.state.modalItem.location} ~ {this.state.modalItem.type}</Text> */}
-                            <Text style={styles.info}>Time ~ Location ~ Type</Text>
-                            <Text style={styles.body}>{this.state.modalItem.body}</Text>
+                            <Text style={styles.name}>{this.state.modalItem.title}</Text>
+                            <Text style={styles.body}>{this.state.modalItem.location} ~ {this.state.modalItem.type}</Text>
+                            <Text style={styles.body}>{this.state.modalItem.description}</Text>
                             <TouchableOpacity style={styles.deleteFavorite} onPress={() => {this.deleteFavorite(this.state.modalItem); this.setState({isVisible: false})}}>
                                 <Text style={styles.favText} onPress={this.deleteFavorite}>Remove From My Schedule</Text>
                             </TouchableOpacity>
@@ -160,7 +159,7 @@ const styles = StyleSheet.create({
     },
     name: {
         textAlign: 'center',
-        marginTop: 10,
+        margin: 10,
         fontSize: 18,
         fontWeight: '600',
     },
@@ -169,6 +168,7 @@ const styles = StyleSheet.create({
     },
     body: {
         textAlign: 'center',
+        margin: 10,
         fontSize: 14,
     },
     deleteFavorite: {
