@@ -25,7 +25,8 @@ class ScheduleScreen extends React.Component {
             isLoading: true,
             dateSelected: '11',
             like: true,
-            favorites: {},
+            workshops: [],
+            favoriteIds: [],
         }
         this.onPress = this.onPress.bind(this);
     }
@@ -42,7 +43,10 @@ class ScheduleScreen extends React.Component {
 
     fetchFavorites = async () => {
         const favorites = await Services.Favorites.getFavoritesByUser(this.state.user.id);
-        this.setState({favorites: favorites});
+        const favoriteIds = favorites.map(favorite => favorite.id);
+        this.setState({
+            favoriteIds: favoriteIds
+        });
     }
 
     changeDate = (date) => {
@@ -52,13 +56,11 @@ class ScheduleScreen extends React.Component {
     }
 
     favorite = (item) => {
-        for(var i = 0; i < this.state.favorites.length; i++){
-            if(this.state.favorites[i].id === item.id){
-                this.deleteFavorite(item);
-                return;
-            }
+        if (this.isFavorite(item)) {
+            this.deleteFavorite(item);
+        } else {
+            this.addFavorite(item);
         }
-        this.addFavorite(item);
     }
 
     addFavorite = async (item) => {
@@ -66,11 +68,11 @@ class ScheduleScreen extends React.Component {
         await Services.Favorites.createFavorite(userId, item.id);
 
         //Adding workshop into local state
-        let favorites = this.state.favorites;
-        favorites.push(item);
+        let favoriteIds = this.state.favoriteIds;
+        favoriteIds.push(item.id);
         //Need to add this workshop into the favorites object
         this.setState({
-            favorites: favorites
+            favoriteIds: favoriteIds
         })
     }
 
@@ -81,20 +83,13 @@ class ScheduleScreen extends React.Component {
         
         this.setState({
             //remove workshop from the favorites object
-            favorites: this.state.favorites.filter(function(value, index, arr){
-                return value.id != item.id
-            })
+            favoriteIds: this.state.favoriteIds.filter((value, index, arr) => value != item.id)
         });
     }
 
-    //Want to check the database for favorites not the state
+    // Want to check the database for favorites not the state
     isFavorite = (item) => {
-        for(var i = 0; i < this.state.favorites.length; i++){
-            if(this.state.favorites[i].id === item.id){
-                return true;
-            }
-        }
-        return false;
+        return this.state.favoriteIds.includes(item.id);
     }
 
     onPress = (item) => {
