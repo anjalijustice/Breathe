@@ -41,8 +41,8 @@ class ScheduleScreen extends React.Component {
     }
 
     fetchFavorites = async () => {
-        const favorite = await Services.Favorites.getFavoritesByUser(this.state.user.id);
-        this.setState({favorites: favorite});
+        const favorites = await Services.Favorites.getFavoritesByUser(this.state.user.id);
+        this.setState({favorites: favorites});
     }
 
     changeDate = (date) => {
@@ -52,21 +52,13 @@ class ScheduleScreen extends React.Component {
     }
 
     favorite = (item) => {
-        let deleted = 0
-        if(this.state.favorites.length == 0){
-            this.addFavorite(item)
-        }
-        else{
-            for(var i = 0; i < this.state.favorites.length; i++){
-                if(this.state.favorites[i] == item.id){
-                    this.deleteFavorite(item)
-                    deleted = 1
-                }
-            }
-            if(deleted == 0){
-                this.addFavorite(item)     
+        for(var i = 0; i < this.state.favorites.length; i++){
+            if(this.state.favorites[i].id === item.id){
+                this.deleteFavorite(item);
+                return;
             }
         }
+        this.addFavorite(item);
     }
 
     addFavorite = async (item) => {
@@ -75,7 +67,7 @@ class ScheduleScreen extends React.Component {
 
         //Adding workshop into local state
         let favorites = this.state.favorites;
-        favorites.push(item.id);
+        favorites.push(item);
         //Need to add this workshop into the favorites object
         this.setState({
             favorites: favorites
@@ -90,7 +82,7 @@ class ScheduleScreen extends React.Component {
         this.setState({
             //remove workshop from the favorites object
             favorites: this.state.favorites.filter(function(value, index, arr){
-                return value != item.id
+                return value.id != item.id
             })
         });
     }
@@ -98,11 +90,11 @@ class ScheduleScreen extends React.Component {
     //Want to check the database for favorites not the state
     isFavorite = (item) => {
         for(var i = 0; i < this.state.favorites.length; i++){
-            if(this.state.favorites[i] == item.id){
-                return true
+            if(this.state.favorites[i].id === item.id){
+                return true;
             }
         }
-        return false
+        return false;
     }
 
     onPress = (item) => {
