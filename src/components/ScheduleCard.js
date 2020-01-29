@@ -1,22 +1,25 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { getTimeFromDateTime } from '../../src/utils/dateTime';
-import Services from 'breathe/src/services';
+
 
 export default class ScheduleCard extends React.Component {
-  onPress = (item) => {
-    this.props.updateModal(item)
+  onPress = ({item}) => {
+    //Pop up EventPage when a schedule card is pressed (this is instead of using a modal, allows for more info to be put on the event page)
+    // this.props.updateModal(item)
+    
+    this.props.updateEvent(item)
+    this.props.navigation.navigate('Event', {user:this.props.user, item: item})
   }
   
   render(){ 
     return (
       <TouchableOpacity 
         style={styles.card}
-        onPress={this.onPress.bind(this,this.props.item)}
+        onPress={() => this.props.navigation.push('Event', {user: this.props.user, item: this.props.item})}
       >
         <Text style={styles.cardText}>{this.props.item.title}</Text>
-        <Text style={styles.cardSubText}>Duration ~ Location ~ Type</Text>
-        {/* <Text style={styles.cardSubText}>{getTimeFromDateTime(this.props.item.startTime)} - {getTimeFromDateTime(this.props.item.endTime)}</Text> */}
+        <Text style={styles.cardSubText}>{getTimeFromDateTime(this.props.item.startTime)} - {getTimeFromDateTime(this.props.item.endTime)}</Text>
       </TouchableOpacity>
     )
   }
@@ -28,8 +31,6 @@ const styles = StyleSheet.create({
     marginLeft: '2%',
     width: '96%',
     marginTop: 5,
-    // borderWidth: 1,
-    // borderColor: 'black',
     shadowColor: '#000',
     shadowOpacity: 0.2,
     shadowRadius: 1,

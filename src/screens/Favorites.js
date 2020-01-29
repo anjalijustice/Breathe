@@ -1,13 +1,10 @@
 import React from 'react';
-import {StyleSheet, ImageBackground, View, FlatList, ActivityIndicator, Text} from 'react-native';
-import ScheduleCard from 'breathe/src/components/ScheduleCard';
-import TimeBanner from 'breathe/src/components/timeBanner';
+import {StyleSheet, ImageBackground, View, FlatList, ActivityIndicator, Text, TouchableOpacity, Image} from 'react-native';
 import HorizontalCalendar from 'breathe/src/components/horizontalCalendar';
-import Modal from "react-native-modal";
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { getDayFromDateTime } from 'breathe/src/utils/dateTime'
-
+import { getDayFromDateTime, getTimeFromDateTime } from 'breathe/src/utils/dateTime'
 import Services from '../services';
+
+//State resets when you navigate away (deletions dont stay)
 
 export default class FavoritesScreen extends React.Component {
     static navigationOptions = {
@@ -20,11 +17,7 @@ export default class FavoritesScreen extends React.Component {
         this.state = {
             user: props.navigation.getParam('user', {}),
             isLoading: true,
-            data: [],
             dateSelected: '11',
-            modalItem: {},
-            isVisible: false,
-            favorites: [],
         }
     }
     
@@ -35,24 +28,11 @@ export default class FavoritesScreen extends React.Component {
     fetchData = async () => {
         const favorites = await Services.Favorites.getFavoritesByUser(this.state.user.id);
         this.setState({data: favorites, isLoading: false});
-        //Sort data by date and time
-        // this.state.data.sort(function(a,b){
-        //     // Turn your strings into dates, and then subtract them
-        //     // to get a value that is either negative, positive, or zero.
-        //     return new Date(b.date) - new Date(a.date);
-        // });
     }
 
     changeDate = (date) => {
         this.setState({
             dateSelected: date,
-        })
-    }
-
-    updateModal = (item) => {
-        this.setState({
-            modalItem: item,
-            isVisible: true,
         })
     }
 
@@ -67,10 +47,30 @@ export default class FavoritesScreen extends React.Component {
         });
     }
 
+    onPress = (item) => {
+        this.props.navigation.navigate('Event', {user: this.state.user, item: item})
+    }
+
     //Function allows selective rendering based on a given condition (date in this case)
     _renderItem = ({item}) => {
         if(getDayFromDateTime(item.startTime) == this.state.dateSelected){
-            return <ScheduleCard item={item} updateModal={this.updateModal} user={this.state.user}/>
+            return (
+                <TouchableOpacity 
+                    style={styles.card}
+                    onPress={()=> this.onPress(item)}
+                >
+                    <Text style={styles.cardText}>{item.title}</Text>
+                    <Text style={styles.cardSubText}>{getTimeFromDateTime(item.startTime)} - {getTimeFromDateTime(item.endTime)}</Text>  
+                    <View style={styles.favorite}>
+                        <TouchableOpacity onPress={() => this.deleteFavorite(item)}>
+                            <Image
+                                source={require('../../assets/img/liked.png')}
+                                style={styles.like}
+                            /> 
+                        </TouchableOpacity> 
+                    </View>
+                </TouchableOpacity>
+            )
         }
     }
     
@@ -89,34 +89,13 @@ export default class FavoritesScreen extends React.Component {
                 <HorizontalCalendar dateSelected={this.state.dateSelected} changeDate={this.changeDate}/>
                 
                 <ImageBackground source={require('../../assets/img/breathe6.jpg')} style={styles.backgroundImage}>
-                <Modal 
-                    isVisible={this.state.isVisible}
-                    onBackdropPress={() => this.setState({ isVisible: false })}
-                    backdropOpacity={.4}
-                >
-                    <View style={styles.modalContainer}>
-                        <View style={styles.modal}>
-                            <Text style={styles.name}>{this.state.modalItem.name}</Text>
-                            {/* <Text style={styles.body}>{this.state.modalItem.time} ~ {this.state.modalItem.location} ~ {this.state.modalItem.type}</Text> */}
-                            <Text style={styles.info}>Time ~ Location ~ Type</Text>
-                            <Text style={styles.body}>{this.state.modalItem.body}</Text>
-                            <TouchableOpacity style={styles.deleteFavorite} onPress={() => {this.deleteFavorite(this.state.modalItem); this.setState({isVisible: false})}}>
-                                <Text style={styles.favText} onPress={this.deleteFavorite}>Remove From My Schedule</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                </Modal>
-                {/* Created a timeBanner component, but need to figure out how to separate json values by time
-                and where to put the banner so that it moves with the list
-                Consider separating the one json array into multiple arrays separated by time? */}
-                {/* <TimeBanner item={'8:00'} /> */}
                 <FlatList 
                     // style={styles.container}
                     style={styles.list}
                     data={this.state.data}
                     keyExtractor={(item, index) => index.toString()}
                     extraData={this.state}
-                    renderItem={this._renderItem}
+                    renderItem={(item) => this._renderItem(item, this.props)}
                 />
                 </ImageBackground>
             </View>
@@ -131,20 +110,6 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         backgroundColor: 'rgb(220, 230, 232)',
-    },
-    modalContainer: {
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    modal: {
-        width: '85%',
-        backgroundColor: 'white',
-        padding: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 4,
-        borderColor: 'rgba(0, 0, 0, 0.1)',
-        textAlign: 'center',
     },
     loader: {
         flex: 1,
@@ -164,22 +129,55 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: '600',
     },
-    info: {
-        margin: 10,
-    },
     body: {
         textAlign: 'center',
         fontSize: 14,
     },
-    deleteFavorite: {
-        backgroundColor: '#C6E7EC',
-        margin: 20,
-        borderRadius: 20,
+    favorite: {
+      fontSize: 20,
     },
-    favText: {
-        fontWeight: '500',
+    card: {
+        backgroundColor: 'rgba(255,255,255,0.6)',
+        marginLeft: '2%',
+        width: '96%',
+        marginTop: 5,
+        shadowColor: '#000',
+        shadowOpacity: 0.2,
+        shadowRadius: 1,
+        shadowOffset: {
+        width: 3,
+        height: 3
+        }
+    },
+    cardText: {
+        paddingBottom: 10,
+        fontSize: 16,
         margin: 10,
+        marginBottom: 0,
+        opacity: 1,
         textAlign: 'center',
-        fontSize: 12,
+        color: 'black',
+        fontWeight: '500',
+    },
+    cardSubText: {
+        padding: 0,
+        fontSize: 14,
+        margin: 0,
+        marginBottom: 10,
+        opacity: 1,
+        textAlign: 'center',
+        color: 'black',
+        fontWeight: '500',
+        
+    },
+    favorite: {
+        bottom: '45%',
+        right: '5%',
+        margin: '-3%',
+    },
+    like: {
+        width: 30,
+        height: 30,
+        left: '90%',
     }
 });
