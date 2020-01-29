@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
         shadowRadius: 1,
         shadowOffset: {
         width: 3,
-        height: 3
+        height: 3,
         }
     },
     cardText: {
@@ -195,6 +195,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: 'black',
         fontWeight: '500',
+        marginHorizontal: 60,
     },
     cardSubText: {
         fontSize: 14,
