@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   cardText: {
     paddingBottom: 10,
     fontSize: 16,
-    margin: 10,
+    margin: 50,
     marginBottom: 0,
     opacity: 1,
     textAlign: 'center',
