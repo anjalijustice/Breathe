@@ -1,5 +1,7 @@
 import React from 'react';
-import {StyleSheet, View, Text, ScrollView} from 'react-native';
+import {StyleSheet, View, Text, ScrollView, Button} from 'react-native';
+import { fixCase } from '../utils/fixCase';
+
 
 class EventScreen extends React.Component {
     static navigationOptions = {
@@ -11,6 +13,7 @@ class EventScreen extends React.Component {
             user: props.navigation.getParam('user', {}),
             isLoading: true,
             item: {},
+            favorites: {},
         }
     }
 
@@ -22,6 +25,49 @@ class EventScreen extends React.Component {
     5. Get pictures for event/instructors
     6. Make remove_underscore function so location looks neater
     */
+    componentWillMount () {
+        this.fetchFavorites();
+    }
+
+    fetchFavorites = async () => {
+        const favorites = await Services.Favorites.getFavoritesByUser(this.state.user.id);
+        this.setState({favorites: favorites});
+    }
+
+    addFavorite = async (item) => {
+        let userId = this.state.user.id;
+        await Services.Favorites.createFavorite(userId, item.id);
+
+        //Adding workshop into local state
+        let favorites = this.state.favorites;
+        favorites.push(this.item);
+        //Need to add this workshop into the favorites object
+        this.setState({
+            favorites: favorites
+        })
+    }
+
+    deleteFavorite = async (item) => {
+        let userId = this.state.user.id;
+        let workshopId = item.id;
+        await Services.Favorites.deleteFavorite(userId, workshopId);
+        
+        this.setState({
+            favorites: this.state.favorites.filter(function(value, index, arr){
+                return value.id != item.id
+            })
+        });
+    }
+
+    isFavorite = (item) => {
+        for(var i = 0; i < this.state.favorites.length; i++){
+            if(this.state.favorites[i].id === item.id){
+                return true;
+            }
+        }
+        return false;
+    }
+
     render(){
         const {params} = this.props.navigation.state;
         return(
@@ -31,9 +77,13 @@ class EventScreen extends React.Component {
                     <Text style={styles.description}>{params.item.description}</Text>
 
                     <Text style={styles.teacherName}>Location: </Text>
-                    <Text style={styles.teacherInfo}>{params.item.location}</Text>
+                    <Text style={styles.teacherInfo}>{fixCase(params.item.location)}</Text>
                     <Text style={styles.teacherName}>Teacher: </Text>
                     <Text style={styles.teacherInfo}>Teacher Info</Text>
+                    {this.isFavorite(this.item) ? 
+                        <Button onPress={this.deleteFavorite} style={styles.favorite}>Remove from Favorites</Button> :
+                        <Button onPress={this.addFavorite} style={styles.favorite}>Add to Favorites</Button>
+                    }
                 </View>
             </ScrollView>
         )
@@ -66,6 +116,9 @@ const styles = StyleSheet.create({
     teacherInfo: {
         fontSize: 16,
         marginBottom: 5,
+    },
+    favorite: {
+        
     }
 
 });
