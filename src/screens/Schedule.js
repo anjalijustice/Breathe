@@ -64,7 +64,8 @@ class ScheduleScreen extends React.Component {
 
     addFavorite = async (item) => {
         let userId = this.state.user.id;
-        await Services.Favorites.createFavorite(userId, item.id);
+        let workshopId = item.id;
+        await Services.Favorites.createFavorite(userId, workshopId);
 
         //Adding workshop into local state
         let favoriteIds = this.state.favoriteIds;
@@ -92,7 +93,13 @@ class ScheduleScreen extends React.Component {
     }
 
     onPress = (item) => {
-        this.props.navigation.navigate('Event', {user: this.state.user, item: item})
+        this.props.navigation.navigate('Event', {
+            user: this.state.user,
+            item: item,
+            isFavorite: this.isFavorite(item),
+            addFavorite: this.addFavorite,
+            deleteFavorite: this.deleteFavorite
+        })
     }
 
     _renderItem = ({item}) => {
