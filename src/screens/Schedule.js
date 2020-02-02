@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, ImageBackground, View, FlatList, ActivityIndicator, Text, TouchableOpacity, Image} from 'react-native';
-import HorizontalCalendar from 'breathe/src/components/horizontalCalendar';
+import HorizontalCalendar from 'breathe/src/components/HorizontalCalendar';
 import { getDayFromDateTime, getTimeFromDateTime } from 'breathe/src/utils/dateTime';
 import Services from '../services';
 
@@ -197,14 +197,14 @@ const styles = StyleSheet.create({
         marginRight: 50,
         marginBottom: 0,
         opacity: 1,
-        textAlign: 'left',
+        textAlign: 'center',
         color: 'black',
         fontWeight: '500',
         marginHorizontal: 60,
     },
     cardSubText: {
         fontSize: 14,
-        textAlign: 'left',
+        textAlign: 'center',
         color: 'black',
         opacity: 1,
         fontWeight: '500',

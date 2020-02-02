@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, View, Text, ScrollView, Button} from 'react-native';
-import { fixCase } from '../utils/fixCase';
+import { formatLocation } from '../utils/formatting';
+import Services from 'breathe/src/services';
 
 
 class EventScreen extends React.Component {
@@ -77,7 +78,7 @@ class EventScreen extends React.Component {
                     <Text style={styles.description}>{params.item.description}</Text>
 
                     <Text style={styles.teacherName}>Location: </Text>
-                    <Text style={styles.teacherInfo}>{fixCase(params.item.location)}</Text>
+                    <Text style={styles.teacherInfo}>{formatLocation(params.item.location)}</Text>
                     <Text style={styles.teacherName}>Teacher: </Text>
                     <Text style={styles.teacherInfo}>Teacher Info</Text>
                     {this.isFavorite(this.item) ? 

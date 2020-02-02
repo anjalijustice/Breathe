@@ -1,8 +1,8 @@
 import React from 'react';
 import {StyleSheet, ImageBackground, View, FlatList, ActivityIndicator, Text, TouchableOpacity, Image} from 'react-native';
-import HorizontalCalendar from 'breathe/src/components/horizontalCalendar';
+import HorizontalCalendar from 'breathe/src/components/HorizontalCalendar';
 import { getDayFromDateTime, getTimeFromDateTime } from 'breathe/src/utils/dateTime'
-import Services from '../services';
+import Services from 'breathe/src/services';
 
 //State resets when you navigate away (deletions dont stay)
 
