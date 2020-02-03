@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, View, Text, ScrollView, Button} from 'react-native';
-import { fixCase } from '../utils/fixCase';
+import { formatLocation } from '../utils/formatting';
+import Services from 'breathe/src/services';
 
 
 class EventScreen extends React.Component {
@@ -12,8 +13,10 @@ class EventScreen extends React.Component {
         this.state = {
             user: props.navigation.getParam('user', {}),
             isLoading: true,
-            item: {},
-            favorites: {},
+            item: props.navigation.getParam('item', {}),
+            isFavorite: props.navigation.getParam('isFavorite', false),
+            addFavorite: props.navigation.getParam('addFavorite'),
+            deleteFavorite: props.navigation.getParam('deleteFavorite'),
         }
     }
 
@@ -25,47 +28,21 @@ class EventScreen extends React.Component {
     5. Get pictures for event/instructors
     6. Make remove_underscore function so location looks neater
     */
-    componentWillMount () {
-        this.fetchFavorites();
-    }
-
-    fetchFavorites = async () => {
-        const favorites = await Services.Favorites.getFavoritesByUser(this.state.user.id);
-        this.setState({favorites: favorites});
-    }
 
     addFavorite = async (item) => {
-        let userId = this.state.user.id;
-        await Services.Favorites.createFavorite(userId, item.id);
+        this.state.addFavorite(item);
 
-        //Adding workshop into local state
-        let favorites = this.state.favorites;
-        favorites.push(this.item);
-        //Need to add this workshop into the favorites object
         this.setState({
-            favorites: favorites
+            isFavorite: true
         })
     }
 
     deleteFavorite = async (item) => {
-        let userId = this.state.user.id;
-        let workshopId = item.id;
-        await Services.Favorites.deleteFavorite(userId, workshopId);
+        this.state.deleteFavorite(item);
         
         this.setState({
-            favorites: this.state.favorites.filter(function(value, index, arr){
-                return value.id != item.id
-            })
+            isFavorite: false
         });
-    }
-
-    isFavorite = (item) => {
-        for(var i = 0; i < this.state.favorites.length; i++){
-            if(this.state.favorites[i].id === item.id){
-                return true;
-            }
-        }
-        return false;
     }
 
     render(){
@@ -77,12 +54,12 @@ class EventScreen extends React.Component {
                     <Text style={styles.description}>{params.item.description}</Text>
 
                     <Text style={styles.teacherName}>Location: </Text>
-                    <Text style={styles.teacherInfo}>{fixCase(params.item.location)}</Text>
+                    <Text style={styles.teacherInfo}>{formatLocation(params.item.location)}</Text>
                     <Text style={styles.teacherName}>Teacher: </Text>
                     <Text style={styles.teacherInfo}>Teacher Info</Text>
-                    {this.isFavorite(this.item) ? 
-                        <Button onPress={this.deleteFavorite} style={styles.favorite}>Remove from Favorites</Button> :
-                        <Button onPress={this.addFavorite} style={styles.favorite}>Add to Favorites</Button>
+                    {this.state.isFavorite ?
+                        <Button onPress={() => this.deleteFavorite(this.state.item)} style={styles.favorite} title='Remove from Favorites' /> :
+                        <Button onPress={() => this.addFavorite(this.state.item)} style={styles.favorite} title='Add to Favorites' />
                     }
                 </View>
             </ScrollView>

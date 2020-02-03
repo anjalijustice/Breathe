@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, ImageBackground, View, FlatList, ActivityIndicator, Text, TouchableOpacity, Image} from 'react-native';
-import HorizontalCalendar from 'breathe/src/components/horizontalCalendar';
+import HorizontalCalendar from 'breathe/src/components/HorizontalCalendar';
 import { getDayFromDateTime, getTimeFromDateTime } from 'breathe/src/utils/dateTime';
 import Services from '../services';
 
@@ -24,7 +24,8 @@ class ScheduleScreen extends React.Component {
             isLoading: true,
             dateSelected: '11',
             like: true,
-            favorites: {},
+            workshops: [],
+            favoriteIds: [],
         }
         this.onPress = this.onPress.bind(this);
     }
@@ -41,7 +42,10 @@ class ScheduleScreen extends React.Component {
 
     fetchFavorites = async () => {
         const favorites = await Services.Favorites.getFavoritesByUser(this.state.user.id);
-        this.setState({favorites: favorites});
+        const favoriteIds = favorites.map(favorite => favorite.id);
+        this.setState({
+            favoriteIds: favoriteIds
+        });
     }
 
     changeDate = (date) => {
@@ -51,25 +55,24 @@ class ScheduleScreen extends React.Component {
     }
 
     favorite = (item) => {
-        for(var i = 0; i < this.state.favorites.length; i++){
-            if(this.state.favorites[i].id === item.id){
-                this.deleteFavorite(item);
-                return;
-            }
+        if (this.isFavorite(item)) {
+            this.deleteFavorite(item);
+        } else {
+            this.addFavorite(item);
         }
-        this.addFavorite(item);
     }
 
     addFavorite = async (item) => {
         let userId = this.state.user.id;
-        await Services.Favorites.createFavorite(userId, item.id);
+        let workshopId = item.id;
+        await Services.Favorites.createFavorite(userId, workshopId);
 
         //Adding workshop into local state
-        let favorites = this.state.favorites;
-        favorites.push(item);
+        let favoriteIds = this.state.favoriteIds;
+        favoriteIds.push(item.id);
         //Need to add this workshop into the favorites object
         this.setState({
-            favorites: favorites
+            favoriteIds: favoriteIds
         })
     }
 
@@ -80,23 +83,23 @@ class ScheduleScreen extends React.Component {
         
         this.setState({
             //remove workshop from the favorites object
-            favorites: this.state.favorites.filter(function(value, index, arr){
-                return value.id != item.id
-            })
+            favoriteIds: this.state.favoriteIds.filter((value, index, arr) => value != item.id)
         });
     }
 
+    // Want to check the database for favorites not the state
     isFavorite = (item) => {
-        for(var i = 0; i < this.state.favorites.length; i++){
-            if(this.state.favorites[i].id === item.id){
-                return true;
-            }
-        }
-        return false;
+        return this.state.favoriteIds.includes(item.id);
     }
 
     onPress = (item) => {
-        this.props.navigation.navigate('Event', {user: this.state.user, item: item})
+        this.props.navigation.navigate('Event', {
+            user: this.state.user,
+            item: item,
+            isFavorite: this.isFavorite(item),
+            addFavorite: this.addFavorite,
+            deleteFavorite: this.deleteFavorite
+        })
     }
 
     _renderItem = ({item}) => {
@@ -191,7 +194,7 @@ const styles = StyleSheet.create({
         shadowRadius: 1,
         shadowOffset: {
         width: 3,
-        height: 3
+        height: 3,
         }
     },
     cardText: {
@@ -204,6 +207,7 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         color: 'black',
         fontWeight: '500',
+        marginHorizontal: 60,
     },
     cardSubText: {
         fontSize: 14,
