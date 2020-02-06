@@ -93,7 +93,7 @@ class ScheduleScreen extends React.Component {
     }
 
     onPress = (item) => {
-        this.props.navigation.navigate('Event', {
+        this.props.navigation.navigate('Workshop', {
             user: this.state.user,
             item: item,
             isFavorite: this.isFavorite(item),
