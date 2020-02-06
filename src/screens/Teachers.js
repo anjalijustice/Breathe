@@ -1,5 +1,9 @@
 import React from 'react';
 import {StyleSheet, View, Text } from 'react-native';
+
+//Page has teacher cards with name/pic? 
+//Click on the card takes you to a teachers page with all the workshops theyre teaching and bio
+
 export default class TeacerScreen extends React.Component {
     static navigationOptions = {
         title: 'Teachers',
