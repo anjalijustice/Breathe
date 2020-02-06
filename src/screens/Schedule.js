@@ -1,17 +1,16 @@
 import React from 'react';
 import {StyleSheet, ImageBackground, View, FlatList, ActivityIndicator, Text, TouchableOpacity, Image} from 'react-native';
-import HorizontalCalendar from 'breathe/src/components/horizontalCalendar';
+import HorizontalCalendar from 'breathe/src/components/HorizontalCalendar';
 import { getDayFromDateTime, getTimeFromDateTime } from 'breathe/src/utils/dateTime';
 import Services from '../services';
 
-//TODO: Create new pages for workshops that include workshop details AND instructor info/pics
+// Changes to test:
+// 1. Wrapped flatlist in a view with flex=1 and height=100%, maybe that will fix the scrolling issue
+// 2. fixCase function on event page
+// 3. Favorite buttons on event page (need to do styling)
+//      note: try to pass functions from schedule to event page so favorites functions dont need to be rewritten 
 
 
-//State resets when you navigate away from the schedule page
-//Favorties arent in the right state when page is loaded, fetchFavorites 
-//should get all the favorited workshops from the DB and put them in the favorites
-//array so that when the page renders, workshops in the favorites array have red hearts
-//and return true for "isFavorite"
 class ScheduleScreen extends React.Component {
     static navigationOptions = {
         title: 'Schedule',
@@ -65,7 +64,8 @@ class ScheduleScreen extends React.Component {
 
     addFavorite = async (item) => {
         let userId = this.state.user.id;
-        await Services.Favorites.createFavorite(userId, item.id);
+        let workshopId = item.id;
+        await Services.Favorites.createFavorite(userId, workshopId);
 
         //Adding workshop into local state
         let favoriteIds = this.state.favoriteIds;
@@ -93,10 +93,15 @@ class ScheduleScreen extends React.Component {
     }
 
     onPress = (item) => {
-        this.props.navigation.navigate('Event', {user: this.state.user, item: item})
+        this.props.navigation.navigate('Event', {
+            user: this.state.user,
+            item: item,
+            isFavorite: this.isFavorite(item),
+            addFavorite: this.addFavorite,
+            deleteFavorite: this.deleteFavorite
+        })
     }
 
-    //Function allows selective rendering based on a given condition (date in this case)
     _renderItem = ({item}) => {
         if(getDayFromDateTime(item.startTime) == this.state.dateSelected){
             return (
@@ -136,16 +141,17 @@ class ScheduleScreen extends React.Component {
         else{
             return(
             <View style={styles.container}>
-                {/* Horizontal calendar component to select day, changes dateSelected state when pressed*/}
                 <HorizontalCalendar dateSelected={this.state.dateSelected} changeDate={this.changeDate}/>
                 <ImageBackground source={require('../../assets/img/breathe6.jpg')} style={styles.backgroundImage}>
-                <FlatList 
-                    style={styles.list}
-                    data={this.state.data}
-                    keyExtractor={(item, index) => index.toString()}
-                    extraData={this.state}
-                    renderItem={(item) => this._renderItem(item, this.props)}
-                />
+                    <View style={styles.listContainer}>
+                        <FlatList 
+                            style={styles.list}
+                            data={this.state.data}
+                            keyExtractor={(item, index) => index.toString()}
+                            extraData={this.state}
+                            renderItem={(item) => this._renderItem(item, this.props)}
+                        />
+                    </View>
                 </ImageBackground>
             </View>
             )
@@ -171,6 +177,11 @@ const styles = StyleSheet.create({
     },
     list: {
         opacity: 1,
+        flex: 1,
+    },
+    listContainer: {
+        flex: 1,
+        height: '100%'
     },
     card: {
         backgroundColor: 'rgba(255,255,255,0.6)',
@@ -190,20 +201,22 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         fontSize: 16,
         margin: 10,
+        marginRight: 50,
         marginBottom: 0,
         opacity: 1,
-        textAlign: 'center',
+        textAlign: 'left',
         color: 'black',
         fontWeight: '500',
         marginHorizontal: 60,
     },
     cardSubText: {
         fontSize: 14,
-        textAlign: 'center',
+        textAlign: 'left',
         color: 'black',
         opacity: 1,
         fontWeight: '500',
         margin: 0,
+        marginLeft: 10,
         padding: 0,
     },
     favorite: {
