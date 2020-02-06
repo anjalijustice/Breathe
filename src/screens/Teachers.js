@@ -1,8 +1,8 @@
 import React from 'react';
 import {StyleSheet, View, Text } from 'react-native';
-export default class GalleryScreen extends React.Component {
+export default class TeacerScreen extends React.Component {
     static navigationOptions = {
-        title: 'Gallery',
+        title: 'Teachers',
     };
 
     constructor(props) {
@@ -16,7 +16,7 @@ export default class GalleryScreen extends React.Component {
         return (
             <View style={styles.container}>
                 <Text style={styles.text}>
-                    This is a Gallery!
+                    Teacher info woo
                 </Text>
             </View>
         )  
