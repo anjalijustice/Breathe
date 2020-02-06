@@ -1,6 +1,10 @@
 import React from 'react';
+<<<<<<< HEAD
 import {StyleSheet, View, Text, ActivityIndicator } from 'react-native';
 import Services from '../services';
+=======
+import {StyleSheet, View, Text } from 'react-native';
+>>>>>>> rename eventPage to workshopPage and fix navigation
 
 //Page has teacher cards with name/pic? 
 //Click on the card takes you to a teachers page with all the workshops theyre teaching and bio

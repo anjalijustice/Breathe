@@ -63,6 +63,7 @@ export default class FavoritesScreen extends React.Component {
     }
 
     onPress = (item) => {
+<<<<<<< HEAD
         this.props.navigation.navigate('Workshop', {
             user: this.state.user,
             item: item,
@@ -70,6 +71,9 @@ export default class FavoritesScreen extends React.Component {
             addFavorite: this.addFavorite,
             deleteFavorite: this.deleteFavorite
         })
+=======
+        this.props.navigation.navigate('Workshop', {user: this.state.user, item: item})
+>>>>>>> rename eventPage to workshopPage and fix navigation
     }
 
     //Function allows selective rendering based on a given condition (date in this case)
