@@ -51,7 +51,6 @@ export default class FavoritesScreen extends React.Component {
     }
 
     deleteFavorite = async (item) => {
-        console.log('hello');
         let userId = this.state.user.id;
         let workshopId = item.id;
         await Services.Favorites.deleteFavorite(userId, workshopId);
@@ -63,7 +62,6 @@ export default class FavoritesScreen extends React.Component {
     }
 
     onPress = (item) => {
-        console.log('hi');
         this.props.navigation.navigate('Event', {
             user: this.state.user,
             item: item,
