@@ -36,6 +36,20 @@ export default class FavoritesScreen extends React.Component {
         })
     }
 
+    addFavorite = async (item) => {
+        let userId = this.state.user.id;
+        let workshopId = item.id;
+        await Services.Favorites.createFavorite(userId, workshopId);
+
+        //Adding workshop into local state
+        let favoriteIds = this.state.favoriteIds;
+        favoriteIds.push(item.id);
+        //Need to add this workshop into the favorites object
+        this.setState({
+            favoriteIds: favoriteIds
+        })
+    }
+
     deleteFavorite = async (item) => {
         let userId = this.state.user.id;
         let workshopId = item.id;
@@ -48,7 +62,13 @@ export default class FavoritesScreen extends React.Component {
     }
 
     onPress = (item) => {
-        this.props.navigation.navigate('Event', {user: this.state.user, item: item})
+        this.props.navigation.navigate('Event', {
+            user: this.state.user,
+            item: item,
+            isFavorite: true,
+            addFavorite: this.addFavorite,
+            deleteFavorite: this.deleteFavorite
+        })
     }
 
     //Function allows selective rendering based on a given condition (date in this case)
@@ -153,11 +173,13 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         fontSize: 16,
         margin: 10,
+        marginRight: 50,
         marginBottom: 0,
         opacity: 1,
         textAlign: 'center',
         color: 'black',
         fontWeight: '500',
+        marginHorizontal: 60,
     },
     cardSubText: {
         padding: 0,

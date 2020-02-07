@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, Text, ScrollView, Button} from 'react-native';
+import {StyleSheet, View, Text, ScrollView, TouchableOpacity, Image} from 'react-native';
 import { formatLocation } from '../utils/formatting';
 import Services from 'breathe/src/services';
 
@@ -29,6 +29,14 @@ class EventScreen extends React.Component {
     6. Make remove_underscore function so location looks neater
     */
 
+    favorite = async (item) => {
+        if (this.state.isFavorite) {
+            this.deleteFavorite(item);
+        } else {
+            this.addFavorite(item);
+        }
+    }
+
     addFavorite = async (item) => {
         this.state.addFavorite(item);
 
@@ -50,17 +58,35 @@ class EventScreen extends React.Component {
         return(
             <ScrollView style={styles.container}>
                 <View style={styles.insideContainer}>
+                <TouchableOpacity onPress={() => this.favorite(params.item)}>
+                        {this.state.isFavorite ? 
+                        <Image
+                         source={require('../../assets/img/liked.png')}
+                         style={styles.like}
+                        />
+                        :
+                        <Image
+                            source={require('../../assets/img/like.png')}
+                            style={styles.like}
+                        />}
+                    </TouchableOpacity>
                     <Text style={styles.title}>{params.item.title}</Text>
+
+                    <Text style={styles.infoContainer}>
+                        <Text style={styles.infoHeader}>Location: </Text>
+                        <Text style={styles.info}>{formatLocation(params.item.location)}</Text>
+                    </Text>
+
                     <Text style={styles.description}>{params.item.description}</Text>
 
-                    <Text style={styles.teacherName}>Location: </Text>
-                    <Text style={styles.teacherInfo}>{formatLocation(params.item.location)}</Text>
-                    <Text style={styles.teacherName}>Teacher: </Text>
-                    <Text style={styles.teacherInfo}>Teacher Info</Text>
-                    {this.state.isFavorite ?
-                        <Button onPress={() => this.deleteFavorite(this.state.item)} style={styles.favorite} title='Remove from Favorites' /> :
-                        <Button onPress={() => this.addFavorite(this.state.item)} style={styles.favorite} title='Add to Favorites' />
-                    }
+                    <Text style={styles.infoContainer}>
+                        <Text style={styles.infoHeader}>Teacher: </Text>
+                        <Text style={styles.info}>{params.item.primaryInstructor.fullName}</Text>
+                    </Text>
+                    <Text style={styles.infoContainer}>
+                        <Text style={styles.infoHeader}>Co-Teachers: </Text>
+                        <Text style={styles.info}>{params.item.coTeachers}</Text>
+                    </Text>
                 </View>
             </ScrollView>
         )
@@ -80,22 +106,28 @@ const styles = StyleSheet.create({
     title:{
         fontSize: 20,
         fontWeight: 'bold',
-        textAlign: 'left',
+        textAlign: 'center',
         marginBottom: 15,
     },
     description: {
         fontSize: 16,
+        justifyContent: 'center',
     },
-    teacherName: {
+    infoContainer: {
+        padding: 8,
+        textAlign: 'center',
+    },
+    infoHeader: {
         fontSize: 18,
         fontWeight: 'bold'
     },
-    teacherInfo: {
+    info: {
         fontSize: 16,
         marginBottom: 5,
     },
-    favorite: {
-        
+    like: {
+        width: 30,
+        height: 30,
     }
 
 });
