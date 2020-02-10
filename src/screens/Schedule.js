@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, ImageBackground, View, FlatList, ActivityIndicator, Text, TouchableOpacity, Image} from 'react-native';
+import {StyleSheet, ImageBackground, View, FlatList, ActivityIndicator, Text, TouchableOpacity, Image, SafeAreaView} from 'react-native';
 import HorizontalCalendar from 'breathe/src/components/HorizontalCalendar';
 import { getDayFromDateTime, getTimeFromDateTime } from 'breathe/src/utils/dateTime';
 import Services from '../services';
@@ -22,7 +22,7 @@ class ScheduleScreen extends React.Component {
         this.state = {
             user: props.navigation.getParam('user', {}),
             isLoading: true,
-            dateSelected: '11',
+            dateSelected: '12',
             like: true,
             workshops: [],
             favoriteIds: [],
@@ -105,27 +105,29 @@ class ScheduleScreen extends React.Component {
     _renderItem = ({item}) => {
         if(getDayFromDateTime(item.startTime) == this.state.dateSelected){
             return (
-                <TouchableOpacity 
-                    style={styles.card}
-                    onPress={()=> this.onPress(item)}
-                >
-                    <Text style={styles.cardText}>{item.title}</Text>
-                    <Text style={styles.cardSubText}>{getTimeFromDateTime(item.startTime)} - {getTimeFromDateTime(item.endTime)}</Text>
-                    <View style={styles.favorite}>
-                        <TouchableOpacity onPress={() => this.favorite(item)}>
-                        {this.isFavorite(item) ? 
-                        <Image
-                         source={require('../../assets/img/liked.png')}
-                         style={styles.like}
-                        />
-                        :
-                        <Image
-                            source={require('../../assets/img/like.png')}
+                <View style={styles.list}>
+                    <TouchableOpacity 
+                        style={styles.card}
+                        onPress={()=> this.onPress(item)}
+                    >
+                        <Text style={styles.cardText}>{item.title}</Text>
+                        <Text style={styles.cardSubText}>{getTimeFromDateTime(item.startTime)} - {getTimeFromDateTime(item.endTime)}</Text>
+                        <View style={styles.favorite}>
+                            <TouchableOpacity onPress={() => this.favorite(item)}>
+                            {this.isFavorite(item) ? 
+                            <Image
+                            source={require('../../assets/img/liked.png')}
                             style={styles.like}
-                        />}
-                        </TouchableOpacity>
-                    </View>
-                </TouchableOpacity>
+                            />
+                            :
+                            <Image
+                                source={require('../../assets/img/like.png')}
+                                style={styles.like}
+                            />}
+                            </TouchableOpacity>
+                        </View>
+                    </TouchableOpacity>
+                </View>
             )
         }
     }
@@ -143,15 +145,14 @@ class ScheduleScreen extends React.Component {
             <View style={styles.container}>
                 <HorizontalCalendar dateSelected={this.state.dateSelected} changeDate={this.changeDate}/>
                 <ImageBackground source={require('../../assets/img/breathe6.jpg')} style={styles.backgroundImage}>
-                    <View style={styles.listContainer}>
                         <FlatList 
-                            style={styles.list}
+                            contentInset={{bottom: 60}}
+                            contentContainerStyle={styles.flatList}
                             data={this.state.data}
                             keyExtractor={(item, index) => index.toString()}
                             extraData={this.state}
                             renderItem={(item) => this._renderItem(item, this.props)}
                         />
-                    </View>
                 </ImageBackground>
             </View>
             )
@@ -172,16 +173,17 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     backgroundImage: {
+        flex: 1,
         width: '100%',
         height: '100%',
     },
     list: {
-        opacity: 1,
         flex: 1,
+        // paddingBottom: 5,
     },
-    listContainer: {
-        flex: 1,
-        height: '100%'
+    flastList: {
+        opacity: 1,
+        flex: 1
     },
     card: {
         backgroundColor: 'rgba(255,255,255,0.6)',
@@ -198,7 +200,6 @@ const styles = StyleSheet.create({
         }
     },
     cardText: {
-        paddingBottom: 10,
         fontSize: 16,
         margin: 10,
         marginRight: 50,
@@ -206,8 +207,12 @@ const styles = StyleSheet.create({
         opacity: 1,
         textAlign: 'center',
         color: 'black',
+        opacity: 1,
         fontWeight: '500',
-        marginHorizontal: 60,
+        marginTop: 10,
+        marginLeft: 10, 
+        marginRight: 50,       
+        paddingBottom: 10,
     },
     cardSubText: {
         fontSize: 14,
