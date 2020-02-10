@@ -16,6 +16,15 @@ export default class TeacerScreen extends React.Component {
         }
       }
 
+    componentWillMount () {
+        this.fetchData();
+    }
+ 
+    fetchData = async () => {
+        const teachers = await Services.Teachers.getTeachers();
+        this.setState({data: teachers, isLoading: false});
+    }
+    
     render() {
         return (
             <View style={styles.container}>
