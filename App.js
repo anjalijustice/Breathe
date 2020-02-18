@@ -6,12 +6,8 @@ import {
   FoodScreen,
   MapScreen,
   FavoritesScreen,
-<<<<<<< HEAD
   TeacherScreen,
-  EventScreen,
-=======
   WorkshopScreen,
->>>>>>> fixed scheduleScreen/favorites formatting, added to teacher page, created TeacherService
 } from 'breathe/src/screens/';
 
 const RootStack = createStackNavigator(
@@ -21,12 +17,8 @@ const RootStack = createStackNavigator(
     Food: FoodScreen,
     Map: MapScreen,
     Favorites: FavoritesScreen,
-<<<<<<< HEAD
     Teachers: TeacherScreen,
-    Event: EventScreen,
-=======
     Workshop: WorkshopScreen
->>>>>>> fixed scheduleScreen/favorites formatting, added to teacher page, created TeacherService
   },
   {
     initialRouteName: 'Home',
