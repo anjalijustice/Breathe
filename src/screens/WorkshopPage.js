@@ -1,10 +1,8 @@
 import React from 'react';
 import {StyleSheet, View, Text, ScrollView, TouchableOpacity, Image} from 'react-native';
 import { formatLocation } from '../utils/formatting';
-import Services from 'breathe/src/services';
 
-
-class EventScreen extends React.Component {
+class WorkshopScreen extends React.Component {
     static navigationOptions = {
         title: 'Workshop',
     }
@@ -132,4 +130,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default EventScreen
+export default WorkshopScreen

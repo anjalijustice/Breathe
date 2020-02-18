@@ -7,7 +7,7 @@ import {
   MapScreen,
   FavoritesScreen,
   TeacherScreen,
-  EventScreen,
+  WorkshopScreen,
 } from 'breathe/src/screens/';
 
 const RootStack = createStackNavigator(
@@ -18,7 +18,7 @@ const RootStack = createStackNavigator(
     Map: MapScreen,
     Favorites: FavoritesScreen,
     Teachers: TeacherScreen,
-    Event: EventScreen,
+    Workshop: WorkshopScreen
   },
   {
     initialRouteName: 'Home',
