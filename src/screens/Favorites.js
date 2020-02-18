@@ -169,8 +169,8 @@ const styles = StyleSheet.create({
     },
     cardText: {
         fontSize: 16,
+        paddingBottom: 10,
         margin: 10,
-        marginRight: 50,
         marginBottom: 0,
         opacity: 1,
         textAlign: 'center',
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
     },
     cardSubText: {
         fontSize: 14,
-        textAlign: 'left',
+        textAlign: 'center',
         color: 'black',
         opacity: 1,
         fontWeight: '500',
