@@ -151,20 +151,18 @@ const styles = StyleSheet.create({
         opacity: 1,
         flex: 1,
     },
-    favorite: {
-      fontSize: 20,
-    },
     card: {
         backgroundColor: 'rgba(255,255,255,0.6)',
         marginLeft: '2%',
         width: '96%',
         marginTop: 5,
+        marginBottom: 0,
         shadowColor: '#000',
         shadowOpacity: 0.2,
         shadowRadius: 1,
         shadowOffset: {
         width: 3,
-        height: 3
+        height: 3,
         }
     },
     cardText: {
@@ -173,17 +171,17 @@ const styles = StyleSheet.create({
         margin: 0,
         opacity: 1,
         textAlign: 'left',
-        color: 'black',
+        color: 'darkslategrey',
         opacity: 1,
-        fontWeight: '500',
+        fontFamily: 'chelseaMarketReg',
         marginRight: 50,
     },
     cardSubText: {
         fontSize: 14,
         textAlign: 'left',
-        color: 'black',
+        color: 'darkslategrey',
         opacity: 1,
-        fontWeight: '500',
+        fontFamily: 'chelseaMarketReg',
         margin: 0,
         marginLeft: 10,
     },

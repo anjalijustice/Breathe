@@ -30,14 +30,16 @@ class ScheduleScreen extends React.Component {
         this.onPress = this.onPress.bind(this);
     }
     
-    componentWillMount () {
+    async componentWillMount () {
        this.fetchData();
        this.fetchFavorites();
+
+      this.setState({ isLoading: false });
     }
 
     fetchData = async () => {
         const workshops = await Services.Workshops.getWorkshops();
-        this.setState({data: workshops, isLoading: false});
+        this.setState({data: workshops});
     }
 
     fetchFavorites = async () => {
@@ -179,7 +181,6 @@ const styles = StyleSheet.create({
     },
     list: {
         flex: 1,
-        // paddingBottom: 5,
     },
     flastList: {
         opacity: 1,
@@ -205,17 +206,17 @@ const styles = StyleSheet.create({
         margin: 0,
         opacity: 1,
         textAlign: 'left',
-        color: 'black',
+        color: 'darkslategrey',
         opacity: 1,
-        fontWeight: '500',
+        fontFamily: 'chelseaMarketReg',
         marginRight: 50,
     },
     cardSubText: {
         fontSize: 14,
         textAlign: 'left',
-        color: 'black',
+        color: 'darkslategrey',
         opacity: 1,
-        fontWeight: '500',
+        fontFamily: 'chelseaMarketReg',
         margin: 0,
         marginLeft: 10,
     },

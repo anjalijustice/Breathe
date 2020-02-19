@@ -1,5 +1,6 @@
 import React from 'react';
-import {StyleSheet, View, Text } from 'react-native';
+import {StyleSheet, View, Text, ActivityIndicator } from 'react-native';
+import Services from '../services';
 
 //Page has teacher cards with name/pic? 
 //Click on the card takes you to a teachers page with all the workshops theyre teaching and bio
@@ -16,20 +17,26 @@ export default class TeacerScreen extends React.Component {
         }
       }
 
-    componentWillMount () {
-        this.fetchData();
+    async componentWillMount () {
+        // this.fetchData();
+        this.setState({ isLoading: false })
     }
  
     fetchData = async () => {
         const teachers = await Services.Teachers.getTeachers();
-        this.setState({data: teachers, isLoading: false});
+        this.setState({ data: teachers });
     }
     
     render() {
         return (
+            this.state.isLoading ? 
+            <View style={styles.loader}>
+                <ActivityIndicator />
+            </View>
+            :
             <View style={styles.container}>
                 <Text style={styles.text}>
-                    Teachers Coming Soon
+                    Teachers Coming Soon!!
                 </Text>
             </View>
         )  
@@ -42,7 +49,15 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       backgroundColor: 'rgb(220, 230, 232)',
     },
+    loader: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     text: {
         fontSize: 40,
+        color: 'darkslategrey',
+        fontFamily: 'chelseaMarketReg',
+        textAlign: 'center'
     }
 });

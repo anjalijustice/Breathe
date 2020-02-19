@@ -56,11 +56,11 @@ class WorkshopScreen extends React.Component {
         return(
             <ScrollView style={styles.container}>
                 <View style={styles.insideContainer}>
-                <TouchableOpacity onPress={() => this.favorite(params.item)}>
+                    <TouchableOpacity onPress={() => this.favorite(params.item)}>
                         {this.state.isFavorite ? 
                         <Image
-                         source={require('../../assets/img/liked.png')}
-                         style={styles.like}
+                            source={require('../../assets/img/liked.png')}
+                            style={styles.like}
                         />
                         :
                         <Image
@@ -71,13 +71,6 @@ class WorkshopScreen extends React.Component {
                     <Text style={styles.title}>{params.item.title}</Text>
 
                     <Text style={styles.infoContainer}>
-                        <Text style={styles.infoHeader}>Location: </Text>
-                        <Text style={styles.info}>{formatLocation(params.item.location)}</Text>
-                    </Text>
-
-                    <Text style={styles.description}>{params.item.description}</Text>
-
-                    <Text style={styles.infoContainer}>
                         <Text style={styles.infoHeader}>Teacher: </Text>
                         <Text style={styles.info}>{params.item.primaryInstructor.fullName}</Text>
                     </Text>
@@ -85,7 +78,14 @@ class WorkshopScreen extends React.Component {
                         <Text style={styles.infoHeader}>Co-Teachers: </Text>
                         <Text style={styles.info}>{params.item.coTeachers}</Text>
                     </Text>
-                </View>
+
+                    <Text style={styles.infoContainer}>
+                        <Text style={styles.infoHeader}>Location: </Text>
+                        <Text style={styles.info}>{formatLocation(params.item.location)}</Text>
+                    </Text>
+
+                    <Text style={styles.description}>{params.item.description}</Text>
+            </View>
             </ScrollView>
         )
     }
@@ -103,25 +103,32 @@ const styles = StyleSheet.create({
     },
     title:{
         fontSize: 20,
-        fontWeight: 'bold',
         textAlign: 'center',
         marginBottom: 15,
+        fontFamily: 'chelseaMarketReg',
+        color: 'darkslategrey',
     },
     description: {
         fontSize: 16,
         justifyContent: 'center',
+        fontFamily: 'neutraDisplay',
+        color: 'darkslategrey',
+        padding: 5,
     },
     infoContainer: {
-        padding: 8,
-        textAlign: 'center',
+        padding: 10,
+        textAlign: 'left',
+        color: 'darkslategrey',
     },
     infoHeader: {
         fontSize: 18,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        fontFamily: 'chelseaMarketReg',
     },
     info: {
         fontSize: 16,
         marginBottom: 5,
+        fontFamily: 'neutraDisplay',
     },
     like: {
         width: 30,
