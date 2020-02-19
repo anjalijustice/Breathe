@@ -29,7 +29,7 @@ export default class TeacerScreen extends React.Component {
         return (
             <View style={styles.container}>
                 <Text style={styles.text}>
-                    Teacher info woo
+                    Teachers Coming Soon
                 </Text>
             </View>
         )  
