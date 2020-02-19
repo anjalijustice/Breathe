@@ -6,6 +6,10 @@ import {
   FoodScreen,
   MapScreen,
   FavoritesScreen,
+<<<<<<< HEAD
+=======
+  TeacherScreen,
+>>>>>>> ccb740cb5449e8ec5448545573c59087ee94d416
   WorkshopScreen,
 } from 'breathe/src/screens/';
 
@@ -16,6 +20,10 @@ const RootStack = createStackNavigator(
     Food: FoodScreen,
     Map: MapScreen,
     Favorites: FavoritesScreen,
+<<<<<<< HEAD
+=======
+    Teachers: TeacherScreen,
+>>>>>>> ccb740cb5449e8ec5448545573c59087ee94d416
     Workshop: WorkshopScreen
   },
   {

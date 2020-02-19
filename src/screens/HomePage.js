@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import Constants from 'expo-constants';
 import Services from 'breathe/src/services';
+import * as Font from 'expo-font';
 
 class LogoTitle extends React.Component {
     render() {
@@ -17,11 +18,19 @@ class LogoTitle extends React.Component {
 class HomeScreen extends React.Component { 
     constructor(props) {
       super(props);
-      this.state = {};
+      this.state = {
+        isLoading: true
+      };
     }  
 
-    componentWillMount () {
+    async componentWillMount () {
       this.getOrCreateUser();
+      await Font.loadAsync({
+        'neutraDisplay': require('breathe/assets/fonts/NeutraDisplayDraft.otf'),
+        'chelseaMarketReg': require('breathe/assets/fonts/ChelseaMarket-Regular.ttf'),
+      });
+
+      this.setState({ isLoading: false });
     }
 
     async getOrCreateUser() {
@@ -41,6 +50,11 @@ class HomeScreen extends React.Component {
  
     render(){
         return (
+          this.state.isLoading ?
+          <View style={styles.loader}>
+                <ActivityIndicator />
+          </View>
+          :
           <View style={styles.container}>
             <View style={styles.buttonsContainer}>
                 <View>
@@ -77,7 +91,7 @@ class HomeScreen extends React.Component {
                 activeOpacity = { .5 }
                 onPress={() => this.props.navigation.navigate('Teachers')}
                 >
-                <Text style={styles.TextStyle}> Teachers </Text>       
+                <Text style={styles.TextStyle}> TEACHERS </Text>
                 </TouchableOpacity>
                 </View>      
             </View>
@@ -98,6 +112,11 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       backgroundColor: 'rgb(220, 230, 232)',
     },
+    loader: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+  },
     banner: {
       marginTop: 30,
     },
@@ -118,8 +137,8 @@ const styles = StyleSheet.create({
     TextStyle: {
       color: 'white',
       textAlign:'center',
-      fontSize: 16,
-      fontWeight: 'bold',
+      fontSize: 24,
+      fontFamily: 'neutraDisplay'
     },
     buttonsContainer: {
       marginTop: '10%',
@@ -128,7 +147,7 @@ const styles = StyleSheet.create({
       position: 'absolute',
       bottom: 0,
       width: '100%',
-      height: '25%',
+      height: '15%',
     }
   });
 

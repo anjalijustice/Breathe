@@ -37,6 +37,20 @@ export default class FavoritesScreen extends React.Component {
         })
     }
 
+    addFavorite = async (item) => {
+        let userId = this.state.user.id;
+        let workshopId = item.id;
+        await Services.Favorites.createFavorite(userId, workshopId);
+
+        //Adding workshop into local state
+        let favoriteIds = this.state.favoriteIds;
+        favoriteIds.push(item.id);
+        //Need to add this workshop into the favorites object
+        this.setState({
+            favoriteIds: favoriteIds
+        })
+    }
+
     deleteFavorite = async (item) => {
         let userId = this.state.user.id;
         let workshopId = item.id;
@@ -49,7 +63,13 @@ export default class FavoritesScreen extends React.Component {
     }
 
     onPress = (item) => {
-        this.props.navigation.navigate('Workshop', {user: this.state.user, item: item})
+        this.props.navigation.navigate('Workshop', {
+            user: this.state.user,
+            item: item,
+            isFavorite: true,
+            addFavorite: this.addFavorite,
+            deleteFavorite: this.deleteFavorite
+        })
     }
 
     //Function allows selective rendering based on a given condition (date in this case)
@@ -131,42 +151,39 @@ const styles = StyleSheet.create({
         opacity: 1,
         flex: 1,
     },
-    favorite: {
-      fontSize: 20,
-    },
     card: {
         backgroundColor: 'rgba(255,255,255,0.6)',
         marginLeft: '2%',
         width: '96%',
         marginTop: 5,
+        marginBottom: 0,
         shadowColor: '#000',
         shadowOpacity: 0.2,
         shadowRadius: 1,
         shadowOffset: {
         width: 3,
-        height: 3
+        height: 3,
         }
     },
     cardText: {
         fontSize: 16,
-        textAlign: 'left',
-        color: 'black',
+        padding: 10,
+        margin: 0,
         opacity: 1,
-        fontWeight: '500',
-        marginTop: 10,
-        marginLeft: 10, 
-        marginRight: 50,       
-        paddingBottom: 10,
+        textAlign: 'left',
+        color: 'darkslategrey',
+        opacity: 1,
+        fontFamily: 'chelseaMarketReg',
+        marginRight: 50,
     },
     cardSubText: {
         fontSize: 14,
         textAlign: 'left',
-        color: 'black',
+        color: 'darkslategrey',
         opacity: 1,
-        fontWeight: '500',
+        fontFamily: 'chelseaMarketReg',
         margin: 0,
         marginLeft: 10,
-        padding: 0,
     },
     favorite: {
         bottom: '45%',
