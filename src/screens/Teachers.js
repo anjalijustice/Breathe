@@ -1,19 +1,20 @@
 import React from 'react';
-import {StyleSheet, View, Text, ActivityIndicator } from 'react-native';
+import {StyleSheet, View, Text, ActivityIndicator, FlatList, TouchableOpacity } from 'react-native';
 import Services from '../services';
 
 //Page has teacher cards with name/pic? 
 //Click on the card takes you to a teachers page with all the workshops theyre teaching and bio
 
-export default class TeacerScreen extends React.Component {
+export default class TeacherScreen extends React.Component {
     static navigationOptions = {
-        title: 'Teachers',
+        title: 'AllTeachers',
     };
 
     constructor(props) {
         super(props);
         this.state = {
             isLoading: true,
+            teachers: [],
         }
       }
 
@@ -26,7 +27,13 @@ export default class TeacerScreen extends React.Component {
         const teachers = await Services.Teachers.getTeachers();
         this.setState({ data: teachers });
     }
-    
+
+    onPress = (item) => {
+        this.props.navigation.navigate('Teacher', {
+            user: this.state.user,
+            item: item,
+        })
+    }
     _renderItem = ({item}) => {
         return (
             <View style={styles.list}>
@@ -84,5 +91,38 @@ const styles = StyleSheet.create({
         color: 'darkslategrey',
         fontFamily: 'chelseaMarketReg',
         textAlign: 'center'
-    }
+    },
+    list: {
+        flex: 1,
+        // paddingBottom: 5,
+    },
+    flastList: {
+        opacity: 1,
+        flex: 1
+    },
+    card: {
+        backgroundColor: 'rgba(255,255,255,0.6)',
+        marginLeft: '2%',
+        width: '96%',
+        marginTop: 5,
+        marginBottom: 0,
+        shadowColor: '#000',
+        shadowOpacity: 0.2,
+        shadowRadius: 1,
+        shadowOffset: {
+        width: 3,
+        height: 3,
+        }
+    },
+    cardText: {
+        fontSize: 16,
+        padding: 10,
+        margin: 0,
+        opacity: 1,
+        textAlign: 'left',
+        color: 'darkslategrey',
+        opacity: 1,
+        fontFamily: 'chelseaMarketReg',
+        marginRight: 50,
+    },
 });

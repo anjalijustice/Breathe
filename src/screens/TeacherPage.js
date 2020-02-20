@@ -5,7 +5,7 @@ import React from 'react';
 import {StyleSheet, View, Text, ScrollView, Button} from 'react-native';
 import { formatLocation } from '../utils/formatting';
 
-class TeacherScreen extends React.Component {
+class TeacherInfo extends React.Component {
     static navigationOptions = {
         title: 'Teacher',
     }
@@ -15,7 +15,6 @@ class TeacherScreen extends React.Component {
             user: props.navigation.getParam('user', {}),
             isLoading: true,
             item: props.navigation.getParam('item', {}),
-            isFavorite: props.navigation.getParam('isFavorite', false),
            
         }
     }
@@ -34,8 +33,9 @@ class TeacherScreen extends React.Component {
         return(
             <ScrollView style={styles.container}>
                 <View style={styles.insideContainer}>
-                    <Text style={styles.teacherName}>Teacher Name: {this.state.item} </Text>
-                    <Text style={styles.teacherInfo}>Bio: {this.state.item}</Text>
+                    <Text style={styles.teacherName}>Teacher Name: {this.state.item.fullName} </Text>
+                    <Text style={styles.teacherInfo}>Bio: {this.state.item.bio}</Text>
+                    <Text style={styles.contactInfo}>Contact: {this.state.item.contactInfo}</Text>
                     <Text style={styles.workshops}>Workshops: What kind of dispay here?</Text>
                 </View>
             </ScrollView>
@@ -76,4 +76,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default TeacherScreen
+export default TeacherInfo
