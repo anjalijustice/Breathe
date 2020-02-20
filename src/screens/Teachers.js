@@ -22,7 +22,7 @@ export default class TeacerScreen extends React.Component {
       }
 
     async componentWillMount () {
-        // this.fetchData();
+        this.fetchData();
         this.setState({ isLoading: false })
     }
  
@@ -31,19 +31,44 @@ export default class TeacerScreen extends React.Component {
         this.setState({ data: teachers });
     }
     
-    render() {
+    _renderItem = ({item}) => {
         return (
-            this.state.isLoading ? 
+            <View style={styles.list}>
+                <TouchableOpacity 
+                    style={styles.card}
+                    onPress={()=> this.onPress(item)}
+                >
+                    {/* Teacher Name */}
+                    <Text style={styles.cardText}>{item.fullName}</Text> 
+                </TouchableOpacity>
+            </View>
+        )
+    }
+
+
+    render() {
+        if(this.isLoading) {
+            return(
             <View style={styles.loader}>
                 <ActivityIndicator />
             </View>
-            :
+            )
+        }
+        else{
+            return(
             <View style={styles.container}>
-                <Text style={styles.text}>
-                    Teachers Coming Soon!!
-                </Text>
+                <FlatList 
+                    contentInset={{bottom: 60}}
+                    contentContainerStyle={styles.flatList}
+                    data={this.state.data}
+                    keyExtractor={(item, index) => index.toString()}
+                    extraData={this.state}
+                    renderItem={(item) => this._renderItem(item, this.props)}
+                />
             </View>
-        )  
+            )
+        }
+       
     }
 }
 
