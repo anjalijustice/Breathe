@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, View, Text, ScrollView, TouchableOpacity, Image} from 'react-native';
 import { formatLocation } from '../utils/formatting';
+import Services from '../services';
 
 class WorkshopScreen extends React.Component {
     static navigationOptions = {
@@ -51,6 +52,13 @@ class WorkshopScreen extends React.Component {
         });
     }
 
+    teacherPress = async (item) => {
+        this.props.navigation.navigate('Teacher', {
+            user: this.state.user,
+            item: item,
+        })
+    }
+
     render(){
         const {params} = this.props.navigation.state;
         return(
@@ -72,8 +80,10 @@ class WorkshopScreen extends React.Component {
 
                     <Text style={styles.infoContainer}>
                         <Text style={styles.infoHeader}>Teacher: </Text>
-                        <Text style={styles.info}>{params.item.primaryInstructor.fullName}</Text>
+                        <Text style={styles.info} onPress={() => this.teacherPress(params.item.primaryInstructor)}>
+                            {params.item.primaryInstructor.fullName}</Text>
                     </Text>
+
                     <Text style={styles.infoContainer}>
                         <Text style={styles.infoHeader}>Co-Teachers: </Text>
                         <Text style={styles.info}>{params.item.coTeachers}</Text>
@@ -120,6 +130,12 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         color: 'darkslategrey',
     },
+    teacherContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 10,
+    },
     infoHeader: {
         fontSize: 18,
         fontWeight: 'bold',
@@ -129,6 +145,11 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginBottom: 5,
         fontFamily: 'neutraDisplay',
+        color: 'darkslategrey',
+
+    },
+    TeachInfo: {
+        color: 'darkslategrey',
     },
     like: {
         width: 30,

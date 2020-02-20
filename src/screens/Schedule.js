@@ -22,7 +22,7 @@ class ScheduleScreen extends React.Component {
         this.state = {
             user: props.navigation.getParam('user', {}),
             isLoading: true,
-            dateSelected: '12',
+            dateSelected: '11',
             like: true,
             workshops: [],
             favoriteIds: [],
