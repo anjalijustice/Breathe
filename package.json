@@ -19,6 +19,7 @@
     "react-native-image-zoom-viewer": "^2.2.27",
     "react-native-modal": "^11.3.1",
     "react-native-reanimated": "^1.1.0",
+    "react-native-responsive-screen": "^1.4.0",
     "react-native-sqlite-storage": "^3.3.11",
     "react-native-web": "^0.11.4",
     "react-navigation": "^3.13.0",
@@ -31,7 +32,7 @@
   "private": true,
   "rnpm": {
     "assets": [
-   "./assets/fonts/"
+      "./assets/fonts/"
     ]
   }
 }
