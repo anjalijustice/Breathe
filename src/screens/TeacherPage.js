@@ -4,7 +4,6 @@
 
 import React from 'react';
 import {StyleSheet, View, Text, ScrollView, Button} from 'react-native';
-import { formatLocation } from '../utils/formatting';
 
 class TeacherScreen extends React.Component {
     static navigationOptions = {

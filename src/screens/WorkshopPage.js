@@ -18,15 +18,6 @@ class WorkshopScreen extends React.Component {
         }
     }
 
-    /*TODO:
-    1. Style event page (make sure to handle overflow)
-    2. Implement "add to favorites" button
-    3. Add teacher info (might need to separate things in database)
-    4. Make sure formatting in database matches desired formatting for info pages
-    5. Get pictures for event/instructors
-    6. Make remove_underscore function so location looks neater
-    */
-
     favorite = async (item) => {
         if (this.state.isFavorite) {
             this.deleteFavorite(item);
@@ -56,18 +47,21 @@ class WorkshopScreen extends React.Component {
         return(
             <ScrollView style={styles.container}>
                 <View style={styles.insideContainer}>
-                    <TouchableOpacity onPress={() => this.favorite(params.item)}>
-                        {this.state.isFavorite ? 
-                        <Image
-                            source={require('../../assets/img/liked.png')}
-                            style={styles.like}
-                        />
-                        :
-                        <Image
-                            source={require('../../assets/img/like.png')}
-                            style={styles.like}
-                        />}
-                    </TouchableOpacity>
+                    <View style={styles.favorite}>
+                        <TouchableOpacity onPress={() => this.favorite(params.item)}>
+                            {this.state.isFavorite ? 
+                            <Image
+                                source={require('../../assets/img/liked.png')}
+                                style={styles.like}
+                            />
+                            :
+                            <Image
+                                source={require('../../assets/img/like.png')}
+                                style={styles.like}
+                            />}
+                        </TouchableOpacity>
+                    </View>
+                    
                     <Text style={styles.title}>{params.item.title}</Text>
 
                     <Text style={styles.infoContainer}>

@@ -1,5 +1,6 @@
 import React from 'react';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import {StyleSheet, View, Text, ActivityIndicator } from 'react-native';
 import Services from '../services';
 =======
@@ -8,6 +9,11 @@ import {StyleSheet, View, Text } from 'react-native';
 
 //Page has teacher cards with name/pic? 
 //Click on the card takes you to a teachers page with all the workshops theyre teaching and bio
+=======
+import {StyleSheet, View, Text, ActivityIndicator, FlatList, TouchableOpacity, ImageBackground } from 'react-native';
+import Services from '../services';
+import TeacherCard from '../components/TeacherCard';
+>>>>>>> ScheduleCard and TeacherCard now in use
 
 export default class TeacerScreen extends React.Component {
     static navigationOptions = {
@@ -34,13 +40,7 @@ export default class TeacerScreen extends React.Component {
     _renderItem = ({item}) => {
         return (
             <View style={styles.list}>
-                <TouchableOpacity 
-                    style={styles.card}
-                    onPress={()=> this.onPress(item)}
-                >
-                    {/* Teacher Name */}
-                    <Text style={styles.cardText}>{item.fullName}</Text> 
-                </TouchableOpacity>
+                <TeacherCard item={item} navigation={this.props.navigation} user={this.state.user}/>
             </View>
         )
     }
@@ -57,14 +57,16 @@ export default class TeacerScreen extends React.Component {
         else{
             return(
             <View style={styles.container}>
-                <FlatList 
-                    contentInset={{bottom: 60}}
-                    contentContainerStyle={styles.flatList}
-                    data={this.state.data}
-                    keyExtractor={(item, index) => index.toString()}
-                    extraData={this.state}
-                    renderItem={(item) => this._renderItem(item, this.props)}
-                />
+                <ImageBackground source={require('../../assets/img/breathe5.jpg')} style={styles.backgroundImage}>
+                    <FlatList 
+                        contentInset={{bottom: 60}}
+                        contentContainerStyle={styles.flatList}
+                        data={this.state.data}
+                        keyExtractor={(item, index) => index.toString()}
+                        extraData={this.state}
+                        renderItem={(item) => this._renderItem(item, this.props)}
+                    />
+                </ImageBackground>
             </View>
             )
         }
@@ -83,10 +85,25 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+<<<<<<< HEAD
     text: {
         fontSize: 40,
         color: 'darkslategrey',
         fontFamily: 'chelseaMarketReg',
         textAlign: 'center'
     }
+=======
+    list: {
+        flex: 1,
+    },
+    flastList: {
+        opacity: 1,
+        flex: 1
+    },
+    backgroundImage: {
+        flex: 1,
+        width: '100%',
+        height: '100%',
+    },
+>>>>>>> ScheduleCard and TeacherCard now in use
 });

@@ -18,7 +18,12 @@ const RootStack = createStackNavigator(
     Map: MapScreen,
     Favorites: FavoritesScreen,
     Teachers: TeacherScreen,
+<<<<<<< HEAD
     Workshop: WorkshopScreen
+=======
+    Workshop: WorkshopScreen,
+    Teacher: TeacherInfo,
+>>>>>>> ScheduleCard and TeacherCard now in use
   },
   {
     initialRouteName: 'Home',
@@ -31,7 +36,8 @@ const RootStack = createStackNavigator(
       headerTitleStyle: {
         fontWeight: 'bold',
         fontSize: 32,
-        color: 'rgb(82, 141, 161)'
+        color: 'darkslategrey',
+        fontFamily: 'chelseaMarketReg',
       },
   },
 })

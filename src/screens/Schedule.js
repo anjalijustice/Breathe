@@ -3,13 +3,7 @@ import {StyleSheet, ImageBackground, View, FlatList, ActivityIndicator, Text, To
 import HorizontalCalendar from 'breathe/src/components/HorizontalCalendar';
 import { getDayFromDateTime, getTimeFromDateTime } from 'breathe/src/utils/dateTime';
 import Services from '../services';
-
-// Changes to test:
-// 1. Wrapped flatlist in a view with flex=1 and height=100%, maybe that will fix the scrolling issue
-// 2. fixCase function on event page
-// 3. Favorite buttons on event page (need to do styling)
-//      note: try to pass functions from schedule to event page so favorites functions dont need to be rewritten 
-
+import ScheduleCard from '../components/ScheduleCard';
 
 class ScheduleScreen extends React.Component {
     static navigationOptions = {
@@ -18,7 +12,6 @@ class ScheduleScreen extends React.Component {
 
     constructor(props) {
         super(props);
-
         this.state = {
             user: props.navigation.getParam('user', {}),
             isLoading: true,
@@ -56,42 +49,16 @@ class ScheduleScreen extends React.Component {
         })
     }
 
-    favorite = (item) => {
-        if (this.isFavorite(item)) {
-            this.deleteFavorite(item);
-        } else {
-            this.addFavorite(item);
-        }
-    }
-
-    addFavorite = async (item) => {
-        let userId = this.state.user.id;
-        let workshopId = item.id;
-        await Services.Favorites.createFavorite(userId, workshopId);
-
-        //Adding workshop into local state
-        let favoriteIds = this.state.favoriteIds;
-        favoriteIds.push(item.id);
-        //Need to add this workshop into the favorites object
+    add = async (item) => {
         this.setState({
-            favoriteIds: favoriteIds
+            favoriteIds: item
         })
     }
 
-    deleteFavorite = async (item) => {
-        let userId = this.state.user.id;
-        let workshopId = item.id;
-        await Services.Favorites.deleteFavorite(userId, workshopId);
-        
+    delete = async (item) => {
         this.setState({
-            //remove workshop from the favorites object
             favoriteIds: this.state.favoriteIds.filter((value, index, arr) => value != item.id)
-        });
-    }
-
-    // Want to check the database for favorites not the state
-    isFavorite = (item) => {
-        return this.state.favoriteIds.includes(item.id);
+        })
     }
 
     onPress = (item) => {
@@ -108,27 +75,11 @@ class ScheduleScreen extends React.Component {
         if(getDayFromDateTime(item.startTime) == this.state.dateSelected){
             return (
                 <View style={styles.list}>
-                    <TouchableOpacity 
-                        style={styles.card}
-                        onPress={()=> this.onPress(item)}
-                    >
-                        <Text style={styles.cardText}>{item.title}</Text>
-                        <Text style={styles.cardSubText}>{getTimeFromDateTime(item.startTime)} - {getTimeFromDateTime(item.endTime)}</Text>
-                        <View style={styles.favorite}>
-                            <TouchableOpacity onPress={() => this.favorite(item)}>
-                            {this.isFavorite(item) ? 
-                            <Image
-                            source={require('../../assets/img/liked.png')}
-                            style={styles.like}
-                            />
-                            :
-                            <Image
-                                source={require('../../assets/img/like.png')}
-                                style={styles.like}
-                            />}
-                            </TouchableOpacity>
-                        </View>
-                    </TouchableOpacity>
+                    <ScheduleCard item={item} navigation={this.props.navigation} 
+                    user={this.state.user} 
+                    favoriteIds={this.state.favoriteIds}
+                    delete={this.delete}
+                    add={this.add}/>
                 </View>
             )
         }
