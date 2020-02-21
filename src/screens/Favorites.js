@@ -111,7 +111,7 @@ export default class FavoritesScreen extends React.Component {
                 {/* Horizontal calendar component to select day, changes dateSelected state when pressed*/}
                 <HorizontalCalendar dateSelected={this.state.dateSelected} changeDate={this.changeDate}/>
                 
-                <ImageBackground source={require('../../assets/img/breathe6.jpg')} style={styles.backgroundImage}>
+                <ImageBackground source={require('../../assets/img/breathe4.jpg')} style={styles.backgroundImage}>
                 <FlatList 
                     contentInset={{bottom: 60}}
                     style={styles.flatList}

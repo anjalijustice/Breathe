@@ -90,7 +90,7 @@ class HomeScreen extends React.Component {
                 <TouchableOpacity
                 style={styles.buttons}
                 activeOpacity = { .5 }
-                onPress={() => this.props.navigation.navigate('AllTeachers')}
+                onPress={() => this.props.navigation.navigate('Teachers')}
                 >
                 <Text style={styles.TextStyle}> TEACHERS </Text>
                 </TouchableOpacity>
@@ -123,9 +123,7 @@ const styles = StyleSheet.create({
     },
     buttons: {
       borderRadius: 10,
-      // height: 60,
       height: hp('7%'),
-      // width: 320,
       width: wp('75%'),
       margin: 25,
       backgroundColor: 'rgb(82, 141, 161)',

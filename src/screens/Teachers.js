@@ -1,13 +1,11 @@
 import React from 'react';
-import {StyleSheet, View, Text, ActivityIndicator, FlatList, TouchableOpacity } from 'react-native';
+import {StyleSheet, View, Text, ActivityIndicator, FlatList, TouchableOpacity, ImageBackground } from 'react-native';
 import Services from '../services';
-
-//Page has teacher cards with name/pic? 
-//Click on the card takes you to a teachers page with all the workshops theyre teaching and bio
+import TeacherCard from '../components/TeacherCard';
 
 export default class TeacherScreen extends React.Component {
     static navigationOptions = {
-        title: 'AllTeachers',
+        title: 'Teachers',
     };
 
     constructor(props) {
@@ -37,13 +35,7 @@ export default class TeacherScreen extends React.Component {
     _renderItem = ({item}) => {
         return (
             <View style={styles.list}>
-                <TouchableOpacity 
-                    style={styles.card}
-                    onPress={()=> this.onPress(item)}
-                >
-                    {/* Teacher Name */}
-                    <Text style={styles.cardText}>{item.fullName}</Text> 
-                </TouchableOpacity>
+                <TeacherCard item={item} navigation={this.props.navigation} user={this.state.user}/>
             </View>
         )
     }
@@ -60,14 +52,16 @@ export default class TeacherScreen extends React.Component {
         else{
             return(
             <View style={styles.container}>
-                <FlatList 
-                    contentInset={{bottom: 60}}
-                    contentContainerStyle={styles.flatList}
-                    data={this.state.data}
-                    keyExtractor={(item, index) => index.toString()}
-                    extraData={this.state}
-                    renderItem={(item) => this._renderItem(item, this.props)}
-                />
+                <ImageBackground source={require('../../assets/img/breathe5.jpg')} style={styles.backgroundImage}>
+                    <FlatList 
+                        contentInset={{bottom: 60}}
+                        contentContainerStyle={styles.flatList}
+                        data={this.state.data}
+                        keyExtractor={(item, index) => index.toString()}
+                        extraData={this.state}
+                        renderItem={(item) => this._renderItem(item, this.props)}
+                    />
+                </ImageBackground>
             </View>
             )
         }
@@ -86,43 +80,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    text: {
-        fontSize: 40,
-        color: 'darkslategrey',
-        fontFamily: 'chelseaMarketReg',
-        textAlign: 'center'
-    },
     list: {
         flex: 1,
-        // paddingBottom: 5,
     },
     flastList: {
         opacity: 1,
         flex: 1
     },
-    card: {
-        backgroundColor: 'rgba(255,255,255,0.6)',
-        marginLeft: '2%',
-        width: '96%',
-        marginTop: 5,
-        marginBottom: 0,
-        shadowColor: '#000',
-        shadowOpacity: 0.2,
-        shadowRadius: 1,
-        shadowOffset: {
-        width: 3,
-        height: 3,
-        }
-    },
-    cardText: {
-        fontSize: 16,
-        padding: 10,
-        margin: 0,
-        opacity: 1,
-        textAlign: 'left',
-        color: 'darkslategrey',
-        opacity: 1,
-        fontFamily: 'chelseaMarketReg',
-        marginRight: 50,
+    backgroundImage: {
+        flex: 1,
+        width: '100%',
+        height: '100%',
     },
 });

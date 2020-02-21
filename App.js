@@ -18,7 +18,7 @@ const RootStack = createStackNavigator(
     Food: FoodScreen,
     Map: MapScreen,
     Favorites: FavoritesScreen,
-    AllTeachers: TeacherScreen,
+    Teachers: TeacherScreen,
     Workshop: WorkshopScreen,
     Teacher: TeacherInfo,
   },
@@ -33,7 +33,8 @@ const RootStack = createStackNavigator(
       headerTitleStyle: {
         fontWeight: 'bold',
         fontSize: 32,
-        color: 'rgb(82, 141, 161)'
+        color: 'darkslategrey',
+        fontFamily: 'chelseaMarketReg',
       },
   },
 })
