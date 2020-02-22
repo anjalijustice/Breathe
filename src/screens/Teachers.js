@@ -1,11 +1,9 @@
 import React from 'react';
-import {StyleSheet, View, Text, ActivityIndicator } from 'react-native';
+import {StyleSheet, View, Text, ActivityIndicator, FlatList, TouchableOpacity, ImageBackground } from 'react-native';
 import Services from '../services';
+import TeacherCard from '../components/TeacherCard';
 
-//Page has teacher cards with name/pic? 
-//Click on the card takes you to a teachers page with all the workshops theyre teaching and bio
-
-export default class TeacerScreen extends React.Component {
+export default class TeachersScreen extends React.Component {
     static navigationOptions = {
         title: 'Teachers',
     };
@@ -14,11 +12,12 @@ export default class TeacerScreen extends React.Component {
         super(props);
         this.state = {
             isLoading: true,
+            data: [],
         }
       }
 
     async componentWillMount () {
-        // this.fetchData();
+        this.fetchData();
         this.setState({ isLoading: false })
     }
  
@@ -26,20 +25,40 @@ export default class TeacerScreen extends React.Component {
         const teachers = await Services.Teachers.getTeachers();
         this.setState({ data: teachers });
     }
-    
-    render() {
+
+    _renderItem = ({item}) => {
         return (
-            this.state.isLoading ? 
+            <View style={styles.list}>
+                <TeacherCard item={item} navigation={this.props.navigation} user={this.state.user}/>
+            </View>
+        )
+    }
+
+    render() {
+        if(this.isLoading) {
+            return(
             <View style={styles.loader}>
                 <ActivityIndicator />
             </View>
-            :
+            )
+        }
+        else{
+            return(
             <View style={styles.container}>
-                <Text style={styles.text}>
-                    Teachers Coming Soon!!
-                </Text>
+                <ImageBackground source={require('../../assets/img/breathe5.jpg')} style={styles.backgroundImage}>
+                    <FlatList 
+                        contentInset={{bottom: 60}}
+                        contentContainerStyle={styles.flatList}
+                        data={this.state.data}
+                        keyExtractor={(item, index) => index.toString()}
+                        extraData={this.state}
+                        renderItem={(item) => this._renderItem(item)}
+                    />
+                </ImageBackground>
             </View>
-        )  
+            )
+        }
+       
     }
 }
 
@@ -54,10 +73,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    text: {
-        fontSize: 40,
-        color: 'darkslategrey',
-        fontFamily: 'chelseaMarketReg',
-        textAlign: 'center'
-    }
+    list: {
+        flex: 1,
+    },
+    flastList: {
+        opacity: 1,
+        flex: 1
+    },
+    backgroundImage: {
+        flex: 1,
+        width: '100%',
+        height: '100%',
+    },
 });

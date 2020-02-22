@@ -2,10 +2,10 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 export default class TeacherCard extends React.Component {
-    onPress = (item) => {
-        this.props.navigation.navigate('Teacher', {
+    onPress = (teacher) => {
+        this.props.navigation.navigate('TeacherInfo', {
             user: this.props.user,
-            item: item,
+            teacher: teacher,
         })
     }
 
