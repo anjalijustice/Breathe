@@ -83,9 +83,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginBottom: 5,
     },
-    favorite: {
-        
-    }
 
 });
 
