@@ -23,15 +23,29 @@ class ScheduleScreen extends React.Component {
     }
     
     async componentWillMount () {
-       this.fetchData();
+       await this.fetchData();
        this.fetchFavorites();
 
       this.setState({ isLoading: false });
     }
 
+    sortByDay(workshops) {
+        let workshopMap = {};
+        workshops.forEach(workshop => {
+            let day = getDayFromDateTime(workshop.startTime).toString();
+            if (day in workshopMap) {
+                workshopMap[day].push(workshop);
+            } else {
+                workshopMap[day] = [workshop];
+            }
+        });
+        return workshopMap;
+    }
+
     fetchData = async () => {
         const workshops = await Services.Workshops.getWorkshops();
-        this.setState({data: workshops});
+        const workshopMap = this.sortByDay(workshops);
+        this.setState({data: workshopMap});
     }
 
     fetchFavorites = async () => {
@@ -68,28 +82,26 @@ class ScheduleScreen extends React.Component {
     }
 
     _renderItem = ({item}) => {
-        if(getDayFromDateTime(item.startTime) == this.state.dateSelected){
-            return (
-                <View style={styles.list}>
-                    <ScheduleCard item={item} navigation={this.props.navigation} 
-                        user={this.state.user}
-                        isFavorite={this.isFavorite(item)}
-                        delete={this.delete}
-                        add={this.add}/>
-                </View>
-            )
-        }
+        return (
+            <View style={styles.list}>
+                <ScheduleCard item={item} navigation={this.props.navigation}
+                    user={this.state.user}
+                    isFavorite={this.isFavorite(item)}
+                    delete={this.delete}
+                    add={this.add}/>
+            </View>
+        )
     }
     
     render() {
-        if(this.isLoading) {
+        if (this.state.isLoading) {
             return(
             <View style={styles.loader}>
                 <ActivityIndicator />
             </View>
             )
         }
-        else{
+        else {
             return(
             <View style={styles.container}>
                 <HorizontalCalendar dateSelected={this.state.dateSelected} changeDate={this.changeDate}/>
@@ -97,7 +109,7 @@ class ScheduleScreen extends React.Component {
                         <FlatList 
                             contentInset={{bottom: 60}}
                             contentContainerStyle={styles.flatList}
-                            data={this.state.data}
+                            data={this.state.data[this.state.dateSelected] || []}
                             keyExtractor={(item, index) => index.toString()}
                             extraData={this.state}
                             renderItem={(item) => this._renderItem(item, this.props)}

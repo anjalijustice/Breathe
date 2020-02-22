@@ -20,17 +20,60 @@ export default class FavoritesScreen extends React.Component {
             user: props.navigation.getParam('user', {}),
             isLoading: true,
             dateSelected: '11',
-
         }
     }
     
-    componentWillMount () {
-       this.fetchData();
+    async componentWillMount () {
+       await this.fetchData();
+       this.setState({ isLoading: false });
+    }
+
+    sortByDay(favorites) {
+        let favoritesMap = {};
+        favorites.forEach(favorite => {
+            let day = getDayFromDateTime(favorite.startTime).toString();
+            if (day in favoritesMap) {
+                favoritesMap[day].push(favorite);
+            } else {
+                favoritesMap[day] = [favorite];
+            }
+        });
+        return favoritesMap;
     }
 
     fetchData = async () => {
         const favorites = await Services.Favorites.getFavoritesByUser(this.state.user.id);
-        this.setState({data: favorites, isLoading: false});
+        const favoritesMap = this.sortByDay(favorites);
+        this.setState({ data: favoritesMap });
+    }
+
+    isFavorite = (item) => {
+        let data = this.state.data[getDayFromDateTime(item.startTime)] || [];
+        return data.map(favorite => favorite.id).includes(item.id);
+    }
+
+    add = async (item) => {
+        let favorites = this.state.data[getDayFromDateTime(item.startTime)] || [];
+        favorites.push(item);
+        
+        let newData = this.state.data;
+        newData[getDayFromDateTime(item.startTime)] = favorites;
+
+        this.setState({
+            data: newData
+        })
+    }
+
+    delete = async (item) => {
+        let favorites = (this.state.data[getDayFromDateTime(item.startTime)] || [])
+            .filter((value, index, arr) => value.id != item.id);
+
+        let newData = this.state.data;
+        newData[getDayFromDateTime(item.startTime)] = favorites;
+
+        this.setState({
+            data: newData
+        });
     }
 
     changeDate = (date) => {
@@ -39,49 +82,27 @@ export default class FavoritesScreen extends React.Component {
         })
     }
 
-    isFavorite = (item) => {
-        return this.state.data.map(favorite => favorite.id).includes(item.id);
-    }
-
-    add = async (item) => {
-        let favorites = this.state.data;
-        favorites.push(item);
-        this.setState({
-            data: favorites
-        })
-    }
-
-    delete = async (item) => {
-        this.setState({
-            data: this.state.data
-                .filter((value, index, arr) => value.id != item.id)
-        })
-    }
-
-    //Function allows selective rendering based on a given condition (date in this case)
     _renderItem = ({item}) => {
-        if(getDayFromDateTime(item.startTime) == this.state.dateSelected){
-            return (
-                <View style={styles.list}>
-                    <ScheduleCard item={item} navigation={this.props.navigation}
-                        user={this.state.user}
-                        isFavorite={this.isFavorite(item)}
-                        delete={this.delete}
-                        add={this.add}/>
-                </View>
-            )
-        }
+        return (
+            <View style={styles.list}>
+                <ScheduleCard item={item} navigation={this.props.navigation}
+                    user={this.state.user}
+                    isFavorite={this.isFavorite(item)}
+                    delete={this.delete}
+                    add={this.add}/>
+            </View>
+        )
     }
     
     render() {
-        if(this.isLoading) {
+        if (this.state.isLoading) {
             return(
             <View style={styles.loader}>
                 <ActivityIndicator />
             </View>
             )
         }
-        else{
+        else {
             return(
             <View style={styles.container}>
                 {/* Horizontal calendar component to select day, changes dateSelected state when pressed*/}
@@ -91,7 +112,7 @@ export default class FavoritesScreen extends React.Component {
                 <FlatList 
                     contentInset={{bottom: 60}}
                     style={styles.flatList}
-                    data={this.state.data}
+                    data={this.state.data[this.state.dateSelected] || []}
                     keyExtractor={(item, index) => index.toString()}
                     extraData={this.state}
                     renderItem={(item) => this._renderItem(item, this.props)}
