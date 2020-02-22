@@ -63,7 +63,6 @@ export default class FavoritesScreen extends React.Component {
     }
 
     onPress = (item) => {
-<<<<<<< HEAD
         this.props.navigation.navigate('Workshop', {
             user: this.state.user,
             item: item,
@@ -71,9 +70,6 @@ export default class FavoritesScreen extends React.Component {
             addFavorite: this.addFavorite,
             deleteFavorite: this.deleteFavorite
         })
-=======
-        this.props.navigation.navigate('Workshop', {user: this.state.user, item: item})
->>>>>>> rename eventPage to workshopPage and fix navigation
     }
 
     //Function allows selective rendering based on a given condition (date in this case)
@@ -115,7 +111,7 @@ export default class FavoritesScreen extends React.Component {
                 {/* Horizontal calendar component to select day, changes dateSelected state when pressed*/}
                 <HorizontalCalendar dateSelected={this.state.dateSelected} changeDate={this.changeDate}/>
                 
-                <ImageBackground source={require('../../assets/img/breathe4.jpg')} style={styles.backgroundImage}>
+                <ImageBackground source={require('../../assets/img/breathe6.jpg')} style={styles.backgroundImage}>
                 <FlatList 
                     contentInset={{bottom: 60}}
                     style={styles.flatList}

@@ -1,5 +1,4 @@
 //Similar to workshop page, has main teacher info: bio/pics/workshops they teach
-<<<<<<< HEAD
 //Get here by clicking a teacher card on the teachers screen (Teachers.js)
 
 import React from 'react';
@@ -77,6 +76,3 @@ const styles = StyleSheet.create({
 });
 
 export default TeacherScreen
-=======
-//Get here by clicking a teacher card on the teachers screen (Teachers.js)
->>>>>>> Created teacherPage

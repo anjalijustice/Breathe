@@ -9,18 +9,10 @@ import Services from '../services';
 export default class ScheduleCard extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-        like: true,
-    }
   } 
 
-  isFavorite = (item) => {
-    return this.props.favoriteIds.includes(item.id);
-  }
-
   favorite = (item) => {
-    if (this.isFavorite(item)) {
+    if (this.props.isFavorite) {
         this.deleteFavorite(item);
     } else {
         this.addFavorite(item);
@@ -33,16 +25,16 @@ export default class ScheduleCard extends React.Component {
     await Services.Favorites.createFavorite(userId, workshopId);
 
     //Adding workshop into local state
-    let favoriteIds = this.props.favoriteIds;
-    favoriteIds.push(item.id);
-    //Need to add this workshop into the favorites object
-    this.props.add(favoriteIds)
+    this.props.isFavorite = true;
+    this.props.add(item);
   }
 
   deleteFavorite = async (item) => {
     let userId = this.props.user.id;
     let workshopId = item.id;
     await Services.Favorites.deleteFavorite(userId, workshopId);
+
+    this.props.isFavorite = false;
     this.props.delete(item)
   }
 
@@ -50,7 +42,7 @@ export default class ScheduleCard extends React.Component {
     this.props.navigation.navigate('Workshop', {
         user: this.props.user,
         item: item,
-        isFavorite: this.isFavorite(item),
+        isFavorite: this.props.isFavorite,
         addFavorite: this.addFavorite,
         deleteFavorite: this.deleteFavorite
     })
@@ -67,7 +59,7 @@ export default class ScheduleCard extends React.Component {
         <Text style={styles.cardSubText}>{getTimeFromDateTime(this.props.item.startTime)} - {getTimeFromDateTime(this.props.item.endTime)}</Text>
         <View style={styles.favorite}>
             <TouchableOpacity onPress={() => this.favorite(this.props.item)}>
-            {this.isFavorite(this.props.item) ? 
+            {this.props.isFavorite ?
             <Image
             source={require('../../assets/img/liked.png')}
             style={styles.like}

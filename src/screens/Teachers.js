@@ -1,19 +1,9 @@
 import React from 'react';
-<<<<<<< HEAD
-<<<<<<< HEAD
 import {StyleSheet, View, Text, ActivityIndicator } from 'react-native';
 import Services from '../services';
-=======
-import {StyleSheet, View, Text } from 'react-native';
->>>>>>> rename eventPage to workshopPage and fix navigation
 
 //Page has teacher cards with name/pic? 
 //Click on the card takes you to a teachers page with all the workshops theyre teaching and bio
-=======
-import {StyleSheet, View, Text, ActivityIndicator, FlatList, TouchableOpacity, ImageBackground } from 'react-native';
-import Services from '../services';
-import TeacherCard from '../components/TeacherCard';
->>>>>>> ScheduleCard and TeacherCard now in use
 
 export default class TeacerScreen extends React.Component {
     static navigationOptions = {
@@ -28,7 +18,7 @@ export default class TeacerScreen extends React.Component {
       }
 
     async componentWillMount () {
-        this.fetchData();
+        // this.fetchData();
         this.setState({ isLoading: false })
     }
  
@@ -37,40 +27,19 @@ export default class TeacerScreen extends React.Component {
         this.setState({ data: teachers });
     }
     
-    _renderItem = ({item}) => {
-        return (
-            <View style={styles.list}>
-                <TeacherCard item={item} navigation={this.props.navigation} user={this.state.user}/>
-            </View>
-        )
-    }
-
-
     render() {
-        if(this.isLoading) {
-            return(
+        return (
+            this.state.isLoading ? 
             <View style={styles.loader}>
                 <ActivityIndicator />
             </View>
-            )
-        }
-        else{
-            return(
+            :
             <View style={styles.container}>
-                <ImageBackground source={require('../../assets/img/breathe5.jpg')} style={styles.backgroundImage}>
-                    <FlatList 
-                        contentInset={{bottom: 60}}
-                        contentContainerStyle={styles.flatList}
-                        data={this.state.data}
-                        keyExtractor={(item, index) => index.toString()}
-                        extraData={this.state}
-                        renderItem={(item) => this._renderItem(item, this.props)}
-                    />
-                </ImageBackground>
+                <Text style={styles.text}>
+                    Teachers Coming Soon!!
+                </Text>
             </View>
-            )
-        }
-       
+        )  
     }
 }
 
@@ -85,25 +54,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-<<<<<<< HEAD
     text: {
         fontSize: 40,
         color: 'darkslategrey',
         fontFamily: 'chelseaMarketReg',
         textAlign: 'center'
     }
-=======
-    list: {
-        flex: 1,
-    },
-    flastList: {
-        opacity: 1,
-        flex: 1
-    },
-    backgroundImage: {
-        flex: 1,
-        width: '100%',
-        height: '100%',
-    },
->>>>>>> ScheduleCard and TeacherCard now in use
 });
