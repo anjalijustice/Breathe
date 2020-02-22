@@ -6,7 +6,8 @@ import {
   FoodScreen,
   MapScreen,
   FavoritesScreen,
-  TeacherScreen,
+  TeachersScreen,
+  TeacherInfo,
   WorkshopScreen,
 } from 'breathe/src/screens/';
 
@@ -17,8 +18,9 @@ const RootStack = createStackNavigator(
     Food: FoodScreen,
     Map: MapScreen,
     Favorites: FavoritesScreen,
-    Teachers: TeacherScreen,
-    Workshop: WorkshopScreen
+    Teachers: TeachersScreen,
+    TeacherInfo: TeacherInfo,
+    Workshop: WorkshopScreen,
   },
   {
     initialRouteName: 'Home',
@@ -31,7 +33,8 @@ const RootStack = createStackNavigator(
       headerTitleStyle: {
         fontWeight: 'bold',
         fontSize: 32,
-        color: 'rgb(82, 141, 161)'
+        color: 'darkslategrey',
+        fontFamily: 'chelseaMarketReg',
       },
   },
 })

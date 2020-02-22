@@ -1,15 +1,9 @@
 import React from 'react';
 import {StyleSheet, ImageBackground, View, FlatList, ActivityIndicator, Text, TouchableOpacity, Image, SafeAreaView} from 'react-native';
 import HorizontalCalendar from 'breathe/src/components/HorizontalCalendar';
-import { getDayFromDateTime, getTimeFromDateTime } from 'breathe/src/utils/dateTime';
+import { getDayFromDateTime } from 'breathe/src/utils/dateTime';
 import Services from '../services';
-
-// Changes to test:
-// 1. Wrapped flatlist in a view with flex=1 and height=100%, maybe that will fix the scrolling issue
-// 2. fixCase function on event page
-// 3. Favorite buttons on event page (need to do styling)
-//      note: try to pass functions from schedule to event page so favorites functions dont need to be rewritten 
-
+import ScheduleCard from '../components/ScheduleCard';
 
 class ScheduleScreen extends React.Component {
     static navigationOptions = {
@@ -18,7 +12,6 @@ class ScheduleScreen extends React.Component {
 
     constructor(props) {
         super(props);
-
         this.state = {
             user: props.navigation.getParam('user', {}),
             isLoading: true,
@@ -27,7 +20,6 @@ class ScheduleScreen extends React.Component {
             workshops: [],
             favoriteIds: [],
         }
-        this.onPress = this.onPress.bind(this);
     }
     
     async componentWillMount () {
@@ -56,51 +48,22 @@ class ScheduleScreen extends React.Component {
         })
     }
 
-    favorite = (item) => {
-        if (this.isFavorite(item)) {
-            this.deleteFavorite(item);
-        } else {
-            this.addFavorite(item);
-        }
+    isFavorite = (item) => {
+        return this.state.favoriteIds.includes(item.id);
     }
 
-    addFavorite = async (item) => {
-        let userId = this.state.user.id;
-        let workshopId = item.id;
-        await Services.Favorites.createFavorite(userId, workshopId);
-
-        //Adding workshop into local state
+    add = async (item) => {
         let favoriteIds = this.state.favoriteIds;
-        favoriteIds.push(item.id);
-        //Need to add this workshop into the favorites object
+        favoriteIds.push(item.id)
         this.setState({
             favoriteIds: favoriteIds
         })
     }
 
-    deleteFavorite = async (item) => {
-        let userId = this.state.user.id;
-        let workshopId = item.id;
-        await Services.Favorites.deleteFavorite(userId, workshopId);
-        
+    delete = async (item) => {
         this.setState({
-            //remove workshop from the favorites object
-            favoriteIds: this.state.favoriteIds.filter((value, index, arr) => value != item.id)
-        });
-    }
-
-    // Want to check the database for favorites not the state
-    isFavorite = (item) => {
-        return this.state.favoriteIds.includes(item.id);
-    }
-
-    onPress = (item) => {
-        this.props.navigation.navigate('Workshop', {
-            user: this.state.user,
-            item: item,
-            isFavorite: this.isFavorite(item),
-            addFavorite: this.addFavorite,
-            deleteFavorite: this.deleteFavorite
+            favoriteIds: this.state.favoriteIds
+                .filter((value, index, arr) => value != item.id)
         })
     }
 
@@ -108,27 +71,11 @@ class ScheduleScreen extends React.Component {
         if(getDayFromDateTime(item.startTime) == this.state.dateSelected){
             return (
                 <View style={styles.list}>
-                    <TouchableOpacity 
-                        style={styles.card}
-                        onPress={()=> this.onPress(item)}
-                    >
-                        <Text style={styles.cardText}>{item.title}</Text>
-                        <Text style={styles.cardSubText}>{getTimeFromDateTime(item.startTime)} - {getTimeFromDateTime(item.endTime)}</Text>
-                        <View style={styles.favorite}>
-                            <TouchableOpacity onPress={() => this.favorite(item)}>
-                            {this.isFavorite(item) ? 
-                            <Image
-                            source={require('../../assets/img/liked.png')}
-                            style={styles.like}
-                            />
-                            :
-                            <Image
-                                source={require('../../assets/img/like.png')}
-                                style={styles.like}
-                            />}
-                            </TouchableOpacity>
-                        </View>
-                    </TouchableOpacity>
+                    <ScheduleCard item={item} navigation={this.props.navigation} 
+                        user={this.state.user}
+                        isFavorite={this.isFavorite(item)}
+                        delete={this.delete}
+                        add={this.add}/>
                 </View>
             )
         }
@@ -186,49 +133,6 @@ const styles = StyleSheet.create({
         opacity: 1,
         flex: 1
     },
-    card: {
-        backgroundColor: 'rgba(255,255,255,0.6)',
-        marginLeft: '2%',
-        width: '96%',
-        marginTop: 5,
-        marginBottom: 0,
-        shadowColor: '#000',
-        shadowOpacity: 0.2,
-        shadowRadius: 1,
-        shadowOffset: {
-        width: 3,
-        height: 3,
-        }
-    },
-    cardText: {
-        fontSize: 16,
-        padding: 10,
-        margin: 0,
-        opacity: 1,
-        textAlign: 'left',
-        color: 'darkslategrey',
-        opacity: 1,
-        fontFamily: 'chelseaMarketReg',
-        marginRight: 50,
-    },
-    cardSubText: {
-        fontSize: 14,
-        textAlign: 'left',
-        color: 'darkslategrey',
-        opacity: 1,
-        fontFamily: 'chelseaMarketReg',
-        margin: 0,
-        marginLeft: 10,
-    },
-    favorite: {
-        bottom: '45%',
-        left: '90%',
-        margin: '-3%',
-    },
-    like: {
-        width: 30,
-        height: 30,
-    }
 });
 
 export default ScheduleScreen

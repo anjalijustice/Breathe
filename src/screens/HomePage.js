@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, ActivityIndicator } fr
 import Constants from 'expo-constants';
 import Services from 'breathe/src/services';
 import * as Font from 'expo-font';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 class LogoTitle extends React.Component {
     render() {
@@ -122,8 +123,8 @@ const styles = StyleSheet.create({
     },
     buttons: {
       borderRadius: 10,
-      height: 60,
-      width: 320,
+      height: hp('7%'),
+      width: wp('75%'),
       margin: 25,
       backgroundColor: 'rgb(82, 141, 161)',
       justifyContent: 'center',
@@ -142,12 +143,13 @@ const styles = StyleSheet.create({
     },
     buttonsContainer: {
       marginTop: '10%',
+      height: hp('80%'),
     },
     footer: {
       position: 'absolute',
       bottom: 0,
       width: '100%',
-      height: '15%',
+      height: hp('20%'),
     }
   });
 

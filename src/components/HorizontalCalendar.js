@@ -84,15 +84,20 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         fontSize: 16,
+        fontFamily: 'chelseaMarketReg',
+        color: 'darkslategrey',
         textAlign: 'center',
-        color: 'black'
     },
     buttonDay: {
         fontSize: 12,
         textAlign: 'center',
+        fontFamily: 'chelseaMarketReg',
+        color: 'darkslategrey',
     },
     monthText: {
         textAlign: 'center',
+        fontFamily: 'chelseaMarketReg',
+        color: 'darkslategrey',
         fontSize: 20,
         marginTop: 5,
         marginBottom: 0,
