@@ -1,7 +1,7 @@
 import React from 'react';
-import {StyleSheet, ImageBackground, View, FlatList, ActivityIndicator, Text, TouchableOpacity, Image, SafeAreaView} from 'react-native';
+import {StyleSheet, ImageBackground, View, FlatList, ActivityIndicator} from 'react-native';
 import HorizontalCalendar from 'breathe/src/components/HorizontalCalendar';
-import { getDayFromDateTime, getTimeFromDateTime } from 'breathe/src/utils/dateTime';
+import { getDayFromDateTime} from 'breathe/src/utils/dateTime';
 import Services from '../services';
 import ScheduleCard from '../components/ScheduleCard';
 
@@ -132,55 +132,11 @@ const styles = StyleSheet.create({
     },
     list: {
         flex: 1,
-        // paddingBottom: 5,
     },
     flastList: {
         opacity: 1,
         flex: 1
     },
-    card: {
-        backgroundColor: 'rgba(255,255,255,0.6)',
-        marginLeft: '2%',
-        width: '96%',
-        marginTop: 5,
-        marginBottom: 0,
-        shadowColor: '#000',
-        shadowOpacity: 0.2,
-        shadowRadius: 1,
-        shadowOffset: {
-        width: 3,
-        height: 3,
-        }
-    },
-    cardText: {
-        fontSize: 16,
-        padding: 10,
-        margin: 0,
-        opacity: 1,
-        textAlign: 'left',
-        color: 'darkslategrey',
-        opacity: 1,
-        fontFamily: 'chelseaMarketReg',
-        marginRight: 50,
-    },
-    cardSubText: {
-        fontSize: 14,
-        textAlign: 'left',
-        color: 'darkslategrey',
-        opacity: 1,
-        fontFamily: 'chelseaMarketReg',
-        margin: 0,
-        marginLeft: 10,
-    },
-    favorite: {
-        bottom: '45%',
-        left: '90%',
-        margin: '-3%',
-    },
-    like: {
-        width: 30,
-        height: 30,
-    }
 });
 
 export default ScheduleScreen

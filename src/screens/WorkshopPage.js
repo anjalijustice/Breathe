@@ -54,6 +54,7 @@ class WorkshopScreen extends React.Component {
         return(
             <ScrollView style={styles.container}>
                 <View style={styles.insideContainer}>
+                    <Text style={styles.title}>{params.item.title}</Text>
                     <View style={styles.favorite}>
                         <TouchableOpacity onPress={() => this.favorite(params.item)}>
                             {this.state.isFavorite ? 
@@ -68,12 +69,9 @@ class WorkshopScreen extends React.Component {
                             />}
                         </TouchableOpacity>
                     </View>
-                    
-                    <Text style={styles.title}>{params.item.title}</Text>
-
                     <Text style={styles.infoContainer}>
                         <Text style={styles.infoHeader}>Teacher: </Text>
-                        <Text style={styles.info} onPress={() => this.teacherPress(params.item.primaryInstructor)}>
+                        <Text style={styles.TeachInfo} onPress={() => this.teacherPress(params.item.primaryInstructor)}>
                             {params.item.primaryInstructor.fullName}</Text>
                     </Text>
 
@@ -142,7 +140,15 @@ const styles = StyleSheet.create({
 
     },
     TeachInfo: {
+        fontSize: 16,
+        marginBottom: 5,
+        fontFamily: 'neutraDisplay',
         color: 'darkslategrey',
+        textDecorationLine: 'underline',
+    },
+    favorite: {
+        alignItems: 'center',
+        margin: 0,
     },
     like: {
         width: 30,
