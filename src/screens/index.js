@@ -4,7 +4,6 @@ import FoodScreen from 'breathe/src/screens/FoodSharing';
 import MapScreen from 'breathe/src/screens/Map';
 import FavoritesScreen from 'breathe/src/screens/Favorites';
 import TeachersScreen from 'breathe/src/screens/Teachers';
-import TeacherInfo from 'breathe/src/screens/TeacherInfo';
 import WorkshopScreen from 'breathe/src/screens/Workshop';
 
 export {
@@ -14,6 +13,5 @@ export {
     MapScreen,
     FavoritesScreen,
     TeachersScreen,
-    TeacherInfo,
     WorkshopScreen,
 }

@@ -1,7 +1,7 @@
 import React from 'react';
-import {StyleSheet, ImageBackground, View, FlatList, ActivityIndicator, Text, TouchableOpacity, Image, SafeAreaView} from 'react-native';
+import {StyleSheet, ImageBackground, View, FlatList, ActivityIndicator} from 'react-native';
 import HorizontalCalendar from 'breathe/src/components/HorizontalCalendar';
-import { getDayFromDateTime } from 'breathe/src/utils/dateTime';
+import { getDayFromDateTime} from 'breathe/src/utils/dateTime';
 import Services from '../services';
 import ScheduleCard from '../components/ScheduleCard';
 
@@ -48,22 +48,25 @@ class ScheduleScreen extends React.Component {
         })
     }
 
-    isFavorite = (item) => {
-        return this.state.favoriteIds.includes(item.id);
-    }
-
     add = async (item) => {
-        let favoriteIds = this.state.favoriteIds;
-        favoriteIds.push(item.id)
         this.setState({
-            favoriteIds: favoriteIds
+            favoriteIds: item
         })
     }
 
     delete = async (item) => {
         this.setState({
-            favoriteIds: this.state.favoriteIds
-                .filter((value, index, arr) => value != item.id)
+            favoriteIds: this.state.favoriteIds.filter((value, index, arr) => value != item.id)
+        })
+    }
+
+    onPress = (item) => {
+        this.props.navigation.navigate('Workshop', {
+            user: this.state.user,
+            item: item,
+            isFavorite: this.isFavorite(item),
+            addFavorite: this.addFavorite,
+            deleteFavorite: this.deleteFavorite
         })
     }
 
@@ -72,10 +75,10 @@ class ScheduleScreen extends React.Component {
             return (
                 <View style={styles.list}>
                     <ScheduleCard item={item} navigation={this.props.navigation} 
-                        user={this.state.user}
-                        isFavorite={this.isFavorite(item)}
-                        delete={this.delete}
-                        add={this.add}/>
+                    user={this.state.user} 
+                    favoriteIds={this.state.favoriteIds}
+                    delete={this.delete}
+                    add={this.add}/>
                 </View>
             )
         }
