@@ -1,11 +1,7 @@
-import React from 'react';
-import {StyleSheet, ImageBackground, View, FlatList, ActivityIndicator, Text, TouchableOpacity, Image, SafeAreaView} from 'react-native';
-import HorizontalCalendar from 'breathe/src/components/HorizontalCalendar';
-import { getDayFromDateTime } from 'breathe/src/utils/dateTime';
 import Services from '../services';
-import ScheduleCard from '../components/ScheduleCard';
+import WorkshopsView from './WorkshopsView';
 
-class ScheduleScreen extends React.Component {
+class ScheduleScreen extends WorkshopsView {
     static navigationOptions = {
         title: 'Schedule',
     };
@@ -21,28 +17,10 @@ class ScheduleScreen extends React.Component {
             favoriteIds: [],
         }
     }
-    
-    async componentWillMount () {
-       await this.fetchData();
-       this.fetchFavorites();
-
-      this.setState({ isLoading: false });
-    }
-
-    sortByDay(workshops) {
-        let workshopMap = {};
-        workshops.forEach(workshop => {
-            let day = getDayFromDateTime(workshop.startTime).toString();
-            if (day in workshopMap) {
-                workshopMap[day].push(workshop);
-            } else {
-                workshopMap[day] = [workshop];
-            }
-        });
-        return workshopMap;
-    }
 
     fetchData = async () => {
+        this.fetchFavorites();
+
         const workshops = await Services.Workshops.getWorkshops();
         const workshopMap = this.sortByDay(workshops);
         this.setState({data: workshopMap});
@@ -54,12 +32,6 @@ class ScheduleScreen extends React.Component {
         this.setState({
             favoriteIds: favoriteIds
         });
-    }
-
-    changeDate = (date) => {
-        this.setState({
-            dateSelected: date,
-        })
     }
 
     isFavorite = (item) => {
@@ -80,71 +52,6 @@ class ScheduleScreen extends React.Component {
                 .filter((value, index, arr) => value != item.id)
         })
     }
-
-    _renderItem = ({item}) => {
-        return (
-            <View style={styles.list}>
-                <ScheduleCard item={item} navigation={this.props.navigation}
-                    user={this.state.user}
-                    isFavorite={this.isFavorite(item)}
-                    delete={this.delete}
-                    add={this.add}/>
-            </View>
-        )
-    }
-    
-    render() {
-        if (this.state.isLoading) {
-            return(
-            <View style={styles.loader}>
-                <ActivityIndicator />
-            </View>
-            )
-        }
-        else {
-            return(
-            <View style={styles.container}>
-                <HorizontalCalendar dateSelected={this.state.dateSelected} changeDate={this.changeDate}/>
-                <ImageBackground source={require('../../assets/img/breathe6.jpg')} style={styles.backgroundImage}>
-                        <FlatList 
-                            contentInset={{bottom: 60}}
-                            contentContainerStyle={styles.flatList}
-                            data={this.state.data[this.state.dateSelected] || []}
-                            keyExtractor={(item, index) => index.toString()}
-                            extraData={this.state}
-                            renderItem={(item) => this._renderItem(item, this.props)}
-                        />
-                </ImageBackground>
-            </View>
-            )
-        }
-       
-    }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        backgroundColor: 'rgb(220, 230, 232)',
-    },
-    loader: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    backgroundImage: {
-        flex: 1,
-        width: '100%',
-        height: '100%',
-    },
-    list: {
-        flex: 1,
-    },
-    flastList: {
-        opacity: 1,
-        flex: 1
-    },
-});
-
-export default ScheduleScreen
+export default ScheduleScreen;
