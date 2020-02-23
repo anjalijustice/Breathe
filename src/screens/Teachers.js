@@ -3,7 +3,11 @@ import {StyleSheet, View, Text, ActivityIndicator, FlatList, TouchableOpacity, I
 import Services from '../services';
 import TeacherCard from '../components/TeacherCard';
 
+<<<<<<< HEAD
 export default class TeacherScreen extends React.Component {
+=======
+export default class TeachersScreen extends React.Component {
+>>>>>>> 88c52f3ead52b20572e2ca1a848293f087c106b6
     static navigationOptions = {
         title: 'Teachers',
     };
@@ -12,7 +16,11 @@ export default class TeacherScreen extends React.Component {
         super(props);
         this.state = {
             isLoading: true,
+<<<<<<< HEAD
             teachers: [],
+=======
+            data: [],
+>>>>>>> 88c52f3ead52b20572e2ca1a848293f087c106b6
         }
       }
 
@@ -26,12 +34,15 @@ export default class TeacherScreen extends React.Component {
         this.setState({ data: teachers });
     }
 
+<<<<<<< HEAD
     onPress = (item) => {
         this.props.navigation.navigate('Teacher', {
             user: this.state.user,
             item: item,
         })
     }
+=======
+>>>>>>> 88c52f3ead52b20572e2ca1a848293f087c106b6
     _renderItem = ({item}) => {
         return (
             <View style={styles.list}>
@@ -40,7 +51,10 @@ export default class TeacherScreen extends React.Component {
         )
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 88c52f3ead52b20572e2ca1a848293f087c106b6
     render() {
         if(this.isLoading) {
             return(
@@ -59,7 +73,11 @@ export default class TeacherScreen extends React.Component {
                         data={this.state.data}
                         keyExtractor={(item, index) => index.toString()}
                         extraData={this.state}
+<<<<<<< HEAD
                         renderItem={(item) => this._renderItem(item, this.props)}
+=======
+                        renderItem={(item) => this._renderItem(item)}
+>>>>>>> 88c52f3ead52b20572e2ca1a848293f087c106b6
                     />
                 </ImageBackground>
             </View>

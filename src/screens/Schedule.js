@@ -1,7 +1,11 @@
 import React from 'react';
 import {StyleSheet, ImageBackground, View, FlatList, ActivityIndicator} from 'react-native';
 import HorizontalCalendar from 'breathe/src/components/HorizontalCalendar';
+<<<<<<< HEAD
 import { getDayFromDateTime} from 'breathe/src/utils/dateTime';
+=======
+import { getDayFromDateTime } from 'breathe/src/utils/dateTime';
+>>>>>>> 88c52f3ead52b20572e2ca1a848293f087c106b6
 import Services from '../services';
 import ScheduleCard from '../components/ScheduleCard';
 
@@ -20,7 +24,6 @@ class ScheduleScreen extends React.Component {
             workshops: [],
             favoriteIds: [],
         }
-        this.onPress = this.onPress.bind(this);
     }
     
     async componentWillMount () {
@@ -49,7 +52,17 @@ class ScheduleScreen extends React.Component {
         })
     }
 
+<<<<<<< HEAD
     add = async (item) => {
+=======
+    isFavorite = (item) => {
+        return this.state.favoriteIds.includes(item.id);
+    }
+
+    add = async (item) => {
+        let favoriteIds = this.state.favoriteIds;
+        favoriteIds.push(item.id)
+>>>>>>> 88c52f3ead52b20572e2ca1a848293f087c106b6
         this.setState({
             favoriteIds: item
         })
@@ -57,6 +70,7 @@ class ScheduleScreen extends React.Component {
 
     delete = async (item) => {
         this.setState({
+<<<<<<< HEAD
             favoriteIds: this.state.favoriteIds.filter((value, index, arr) => value != item.id)
         })
     }
@@ -68,6 +82,10 @@ class ScheduleScreen extends React.Component {
             isFavorite: this.isFavorite(item),
             addFavorite: this.addFavorite,
             deleteFavorite: this.deleteFavorite
+=======
+            favoriteIds: this.state.favoriteIds
+                .filter((value, index, arr) => value != item.id)
+>>>>>>> 88c52f3ead52b20572e2ca1a848293f087c106b6
         })
     }
 
@@ -76,10 +94,17 @@ class ScheduleScreen extends React.Component {
             return (
                 <View style={styles.list}>
                     <ScheduleCard item={item} navigation={this.props.navigation} 
+<<<<<<< HEAD
                     user={this.state.user} 
                     favoriteIds={this.state.favoriteIds}
                     delete={this.delete}
                     add={this.add}/>
+=======
+                        user={this.state.user}
+                        isFavorite={this.isFavorite(item)}
+                        delete={this.delete}
+                        add={this.add}/>
+>>>>>>> 88c52f3ead52b20572e2ca1a848293f087c106b6
                 </View>
             )
         }

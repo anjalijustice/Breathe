@@ -9,6 +9,7 @@ import Services from '../services';
 export default class ScheduleCard extends React.Component {
   constructor(props) {
     super(props);
+<<<<<<< HEAD
 
     this.state = {
         like: true,
@@ -21,6 +22,12 @@ export default class ScheduleCard extends React.Component {
 
   favorite = (item) => {
     if (this.isFavorite(item)) {
+=======
+  } 
+
+  favorite = (item) => {
+    if (this.props.isFavorite) {
+>>>>>>> 88c52f3ead52b20572e2ca1a848293f087c106b6
         this.deleteFavorite(item);
     } else {
         this.addFavorite(item);
@@ -33,6 +40,7 @@ export default class ScheduleCard extends React.Component {
     await Services.Favorites.createFavorite(userId, workshopId);
 
     //Adding workshop into local state
+<<<<<<< HEAD
     let favoriteIds = this.props.favoriteIds;
     favoriteIds.push(item.id);
     //Need to add this workshop into the favorites object
@@ -46,11 +54,30 @@ export default class ScheduleCard extends React.Component {
     this.props.delete(item)
   }
 
+=======
+    this.props.isFavorite = true;
+    this.props.add(item);
+  }
+
+  deleteFavorite = async (item) => {
+    let userId = this.props.user.id;
+    let workshopId = item.id;
+    await Services.Favorites.deleteFavorite(userId, workshopId);
+
+    this.props.isFavorite = false;
+    this.props.delete(item)
+  }
+
+>>>>>>> 88c52f3ead52b20572e2ca1a848293f087c106b6
   onPress = (item) => {
     this.props.navigation.navigate('Workshop', {
         user: this.props.user,
         item: item,
+<<<<<<< HEAD
         isFavorite: this.isFavorite(item),
+=======
+        isFavorite: this.props.isFavorite,
+>>>>>>> 88c52f3ead52b20572e2ca1a848293f087c106b6
         addFavorite: this.addFavorite,
         deleteFavorite: this.deleteFavorite
     })
@@ -67,7 +94,11 @@ export default class ScheduleCard extends React.Component {
         <Text style={styles.cardSubText}>{getTimeFromDateTime(this.props.item.startTime)} - {getTimeFromDateTime(this.props.item.endTime)}</Text>
         <View style={styles.favorite}>
             <TouchableOpacity onPress={() => this.favorite(this.props.item)}>
+<<<<<<< HEAD
             {this.isFavorite(this.props.item) ? 
+=======
+            {this.props.isFavorite ?
+>>>>>>> 88c52f3ead52b20572e2ca1a848293f087c106b6
             <Image
             source={require('../../assets/img/liked.png')}
             style={styles.like}
@@ -119,6 +150,7 @@ cardText: {
     opacity: 1,
     textAlign: 'left',
     color: 'darkslategrey',
+<<<<<<< HEAD
     opacity: 1,
     fontFamily: 'chelseaMarketReg',
     marginRight: 50,
@@ -129,6 +161,18 @@ cardSubText: {
     color: 'darkslategrey',
     opacity: 1,
     fontFamily: 'chelseaMarketReg',
+=======
+    opacity: 1,
+    fontFamily: 'chelseaMarketReg',
+    marginRight: 50,
+},
+cardSubText: {
+    fontSize: 14,
+    textAlign: 'left',
+    color: 'darkslategrey',
+    opacity: 1,
+    fontFamily: 'chelseaMarketReg',
+>>>>>>> 88c52f3ead52b20572e2ca1a848293f087c106b6
     margin: 0,
     marginLeft: 10,
 },

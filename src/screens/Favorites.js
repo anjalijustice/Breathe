@@ -1,8 +1,9 @@
 import React from 'react';
 import {StyleSheet, ImageBackground, View, FlatList, ActivityIndicator, Text, TouchableOpacity, Image} from 'react-native';
 import HorizontalCalendar from 'breathe/src/components/HorizontalCalendar';
-import { getDayFromDateTime, getTimeFromDateTime } from 'breathe/src/utils/dateTime'
+import { getDayFromDateTime } from 'breathe/src/utils/dateTime'
 import Services from 'breathe/src/services';
+import ScheduleCard from '../components/ScheduleCard';
 
 //When you click on the workshop the button at the bottom says "add to favorites" even though its already in the favorites page
     //need to make that dynamic so that it says "remove from favorites" if its already in favorites
@@ -19,6 +20,7 @@ export default class FavoritesScreen extends React.Component {
             user: props.navigation.getParam('user', {}),
             isLoading: true,
             dateSelected: '11',
+
         }
     }
     
@@ -37,38 +39,22 @@ export default class FavoritesScreen extends React.Component {
         })
     }
 
-    addFavorite = async (item) => {
-        let userId = this.state.user.id;
-        let workshopId = item.id;
-        await Services.Favorites.createFavorite(userId, workshopId);
+    isFavorite = (item) => {
+        return this.state.data.map(favorite => favorite.id).includes(item.id);
+    }
 
-        //Adding workshop into local state
-        let favoriteIds = this.state.favoriteIds;
-        favoriteIds.push(item.id);
-        //Need to add this workshop into the favorites object
+    add = async (item) => {
+        let favorites = this.state.data;
+        favorites.push(item);
         this.setState({
-            favoriteIds: favoriteIds
+            data: favorites
         })
     }
 
-    deleteFavorite = async (item) => {
-        let userId = this.state.user.id;
-        let workshopId = item.id;
-        await Services.Favorites.deleteFavorite(userId, workshopId);
+    delete = async (item) => {
         this.setState({
-            data: this.state.data.filter(function(value, index, arr) {
-                return value.id != item.id;
-            })
-        });
-    }
-
-    onPress = (item) => {
-        this.props.navigation.navigate('Workshop', {
-            user: this.state.user,
-            item: item,
-            isFavorite: true,
-            addFavorite: this.addFavorite,
-            deleteFavorite: this.deleteFavorite
+            data: this.state.data
+                .filter((value, index, arr) => value.id != item.id)
         })
     }
 
@@ -77,21 +63,11 @@ export default class FavoritesScreen extends React.Component {
         if(getDayFromDateTime(item.startTime) == this.state.dateSelected){
             return (
                 <View style={styles.list}>
-                    <TouchableOpacity 
-                        style={styles.card}
-                        onPress={()=> this.onPress(item)}
-                    >
-                        <Text style={styles.cardText}>{item.title}</Text>
-                        <Text style={styles.cardSubText}>{getTimeFromDateTime(item.startTime)} - {getTimeFromDateTime(item.endTime)}</Text>  
-                        <View style={styles.favorite}>
-                            <TouchableOpacity onPress={() => this.deleteFavorite(item)}>
-                                <Image
-                                    source={require('../../assets/img/liked.png')}
-                                    style={styles.like}
-                                /> 
-                            </TouchableOpacity> 
-                        </View>
-                    </TouchableOpacity>
+                    <ScheduleCard item={item} navigation={this.props.navigation}
+                        user={this.state.user}
+                        isFavorite={this.isFavorite(item)}
+                        delete={this.delete}
+                        add={this.add}/>
                 </View>
             )
         }
