@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, ImageBackground, View, FlatList, ActivityIndicator, Text, TouchableOpacity, Image, SafeAreaView} from 'react-native';
+import {StyleSheet, ImageBackground, View, FlatList, ActivityIndicator} from 'react-native';
 import HorizontalCalendar from 'breathe/src/components/HorizontalCalendar';
 import { getDayFromDateTime } from 'breathe/src/utils/dateTime';
 import Services from '../services';
