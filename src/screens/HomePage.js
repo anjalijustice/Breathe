@@ -1,9 +1,20 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { 
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  ActivityIndicator
+} from 'react-native';
 import Constants from 'expo-constants';
 import Services from 'breathe/src/services';
 import * as Font from 'expo-font';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from 'react-native-responsive-screen';
+import { sortByDay } from 'breathe/src/utils/dateTime';
 
 class LogoTitle extends React.Component {
     render() {
@@ -20,18 +31,33 @@ class HomeScreen extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
+        workshopMap: {},
+        teachers: [],
         isLoading: true
       };
     }  
 
     async componentWillMount () {
-      this.getOrCreateUser();
+      this.fetchData();
+      this.fetchTeachers();
+      await this.getOrCreateUser();
       await Font.loadAsync({
         'neutraDisplay': require('breathe/assets/fonts/NeutraDisplayDraft.otf'),
         'chelseaMarketReg': require('breathe/assets/fonts/ChelseaMarket-Regular.ttf'),
       });
 
       this.setState({ isLoading: false });
+    }
+
+    async fetchData() {
+      const workshops = await Services.Workshops.getWorkshops();
+      const workshopMap = sortByDay(workshops);
+      this.setState({ workshopMap: workshopMap })
+    }
+
+    async fetchTeachers() {
+      const teachers = await Services.Teachers.getTeachers();
+      this.setState({ teachers: teachers });
     }
 
     async getOrCreateUser() {
@@ -62,7 +88,7 @@ class HomeScreen extends React.Component {
                 <TouchableOpacity
                 style={styles.buttons}
                 activeOpacity = { .5 }
-                onPress={() => this.props.navigation.navigate('Schedule', {user: this.state.user})}
+                onPress={() => this.props.navigation.navigate('Schedule', {user: this.state.user, workshopMap: this.state.workshopMap })}
                 >
                 <Text style={styles.TextStyle}> SCHEDULE </Text>       
                 </TouchableOpacity>
@@ -90,7 +116,7 @@ class HomeScreen extends React.Component {
                 <TouchableOpacity
                 style={styles.buttons}
                 activeOpacity = { .5 }
-                onPress={() => this.props.navigation.navigate('Teachers')}
+                onPress={() => this.props.navigation.navigate('Teachers', {teachers: this.state.teachers})}
                 >
                 <Text style={styles.TextStyle}> TEACHERS </Text>
                 </TouchableOpacity>
