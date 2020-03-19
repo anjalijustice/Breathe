@@ -2,11 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import { getTimeFromDateTime } from '../../src/utils/dateTime';
 import Services from '../services';
-import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
-import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
-
-//Need to edit a lot: move all card info from schedule screen into Schedule Card component for better readabilitly 
-//Currently this component is unused and all the info is directly in schedule.js
+import { heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import { RFValue } from "react-native-responsive-fontsize";
 
 export default class ScheduleCard extends React.Component {
   constructor(props) {
@@ -56,8 +53,10 @@ export default class ScheduleCard extends React.Component {
         style={styles.card}
         onPress={() => this.onPress(this.props.item)}
       >
-        <Text style={styles.cardText}>{this.props.item.title}</Text>
-        <Text style={styles.cardSubText}>{getTimeFromDateTime(this.props.item.startTime)} - {getTimeFromDateTime(this.props.item.endTime)}</Text>
+        <View style={styles.text}>
+          <Text style={styles.cardText}>{this.props.item.title}</Text>
+          <Text style={styles.cardSubText}>{getTimeFromDateTime(this.props.item.startTime)} - {getTimeFromDateTime(this.props.item.endTime)}</Text>
+        </View>
         <View style={styles.favorite}>
             <TouchableOpacity onPress={() => this.favorite(this.props.item)}>
             {this.props.isFavorite ?
@@ -80,9 +79,8 @@ export default class ScheduleCard extends React.Component {
 const styles = StyleSheet.create({
   card: {
     backgroundColor: 'white',
-    marginLeft: '2%',
-    width: widthPercentageToDP('96%'),
-    height: heightPercentageToDP('11%'),
+    width: wp('96%'),
+    height: hp('11%'),
     marginTop: 5,
     marginBottom: 0,
     justifyContent: 'center',
@@ -94,33 +92,29 @@ const styles = StyleSheet.create({
     height: 3,
     }
 },
-cardText: {
+  text: {
+    position: 'absolute',
+    marginLeft: 10,
+    textAlign: 'left'
+},
+  cardText: {
     fontSize: RFValue(16),
-    opacity: 1,
-    textAlign: 'left',
     color: '#5d8da0',
-    opacity: 1,
     fontFamily: 'helvetica77',
-    marginRight: 50,
-    marginLeft: 10,
-    marginTop: '5%',
+    marginRight: 55,
 },
-cardSubText: {
+  cardSubText: {
     fontSize: RFValue(14),
-    textAlign: 'left',
     color: '#5d8da0',
-    opacity: 1,
     fontFamily: 'helvetica57',
-    marginLeft: 10,
 },
-favorite: {
-    bottom: '45%',
+  favorite: {
+    position: 'absolute',
     left: '90%',
-    margin: '-3%',
 },
-like: {
-    width: 30,
-    height: 30,
+  like: {
+    width: wp('6%'),
+    height: hp('4%'),
 }
 
 });

@@ -3,7 +3,7 @@ import WorkshopsView from './WorkshopsView';
 
 class ScheduleScreen extends WorkshopsView {
     static navigationOptions = {
-        title: 'Schedule',
+        title: 'SCHEDULE',
     };
 
     constructor(props) {

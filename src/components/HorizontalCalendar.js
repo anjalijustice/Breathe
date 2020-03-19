@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { RFValue } from "react-native-responsive-fontsize";
 
 export default class HorizontalCalendar extends React.Component {
     constructor(props) {
@@ -69,26 +70,26 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     buttonText: {
-        fontSize: 20,
+        fontSize: RFValue(24),
         fontFamily: 'helvetica77',
         color: 'white',
         textAlign: 'center',
 
     },
     textSelected: {
-        fontSize: 20,
+        fontSize: RFValue(24),
         textAlign: 'center',
         color: '#fac6c4',
         fontFamily: 'helvetica77',
     },
     buttonDay: {
-        fontSize: 18,
+        fontSize: RFValue(20),
         textAlign: 'center',
         fontFamily: 'helvetica77',
         color: 'white',
     },
     daySelected: {
-        fontSize: 18,
+        fontSize: RFValue(20),
         textAlign: 'center',
         color: '#fac6c4',
         fontFamily: 'helvetica77',
@@ -97,7 +98,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontFamily: 'helvetica77',
         color: '#fac6c4',
-        fontSize: 20,
+        fontSize: RFValue(22),
         marginTop: 8,
         marginBottom: 0,
     }

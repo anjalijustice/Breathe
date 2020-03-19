@@ -3,7 +3,7 @@ import {StyleSheet, View, Image, Text, Modal } from 'react-native';
 // import Modal from 'react-native-modal';
 class MapScreen extends React.Component {
     static navigationOptions = {
-        title: 'Map',
+        title: 'MAP',
     };
 
     constructor(props) {

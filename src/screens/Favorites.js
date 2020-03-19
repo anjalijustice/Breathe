@@ -8,7 +8,7 @@ import { sortByDay } from 'breathe/src/utils/dateTime';
 
 export default class FavoritesScreen extends WorkshopsView {
     static navigationOptions = {
-        title: 'Favorites',
+        title: 'FAVORITES',
     };
 
     constructor(props) {

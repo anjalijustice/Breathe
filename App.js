@@ -17,11 +17,11 @@ import {
 const RootStack = createStackNavigator(
   {
     Home: HomeScreen,
-    Schedule: ScheduleScreen,
+    SCHEDULE: ScheduleScreen,
     Food: FoodScreen,
-    Map: MapScreen,
-    Favorites: FavoritesScreen,
-    Teachers: TeachersScreen,
+    MAP: MapScreen,
+    FAVORITES: FavoritesScreen,
+    TEACHERS: TeachersScreen,
     TeacherInfo: TeacherInfo,
     Workshop: WorkshopScreen,
   },
