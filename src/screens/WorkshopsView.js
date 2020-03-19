@@ -55,16 +55,14 @@ class WorkshopsView extends React.Component {
             return(
             <View style={styles.container}>
                 <HorizontalCalendar dateSelected={this.state.dateSelected} changeDate={this.changeDate}/>
-                <ImageBackground source={require('../../assets/img/breathe6.jpg')} style={styles.backgroundImage}>
-                        <FlatList 
-                            contentInset={{bottom: 60}}
-                            contentContainerStyle={styles.flatList}
-                            data={this.state.data[this.state.dateSelected] || []}
-                            keyExtractor={(item, index) => index.toString()}
-                            extraData={this.state}
-                            renderItem={(item) => this._renderItem(item, this.props)}
-                        />
-                </ImageBackground>
+                    <FlatList 
+                        contentInset={{bottom: 60}}
+                        contentContainerStyle={styles.flatList}
+                        data={this.state.data[this.state.dateSelected] || []}
+                        keyExtractor={(item, index) => index.toString()}
+                        extraData={this.state}
+                        renderItem={(item) => this._renderItem(item, this.props)}
+                    />
             </View>
             )
         }
@@ -92,7 +90,6 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     flastList: {
-        opacity: 1,
         flex: 1
     },
 });
