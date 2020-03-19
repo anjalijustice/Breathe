@@ -5,7 +5,7 @@ import TeacherCard from '../components/TeacherCard';
 
 export default class TeachersScreen extends React.Component {
     static navigationOptions = {
-        title: 'Teachers',
+        title: 'TEACHERS',
     };
 
     constructor(props) {
@@ -45,16 +45,14 @@ export default class TeachersScreen extends React.Component {
         else{
             return(
             <View style={styles.container}>
-                <ImageBackground source={require('../../assets/img/breathe5.jpg')} style={styles.backgroundImage}>
-                    <FlatList 
-                        contentInset={{bottom: 60}}
-                        contentContainerStyle={styles.flatList}
-                        data={this.state.data}
-                        keyExtractor={(item, index) => index.toString()}
-                        extraData={this.state}
-                        renderItem={(item) => this._renderItem(item)}
-                    />
-                </ImageBackground>
+                <FlatList 
+                    contentInset={{bottom: 60}}
+                    contentContainerStyle={styles.flatList}
+                    data={this.state.data.sort((prev, next)=>prev.fullName.localeCompare(next.fullName))}
+                    keyExtractor={(item, index) => index.toString()}
+                    extraData={this.state}
+                    renderItem={(item) => this._renderItem(item)}
+                />
             </View>
             )
         }
@@ -77,7 +75,6 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     flastList: {
-        opacity: 1,
         flex: 1
     },
     backgroundImage: {

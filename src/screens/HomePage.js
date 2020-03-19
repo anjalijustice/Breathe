@@ -28,7 +28,7 @@ class HomeScreen extends React.Component {
     }
 
     static navigationOptions = {
-        backgroundColor: 'rgb(220, 230, 232)',
+        backgroundColor: '#dfeaef',
         headerStyle: {
           height: 0
         }
@@ -41,7 +41,7 @@ class HomeScreen extends React.Component {
                 <View style={styles.buttons}>
                 <TouchableOpacity
                 activeOpacity = { .5 }
-                onPress={() => this.props.navigation.navigate('Schedule', {user: this.state.user})}
+                onPress={() => this.props.navigation.navigate('SCHEDULE', {user: this.state.user})}
                 >
                 <Text style={styles.TextStyle}> SCHEDULE </Text>       
                 </TouchableOpacity>
@@ -49,7 +49,7 @@ class HomeScreen extends React.Component {
                 <View style={styles.buttons}>
                 <TouchableOpacity
                 activeOpacity = { .5 }
-                onPress={() => this.props.navigation.navigate('Favorites', {user: this.state.user})}
+                onPress={() => this.props.navigation.navigate('FAVORITES', {user: this.state.user})}
                 >
                 <Text style={styles.TextStyle}> FAVORITES </Text> 
                 </TouchableOpacity>
@@ -57,7 +57,7 @@ class HomeScreen extends React.Component {
                 <View style={styles.buttons}>
                 <TouchableOpacity
                 activeOpacity = { .5 }
-                onPress={() => this.props.navigation.navigate('Teachers')}
+                onPress={() => this.props.navigation.navigate('TEACHERS')}
                 >
                 <Text style={styles.TextStyle}> TEACHERS </Text>
                 </TouchableOpacity>
@@ -65,7 +65,7 @@ class HomeScreen extends React.Component {
                 <View style={styles.buttons}>
                 <TouchableOpacity
                 activeOpacity = { .5 }
-                onPress={() => this.props.navigation.navigate('Map')}
+                onPress={() => this.props.navigation.navigate('MAP')}
                 >
                 <Text style={styles.TextStyle}> MAP </Text>       
                 </TouchableOpacity>
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
       height: hp('7%'),
       width: wp('65%'),
       marginTop: 40,
-      backgroundColor: 'rgb(82, 141, 161)',
+      backgroundColor: '#5d8da0',
       justifyContent: 'center',
       alignItems: 'center',
       shadowColor: 'rgba(0,0,0, .4)', // IOS

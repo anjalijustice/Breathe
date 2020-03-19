@@ -7,7 +7,7 @@ import WorkshopsView from './WorkshopsView';
 
 export default class FavoritesScreen extends WorkshopsView {
     static navigationOptions = {
-        title: 'Favorites',
+        title: 'FAVORITES',
     };
 
     constructor(props) {
