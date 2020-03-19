@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import { getTimeFromDateTime } from '../../src/utils/dateTime';
 import Services from '../services';
+import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 //Need to edit a lot: move all card info from schedule screen into Schedule Card component for better readabilitly 
 //Currently this component is unused and all the info is directly in schedule.js
@@ -52,7 +54,6 @@ export default class ScheduleCard extends React.Component {
     return (
       <TouchableOpacity 
         style={styles.card}
-        //On press is different
         onPress={() => this.onPress(this.props.item)}
       >
         <Text style={styles.cardText}>{this.props.item.title}</Text>
@@ -78,24 +79,13 @@ export default class ScheduleCard extends React.Component {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: 'rgba(255,255,255,0.6)',
+    backgroundColor: 'white',
     marginLeft: '2%',
-    width: '96%',
-    marginTop: 5,
-    shadowColor: '#000',
-    shadowOpacity: 0.2,
-    shadowRadius: 1,
-    shadowOffset: {
-      width: 3,
-      height: 3
-    }
-  },
-  card: {
-    backgroundColor: 'rgba(255,255,255,0.6)',
-    marginLeft: '2%',
-    width: '96%',
+    width: widthPercentageToDP('96%'),
+    height: heightPercentageToDP('11%'),
     marginTop: 5,
     marginBottom: 0,
+    justifyContent: 'center',
     shadowColor: '#000',
     shadowOpacity: 0.2,
     shadowRadius: 1,
@@ -105,23 +95,22 @@ const styles = StyleSheet.create({
     }
 },
 cardText: {
-    fontSize: 16,
-    padding: 10,
-    margin: 0,
+    fontSize: RFValue(16),
     opacity: 1,
     textAlign: 'left',
-    color: 'darkslategrey',
+    color: '#5d8da0',
     opacity: 1,
-    fontFamily: 'chelseaMarketReg',
+    fontFamily: 'helvetica77',
     marginRight: 50,
+    marginLeft: 10,
+    marginTop: '5%',
 },
 cardSubText: {
-    fontSize: 14,
+    fontSize: RFValue(14),
     textAlign: 'left',
-    color: 'darkslategrey',
+    color: '#5d8da0',
     opacity: 1,
-    fontFamily: 'chelseaMarketReg',
-    margin: 0,
+    fontFamily: 'helvetica57',
     marginLeft: 10,
 },
 favorite: {
