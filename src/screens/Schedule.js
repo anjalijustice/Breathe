@@ -13,17 +13,13 @@ class ScheduleScreen extends WorkshopsView {
             isLoading: true,
             dateSelected: '11',
             like: true,
-            workshops: [],
+            data: props.navigation.getParam('workshopMap', {}),
             favoriteIds: [],
         }
     }
 
     fetchData = async () => {
-        this.fetchFavorites();
-
-        const workshops = await Services.Workshops.getWorkshops();
-        const workshopMap = this.sortByDay(workshops);
-        this.setState({data: workshopMap});
+        await this.fetchFavorites();
     }
 
     fetchFavorites = async () => {

@@ -21,3 +21,16 @@ export function getDayFromDateTime (dateTime) {
     day = date.split('-')[2];
     return day;
 }
+
+export function sortByDay(workshops) {
+    let workshopMap = {};
+    workshops.forEach(workshop => {
+        let day = getDayFromDateTime(workshop.startTime).toString();
+        if (day in workshopMap) {
+            workshopMap[day].push(workshop);
+        } else {
+            workshopMap[day] = [workshop];
+        }
+    });
+    return workshopMap;
+}
