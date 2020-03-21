@@ -5,11 +5,11 @@ import {
   View,
   Image,
   ImageBackground,
-  TouchableOpacity
+  TouchableOpacity,
+  ActivityIndicator
 } from 'react-native';
 import Constants from 'expo-constants';
 import Services from 'breathe/src/services';
-import * as Font from 'expo-font';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
@@ -27,9 +27,11 @@ class HomeScreen extends React.Component {
     }  
 
     async componentWillMount () {
-      this.fetchData();
-      this.fetchTeachers();
-      await this.getOrCreateUser();
+      await Promise.all([
+        this.fetchData(),
+        this.fetchTeachers(),
+        this.getOrCreateUser()
+      ]);
 
       this.setState({ isLoading: false });
     }
@@ -64,6 +66,11 @@ class HomeScreen extends React.Component {
  
     render(){
         return (
+            this.state.isLoading ?
+            <View style={styles.loader}>
+              <ActivityIndicator/>
+            </View>
+            :
             <View style={styles.buttonsContainer}>
                <ImageBackground source={require('../../assets/img/dust.png')} style={styles.backgroundImage}>
                 <View style={styles.buttons}>
@@ -153,6 +160,11 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       width: '100%',
       height: '100%',
+    },
+    loader: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
     }
   });
 
