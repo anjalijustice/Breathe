@@ -1,7 +1,9 @@
 import React from 'react';
 import {StyleSheet, View, Text, ScrollView, TouchableOpacity, Image} from 'react-native';
 import { formatLocation } from '../utils/formatting';
-import Services from '../services';
+import { heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import { getTimeFromDateTime } from '../../src/utils/dateTime';
+import { RFValue } from "react-native-responsive-fontsize";
 
 class WorkshopScreen extends React.Component {
     static navigationOptions = {
@@ -18,15 +20,6 @@ class WorkshopScreen extends React.Component {
             deleteFavorite: props.navigation.getParam('deleteFavorite'),
         }
     }
-
-    /*TODO:
-    1. Style event page (make sure to handle overflow)
-    2. Implement "add to favorites" button
-    3. Add teacher info (might need to separate things in database)
-    4. Make sure formatting in database matches desired formatting for info pages
-    5. Get pictures for event/instructors
-    6. Make remove_underscore function so location looks neater
-    */
 
     favorite = async (item) => {
         if (this.state.isFavorite) {
@@ -64,21 +57,22 @@ class WorkshopScreen extends React.Component {
         return(
             <ScrollView style={styles.container}>
                 <View style={styles.insideContainer}>
-                    <TouchableOpacity onPress={() => this.favorite(params.item)}>
-                        {this.state.isFavorite ? 
-                        <Image
-                            source={require('../../assets/img/liked.png')}
-                            style={styles.like}
-                        />
-                        :
-                        <Image
-                            source={require('../../assets/img/like.png')}
-                            style={styles.like}
-                        />}
-                    </TouchableOpacity>
-
+                    <View style={styles.favorite}>
+                        <TouchableOpacity onPress={() => this.favorite(params.item)}>
+                            {this.state.isFavorite ? 
+                            <Image
+                                source={require('../../assets/img/liked.png')}
+                                style={styles.like}
+                            />
+                            :
+                            <Image
+                                source={require('../../assets/img/like.png')}
+                                style={styles.like}
+                            />}
+                        </TouchableOpacity>
+                    </View>
                     <Text style={styles.title}>{params.item.title}</Text>
-
+                    <Text style={styles.time}>{getTimeFromDateTime(params.item.startTime)} - {getTimeFromDateTime(params.item.endTime)}</Text>
                     <TouchableOpacity onPress={() => this.goToTeacher(params.item.primaryInstructor)}>
                         <Text style={styles.infoContainer}>
                             <Text style={styles.infoHeader}>Teacher: </Text>
@@ -105,59 +99,60 @@ class WorkshopScreen extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'rgb(220, 230, 232)',
+        backgroundColor: 'white',
         paddingLeft: '2.5%',
         paddingRight: '2.5%',
         flex: 1,
     },
     insideContainer: {
         paddingBottom: '10%',
+        paddingLeft: '5%',
     },
     title:{
-        fontSize: 20,
-        textAlign: 'center',
-        marginBottom: 15,
-        fontFamily: 'chelseaMarketReg',
-        color: 'darkslategrey',
-    },
-    description: {
-        fontSize: 16,
-        justifyContent: 'center',
-        fontFamily: 'neutraDisplay',
-        color: 'darkslategrey',
-        padding: 5,
-    },
-    infoContainer: {
-        padding: 10,
+        fontSize: RFValue(20),
         textAlign: 'left',
-        color: 'darkslategrey',
+        marginRight: '10%',
+        paddingTop: '5%',
+        fontFamily: 'helvetica77',
+        color: '#5d8da0',
     },
-    teacherContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 10,
+    time: {
+        fontSize: RFValue(18),
+        color: '#5d8da0',
+        marginBottom: 15,
+        fontFamily: 'helvetica57'
     },
-    infoHeader: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        fontFamily: 'chelseaMarketReg',
-    },
-    info: {
-        fontSize: 16,
-        marginBottom: 5,
-        fontFamily: 'neutraDisplay',
-        color: 'darkslategrey',
-
-    },
-    teacherInfo: {
-        color: 'darkslategrey',
+    favorite: {
+        position: 'absolute',
+        left: '95%',
     },
     like: {
-        width: 30,
-        height: 30,
-    }
+        width: wp('8%'),
+        height: hp('4%'),
+        marginTop: '50%'
+    },
+    infoContainer: {
+        textAlign: 'left',
+        color: '#5d8da0',
+    },
+    infoHeader: {
+        fontSize: RFValue(20),
+        fontFamily: 'helvetica77',
+        color: '#f78f8f'
+    },
+    info: {
+        fontSize: RFValue(20),
+        fontFamily: 'helvetica57',
+        color: '#5d8da0',
 
+    },
+    description: {
+        fontSize: RFValue(20),
+        fontFamily: 'helvetica57',
+        color: '#5d8da0',
+        marginTop: '3%',
+        paddingRight: '5%',
+    }
 });
 
 export default WorkshopScreen
