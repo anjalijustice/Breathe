@@ -72,7 +72,8 @@ class WorkshopScreen extends React.Component {
                         </TouchableOpacity>
                     </View>
                     <Text style={styles.title}>{params.item.title}</Text>
-                    <Text style={styles.time}>July {getDayFromDateTime(params.item.startTime)}, {getTimeFromDateTime(params.item.startTime)} - {getTimeFromDateTime(params.item.endTime)}</Text>
+                    <Text style={styles.date}>{new Date(params.item.startTime).toLocaleString('en-us', {  weekday: 'long' })}, July {getDayFromDateTime(params.item.startTime)}</Text>
+                    <Text style={styles.time}>{getTimeFromDateTime(params.item.startTime)} - {getTimeFromDateTime(params.item.endTime)}</Text>
                     <TouchableOpacity onPress={() => this.goToTeacher(params.item.primaryInstructor)}>
                         <Text style={styles.infoContainer}>
                             <Text style={styles.infoHeader}>Teacher: </Text>
@@ -115,6 +116,11 @@ const styles = StyleSheet.create({
         paddingTop: '5%',
         fontFamily: 'helvetica77',
         color: '#5d8da0',
+    },
+    date: {
+        fontSize: RFValue(18),
+        color: '#5d8da0',
+        fontFamily: 'helvetica57'
     },
     time: {
         fontSize: RFValue(18),
