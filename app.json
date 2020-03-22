@@ -25,11 +25,11 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "app.breathe.Breathe",
-      "buildNumber": "1.2.1"
+      "buildNumber": "1.2.2"
     },
     "android": {
       "package": "com.breathe.Breathe",
-      "versionCode": 3,
+      "versionCode": 4,
       "permissions": []
     }
   }
