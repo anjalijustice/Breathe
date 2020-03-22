@@ -10,9 +10,11 @@ class WorkshopsView extends React.Component {
 
     constructor(props) {
         super(props);
+        this.add = this.add.bind(this);
+        this.delete = this.delete.bind(this);
     }
     
-    async componentWillMount () {
+    async componentDidMount () {
         await this.fetchData();
         this.setState({ isLoading: false });
     }
@@ -22,10 +24,13 @@ class WorkshopsView extends React.Component {
     changeDate = (date) => {
         this.setState({
             dateSelected: date,
-        })
-        this.flatlist.scrollToIndex({
-            index: 0
-        })
+        });
+        if (this.state.data[this.state.dateSelected] != null
+            && this.state.data[this.state.dateSelected].length > 0) {
+            this.flatlist.scrollToIndex({
+                index: 0
+            });
+        }
     }
 
     isFavorite() {}

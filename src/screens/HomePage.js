@@ -26,7 +26,7 @@ class HomeScreen extends React.Component {
       };
     }  
 
-    async componentWillMount () {
+    async componentDidMount () {
       await Promise.all([
         this.fetchData(),
         this.fetchTeachers(),
@@ -92,7 +92,7 @@ class HomeScreen extends React.Component {
                 <View style={styles.buttons}>
                 <TouchableOpacity
                 activeOpacity = { .5 }
-                onPress={() => this.props.navigation.navigate('TEACHERS', {teachers: this.state.teachers})}
+                onPress={() => this.props.navigation.navigate('TEACHERS', {user: this.state.user, teachers: this.state.teachers})}
                 >
                 <Text style={styles.TextStyle}> TEACHERS </Text>
                 </TouchableOpacity>

@@ -24,4 +24,13 @@ export default class FavoriteService {
             return console.log('this is an error' + error);
         }
     }
+    static async isFavorite(userId, workshopId) {
+        try {
+            const itemIsFavorite = await fetch(`https://breathe-api.herokuapp.com/favorites?userId=${encodeURIComponent(userId)}&workshopId=${encodeURIComponent(workshopId)}`);
+            return itemIsFavorite.json();
+        }
+        catch (error) {
+            return console.log('this is an error' + error);
+        }
+    }
 }
