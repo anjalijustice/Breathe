@@ -12,19 +12,9 @@ export default class TeachersScreen extends React.Component {
         super(props);
         this.state = {
             isLoading: true,
-            data: [],
+            data: props.navigation.getParam('teachers', []),
         }
       }
-
-    async componentWillMount () {
-        this.fetchData();
-        this.setState({ isLoading: false })
-    }
- 
-    fetchData = async () => {
-        const teachers = await Services.Teachers.getTeachers();
-        this.setState({ data: teachers });
-    }
 
     _renderItem = ({item}) => {
         return (
@@ -35,15 +25,7 @@ export default class TeachersScreen extends React.Component {
     }
 
     render() {
-        if(this.isLoading) {
-            return(
-            <View style={styles.loader}>
-                <ActivityIndicator />
-            </View>
-            )
-        }
-        else{
-            return(
+        return (
             <View style={styles.container}>
                 <FlatList 
                     contentInset={{bottom: 60}}
@@ -54,9 +36,7 @@ export default class TeachersScreen extends React.Component {
                     renderItem={(item) => this._renderItem(item)}
                 />
             </View>
-            )
-        }
-       
+        )
     }
 }
 

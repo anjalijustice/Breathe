@@ -1,6 +1,7 @@
 import { getDayFromDateTime } from 'breathe/src/utils/dateTime'
 import Services from 'breathe/src/services';
 import WorkshopsView from './WorkshopsView';
+import { sortByDay } from 'breathe/src/utils/dateTime';
 
 //When you click on the workshop the button at the bottom says "add to favorites" even though its already in the favorites page
     //need to make that dynamic so that it says "remove from favorites" if its already in favorites
@@ -21,7 +22,7 @@ export default class FavoritesScreen extends WorkshopsView {
 
     async fetchData() {
         const favorites = await Services.Favorites.getFavoritesByUser(this.state.user.id);
-        const favoritesMap = this.sortByDay(favorites);
+        const favoritesMap = sortByDay(favorites);
         this.setState({ data: favoritesMap });
     }
 

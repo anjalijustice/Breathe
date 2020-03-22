@@ -1,12 +1,11 @@
 import React from 'react';
 import {StyleSheet, View, FlatList, ActivityIndicator} from 'react-native';
 import HorizontalCalendar from 'breathe/src/components/HorizontalCalendar';
-import { getDayFromDateTime } from 'breathe/src/utils/dateTime';
 import ScheduleCard from '../components/ScheduleCard';
 
 class WorkshopsView extends React.Component {
     static navigationOptions = {
-        title: 'SCHEDULE',
+        title: 'WORKSHOPS',
     };
 
     constructor(props) {
@@ -16,19 +15,6 @@ class WorkshopsView extends React.Component {
     async componentWillMount () {
         await this.fetchData();
         this.setState({ isLoading: false });
-    }
-
-    sortByDay(workshops) {
-        let workshopMap = {};
-        workshops.forEach(workshop => {
-            let day = getDayFromDateTime(workshop.startTime).toString();
-            if (day in workshopMap) {
-                workshopMap[day].push(workshop);
-            } else {
-                workshopMap[day] = [workshop];
-            }
-        });
-        return workshopMap;
     }
 
     async fetchData() {}

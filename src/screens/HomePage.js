@@ -1,20 +1,50 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image, ImageBackground } from 'react-native';
+import { 
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ImageBackground,
+  TouchableOpacity,
+  ActivityIndicator
+} from 'react-native';
 import Constants from 'expo-constants';
 import Services from 'breathe/src/services';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from 'react-native-responsive-screen';
+import { sortByDay } from 'breathe/src/utils/dateTime';
 
 class HomeScreen extends React.Component { 
     constructor(props) {
       super(props);
       this.state = {
+        workshopMap: {},
+        teachers: [],
         isLoading: true
       };
     }  
 
     async componentWillMount () {
-      this.getOrCreateUser();
+      await Promise.all([
+        this.fetchData(),
+        this.fetchTeachers(),
+        this.getOrCreateUser()
+      ]);
+
       this.setState({ isLoading: false });
+    }
+
+    async fetchData() {
+      const workshops = await Services.Workshops.getWorkshops();
+      const workshopMap = sortByDay(workshops);
+      this.setState({ workshopMap: workshopMap })
+    }
+
+    async fetchTeachers() {
+      const teachers = await Services.Teachers.getTeachers();
+      this.setState({ teachers: teachers });
     }
 
     async getOrCreateUser() {
@@ -36,12 +66,17 @@ class HomeScreen extends React.Component {
  
     render(){
         return (
+            this.state.isLoading ?
+            <View style={styles.loader}>
+              <ActivityIndicator/>
+            </View>
+            :
             <View style={styles.buttonsContainer}>
                <ImageBackground source={require('../../assets/img/dust.png')} style={styles.backgroundImage}>
                 <View style={styles.buttons}>
                 <TouchableOpacity
                 activeOpacity = { .5 }
-                onPress={() => this.props.navigation.navigate('SCHEDULE', {user: this.state.user})}
+                onPress={() => this.props.navigation.navigate('SCHEDULE', {user: this.state.user, workshopMap: this.state.workshopMap })}
                 >
                 <Text style={styles.TextStyle}> SCHEDULE </Text>       
                 </TouchableOpacity>
@@ -57,7 +92,7 @@ class HomeScreen extends React.Component {
                 <View style={styles.buttons}>
                 <TouchableOpacity
                 activeOpacity = { .5 }
-                onPress={() => this.props.navigation.navigate('TEACHERS')}
+                onPress={() => this.props.navigation.navigate('TEACHERS', {teachers: this.state.teachers})}
                 >
                 <Text style={styles.TextStyle}> TEACHERS </Text>
                 </TouchableOpacity>
@@ -125,6 +160,11 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       width: '100%',
       height: '100%',
+    },
+    loader: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
     }
   });
 
