@@ -44,7 +44,7 @@ export default class ScheduleCard extends React.Component {
         isFavorite: this.props.isFavorite,
         addFavorite: this.addFavorite,
         deleteFavorite: this.deleteFavorite
-    })
+    });
   }
 
   render(){ 

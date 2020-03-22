@@ -20,15 +20,15 @@ class TeacherInfo extends React.Component {
         }
     }
 
-    // onPress = (item) => {
-    //     this.props.navigation.navigate('Workshop', {
-    //         user: this.props.user,
-    //         item: item,
-    //     })
-    //   }
+    goToWorkshop = async (item) => {
+        item.primaryInstructor = this.state.teacher;
+        this.props.navigation.navigate('Workshop', {
+            user: this.state.user,
+            item: item,
+        });
+    }
 
     render(){
-        const {params} = this.props.navigation.state;
         return(
             <ScrollView style={styles.container}>
                 <Text style={styles.nameContainer}>
@@ -38,7 +38,7 @@ class TeacherInfo extends React.Component {
                     <Text style={styles.infoHeader}>Workshops</Text>
                     <View style={styles.workshops}>
                         {this.state.teacher.workshops.map((workshop) =>
-                            <Text style={styles.workshop} key={workshop.id}>{workshop.title}</Text>
+                            <Text style={styles.workshop} key={workshop.id} onPress={() => this.goToWorkshop(workshop)}>{workshop.title}</Text>
                         )}
                     </View>
                     
@@ -75,19 +75,16 @@ const styles = StyleSheet.create({
         fontSize: RFValue(22),
         textAlign: 'left',
     },
-    workshops: {
-        marginBottom: '5%'
-    },
     workshop:{
         fontSize: RFValue(16),
         fontFamily: 'helvetica57',
         color: '#5d8da0',
-        margin: '1%'
     },
     infoHeader: {
         fontSize: RFValue(20),
         fontFamily: 'helvetica77',
         color: '#f78f8f',
+        marginTop: '3%',
         marginBottom: '3%'
     },
     info: {

@@ -1,4 +1,5 @@
 import React from 'react';
+import Services from '../services';
 import {StyleSheet, View, Text, ScrollView, TouchableOpacity, Image} from 'react-native';
 import { formatLocation } from '../utils/formatting';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
@@ -15,10 +16,29 @@ class WorkshopScreen extends React.Component {
             user: props.navigation.getParam('user', {}),
             isLoading: true,
             item: props.navigation.getParam('item', {}),
-            isFavorite: props.navigation.getParam('isFavorite', false),
-            addFavorite: props.navigation.getParam('addFavorite'),
-            deleteFavorite: props.navigation.getParam('deleteFavorite'),
+            isFavorite: props.navigation.getParam('isFavorite', null),
+            addFavorite: props.navigation.getParam('addFavorite', this.addFavoriteDefault),
+            deleteFavorite: props.navigation.getParam('deleteFavorite', this.deleteFavoriteDefault),
         }
+    }
+
+    async componentDidMount() {
+        if (this.state.isFavorite == null) {
+            let itemIsFavorite = await Services.Favorites.isFavorite(this.state.user.id, this.state.item.id);
+            this.setState({ isFavorite: itemIsFavorite })
+        }
+    }
+
+    addFavoriteDefault = async (item) => {
+        let userId = this.state.user.id;
+        let workshopId = item.id;
+        await Services.Favorites.createFavorite(userId, workshopId);
+    }
+
+    deleteFavoriteDefault = async (item) => {
+        let userId = this.state.user.id;
+        let workshopId = item.id;
+        await Services.Favorites.deleteFavorite(userId, workshopId);
     }
 
     favorite = async (item) => {
