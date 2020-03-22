@@ -34,7 +34,7 @@ export default class ScheduleCard extends React.Component {
     await Services.Favorites.deleteFavorite(userId, workshopId);
 
     this.props.isFavorite = false;
-    this.props.delete(item)
+    this.props.delete(item);
   }
 
   onPress = (item) => {
