@@ -4,28 +4,17 @@ import {
   Text,
   View,
   Image,
+  ImageBackground,
   TouchableOpacity,
   ActivityIndicator
 } from 'react-native';
 import Constants from 'expo-constants';
 import Services from 'breathe/src/services';
-import * as Font from 'expo-font';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
 import { sortByDay } from 'breathe/src/utils/dateTime';
-
-class LogoTitle extends React.Component {
-    render() {
-      return (
-        <Image
-          source={require('../../assets/img/banner.jpg')}
-          style={styles.banner}
-        />
-      );
-    }
-  }
 
 class HomeScreen extends React.Component { 
     constructor(props) {
@@ -38,13 +27,11 @@ class HomeScreen extends React.Component {
     }  
 
     async componentWillMount () {
-      this.fetchData();
-      this.fetchTeachers();
-      await this.getOrCreateUser();
-      await Font.loadAsync({
-        'neutraDisplay': require('breathe/assets/fonts/NeutraDisplayDraft.otf'),
-        'chelseaMarketReg': require('breathe/assets/fonts/ChelseaMarket-Regular.ttf'),
-      });
+      await Promise.all([
+        this.fetchData(),
+        this.fetchTeachers(),
+        this.getOrCreateUser()
+      ]);
 
       this.setState({ isLoading: false });
     }
@@ -71,88 +58,80 @@ class HomeScreen extends React.Component {
     }
 
     static navigationOptions = {
-        headerTitle: <LogoTitle />,
-        backgroundColor: 'rgb(220, 230, 232)'
+        backgroundColor: '#dfeaef',
+        headerStyle: {
+          height: 0
+        }
     };
  
     render(){
         return (
-          this.state.isLoading ?
-          <View style={styles.loader}>
-                <ActivityIndicator />
-          </View>
-          :
-          <View style={styles.container}>
+            this.state.isLoading ?
+            <View style={styles.loader}>
+              <ActivityIndicator/>
+            </View>
+            :
             <View style={styles.buttonsContainer}>
-                <View>
+               <ImageBackground source={require('../../assets/img/dust.png')} style={styles.backgroundImage}>
+                <View style={styles.buttons}>
                 <TouchableOpacity
-                style={styles.buttons}
                 activeOpacity = { .5 }
-                onPress={() => this.props.navigation.navigate('Schedule', {user: this.state.user, workshopMap: this.state.workshopMap })}
+                onPress={() => this.props.navigation.navigate('SCHEDULE', {user: this.state.user, workshopMap: this.state.workshopMap })}
                 >
                 <Text style={styles.TextStyle}> SCHEDULE </Text>       
                 </TouchableOpacity>
                 </View>
-                <View>
+                <View style={styles.buttons}>
                 <TouchableOpacity
-                style={styles.buttons}
                 activeOpacity = { .5 }
-                onPress={() => this.props.navigation.navigate('Map')}
-                >
-                <Text style={styles.TextStyle}> MAP </Text>       
-                </TouchableOpacity>
-                </View>
-            
-                <View>
-                <TouchableOpacity
-                style={styles.buttons}
-                activeOpacity = { .5 }
-                onPress={() => this.props.navigation.navigate('Favorites', {user: this.state.user})}
+                onPress={() => this.props.navigation.navigate('FAVORITES', {user: this.state.user})}
                 >
                 <Text style={styles.TextStyle}> FAVORITES </Text> 
                 </TouchableOpacity>
                 </View> 
-                <View>
+                <View style={styles.buttons}>
                 <TouchableOpacity
-                style={styles.buttons}
                 activeOpacity = { .5 }
-                onPress={() => this.props.navigation.navigate('Teachers', {teachers: this.state.teachers})}
+                onPress={() => this.props.navigation.navigate('TEACHERS', {teachers: this.state.teachers})}
                 >
                 <Text style={styles.TextStyle}> TEACHERS </Text>
                 </TouchableOpacity>
-                </View>      
-            </View>
+                </View>    
+                <View style={styles.buttons}>
+                <TouchableOpacity
+                activeOpacity = { .5 }
+                onPress={() => this.props.navigation.navigate('MAP')}
+                >
+                <Text style={styles.TextStyle}> MAP </Text>       
+                </TouchableOpacity>
+                </View>
 
-            <Image style={styles.footer}
-                source={require('../../assets/img/breathe2.jpg')}
-            />
+                <View style={styles.logoContainer}>
+                <Image
+                  source={require('../../assets/img/breathe_logo.png')}
+                  style={styles.logo}
+                />  
+                </View>
 
+                </ImageBackground>
             </View>
-            
         );
-    }
+      }
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      alignItems: 'center',
-      backgroundColor: 'rgb(220, 230, 232)',
-    },
-    loader: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
+  buttonsContainer: {
+    flex:1,
+    alignItems: 'center',
+    backgroundColor: '#dfeaef',
+    height: hp('100%'),
   },
-    banner: {
-      marginTop: 30,
-    },
     buttons: {
-      borderRadius: 10,
+      borderRadius: 30,
       height: hp('7%'),
-      width: wp('75%'),
-      margin: 25,
-      backgroundColor: 'rgb(82, 141, 161)',
+      width: wp('65%'),
+      marginTop: 40,
+      backgroundColor: '#5d8da0',
       justifyContent: 'center',
       alignItems: 'center',
       shadowColor: 'rgba(0,0,0, .4)', // IOS
@@ -164,18 +143,28 @@ const styles = StyleSheet.create({
     TextStyle: {
       color: 'white',
       textAlign:'center',
-      fontSize: 24,
-      fontFamily: 'neutraDisplay'
+      fontSize: 36,
+      fontFamily: 'chelseaMarketReg',
+      fontWeight: 'bold'
     },
-    buttonsContainer: {
-      marginTop: '10%',
-      height: hp('80%'),
+    logoContainer: {
+      marginTop: '20%',
     },
-    footer: {
-      position: 'absolute',
-      bottom: 0,
+    logo: {
+      height: hp('30%'),
+      width: wp('90%'),
+      resizeMode: 'contain',
+    },
+    backgroundImage: {
+      flex: 1,
+      alignItems: 'center',
       width: '100%',
-      height: hp('20%'),
+      height: '100%',
+    },
+    loader: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
     }
   });
 

@@ -1,11 +1,11 @@
 import React from 'react';
-import {StyleSheet, ImageBackground, View, FlatList, ActivityIndicator, Text, TouchableOpacity, Image, SafeAreaView} from 'react-native';
+import {StyleSheet, View, FlatList, ActivityIndicator} from 'react-native';
 import HorizontalCalendar from 'breathe/src/components/HorizontalCalendar';
 import ScheduleCard from '../components/ScheduleCard';
 
 class WorkshopsView extends React.Component {
     static navigationOptions = {
-        title: 'Workshops View',
+        title: 'WORKSHOPS',
     };
 
     constructor(props) {
@@ -22,6 +22,9 @@ class WorkshopsView extends React.Component {
     changeDate = (date) => {
         this.setState({
             dateSelected: date,
+        })
+        this.flatlist.scrollToIndex({
+            index: 0
         })
     }
 
@@ -55,16 +58,15 @@ class WorkshopsView extends React.Component {
             return(
             <View style={styles.container}>
                 <HorizontalCalendar dateSelected={this.state.dateSelected} changeDate={this.changeDate}/>
-                <ImageBackground source={require('../../assets/img/breathe6.jpg')} style={styles.backgroundImage}>
-                        <FlatList 
-                            contentInset={{bottom: 60}}
-                            contentContainerStyle={styles.flatList}
-                            data={this.state.data[this.state.dateSelected] || []}
-                            keyExtractor={(item, index) => index.toString()}
-                            extraData={this.state}
-                            renderItem={(item) => this._renderItem(item, this.props)}
-                        />
-                </ImageBackground>
+                    <FlatList 
+                        ref={(ref) => {this.flatlist = ref;}}
+                        contentInset={{bottom: 60}}
+                        contentContainerStyle={styles.flatList}
+                        data={this.state.data[this.state.dateSelected] || []}
+                        keyExtractor={(item, index) => index.toString()}
+                        extraData={this.state}
+                        renderItem={(item) => this._renderItem(item, this.props)}
+                    />
             </View>
             )
         }
@@ -92,7 +94,6 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     flastList: {
-        opacity: 1,
         flex: 1
     },
 });

@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 export default class TeacherCard extends React.Component {
     onPress = (teacher) => {
@@ -26,28 +27,17 @@ export default class TeacherCard extends React.Component {
 const styles = StyleSheet.create({
 
 card: {
-    backgroundColor: 'rgba(255,255,255,0.6)',
-    marginLeft: '2%',
-    width: '96%',
-    marginTop: 5,
-    marginBottom: 0,
+    backgroundColor: '#5d8da0',
     shadowColor: '#000',
-    shadowOpacity: 0.2,
-    shadowRadius: 1,
-    shadowOffset: {
-    width: 3,
-    height: 3,
-    }
+    marginBottom: '1%',
+    height: hp('6%'),
+    justifyContent: 'center'
 },
 cardText: {
-    fontSize: 16,
-    padding: 10,
-    margin: 0,
-    opacity: 1,
+    fontSize: 20,
     textAlign: 'left',
-    color: 'darkslategrey',
-    opacity: 1,
-    fontFamily: 'chelseaMarketReg',
-    marginRight: 50,
+    color: 'white',
+    fontFamily: 'helvetica77',
+    marginLeft: '8%'
 },
 });

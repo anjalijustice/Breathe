@@ -2,7 +2,9 @@
 //Get here by clicking a teacher card on the teachers screen (Teachers.js)
 
 import React from 'react';
-import {StyleSheet, View, Text, ScrollView} from 'react-native';
+import {StyleSheet, View, Text, ScrollView, TouchableOpacity} from 'react-native';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
+import { RFValue } from "react-native-responsive-fontsize";
 
 class TeacherInfo extends React.Component {
     static navigationOptions = {
@@ -18,32 +20,34 @@ class TeacherInfo extends React.Component {
         }
     }
 
-    /*TODO:
-    1. Create get_teacher function to get all of the workshops taught by a teacher
-    2. Figure out all of the navigation needed for this page (teacherScreen -> teacher page -> workshop page -> teacher page etc.)
-    3. Basic Formatting of page (probably make it similar to workshopPage for details and such)
-    4. Decide on formatting for the workshop list, do we want to be able to navigate to each workshop or do we just want a plain list?
-        I think a plain list is good for now and def easier. Once everything else is finished we can work on designs for a workshop
-        list within the teacherPage
-    */
+    // onPress = (item) => {
+    //     this.props.navigation.navigate('Workshop', {
+    //         user: this.props.user,
+    //         item: item,
+    //     })
+    //   }
 
     render(){
         const {params} = this.props.navigation.state;
         return(
             <ScrollView style={styles.container}>
+                <Text style={styles.nameContainer}>
+                    <Text style={styles.name}>{this.state.teacher.fullName} </Text>
+                </Text>
                 <View style={styles.insideContainer}>
-                    <Text style={styles.infoContainer}>
-                        <Text style={styles.infoHeader}>Teacher Name: </Text>
-                        <Text style={styles.info}>{this.state.teacher.fullName} </Text>
-                    </Text>
-                    <Text style={styles.infoContainer}>
-                        <Text style={styles.infoHeader}>Bio: </Text>
-                        <Text style={styles.info}>{this.state.teacher.bio}</Text>
-                    </Text>
-                    <Text style={styles.infoContainer}>
-                        <Text style={styles.infoHeader}>Contact: </Text>
-                        <Text style={styles.info}>{this.state.teacher.contactInfo}</Text>
-                    </Text>
+                    <Text style={styles.infoHeader}>Workshops</Text>
+                    <View style={styles.workshops}>
+                        {this.state.teacher.workshops.map((workshop) =>
+                            <Text style={styles.workshop} key={workshop.id}>{workshop.title}</Text>
+                        )}
+                    </View>
+                    
+
+                    <Text style={styles.infoHeader}>Bio</Text>
+                    <Text style={styles.info}>{this.state.teacher.bio}</Text>
+
+                    <Text style={styles.infoHeader}>Contact</Text>
+                    <Text style={styles.info}>{this.state.teacher.contactInfo}</Text>
                 </View>
             </ScrollView>
         )
@@ -52,36 +56,45 @@ class TeacherInfo extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'rgb(220, 230, 232)',
-        paddingLeft: '2.5%',
-        paddingRight: '2.5%',
+        backgroundColor: 'white',
         flex: 1,
     },
     insideContainer: {
         paddingBottom: '10%',
+        margin: '5%'
     },
-    title:{
-        fontSize: 20,
-        fontWeight: 'bold',
+    nameContainer: {
+        backgroundColor: '#5d8da0',
+        height: heightPercentageToDP('6%'),
+        paddingTop: heightPercentageToDP('3%')/2,
+        paddingLeft: '5%'
+    },
+    name: {
+        color: 'white',
+        fontFamily: 'helvetica77',
+        fontSize: RFValue(22),
         textAlign: 'left',
-        marginBottom: 15,
     },
-    description: {
-        fontSize: 16,
+    workshops: {
+        marginBottom: '5%'
     },
-    infoContainer: {
-        padding: 10,
-        textAlign: 'left',
-        color: 'darkslategrey',
+    workshop:{
+        fontSize: RFValue(16),
+        fontFamily: 'helvetica57',
+        color: '#5d8da0',
+        margin: '1%'
     },
     infoHeader: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        fontFamily: 'chelseaMarketReg',
+        fontSize: RFValue(20),
+        fontFamily: 'helvetica77',
+        color: '#f78f8f',
+        marginBottom: '3%'
     },
     info: {
-        fontSize: 16,
-        marginBottom: 5,
+        fontSize: RFValue(18),
+        fontFamily: 'helvetica57',
+        color: '#5d8da0',
+        marginBottom: '5%',
     },
 
 });
