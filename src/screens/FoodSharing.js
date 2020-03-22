@@ -14,7 +14,7 @@ class FoodScreen extends React.Component {
             data: [],
         }
       }
-    componentWillMount () {
+    componentDidMount () {
        this.fetchData();
     }
 

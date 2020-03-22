@@ -13,6 +13,7 @@ export default class TeachersScreen extends React.Component {
         this.state = {
             isLoading: true,
             data: props.navigation.getParam('teachers', []),
+            user: props.navigation.getParam('user', {}),
         }
       }
 

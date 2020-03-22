@@ -2,8 +2,8 @@
 //Get here by clicking a teacher card on the teachers screen (Teachers.js)
 
 import React from 'react';
-import {StyleSheet, View, Text, ScrollView, TouchableOpacity} from 'react-native';
-import { heightPercentageToDP } from 'react-native-responsive-screen';
+import {StyleSheet, View, Text, ScrollView} from 'react-native';
+import { heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { RFValue } from "react-native-responsive-fontsize";
 
 class TeacherInfo extends React.Component {
@@ -20,15 +20,15 @@ class TeacherInfo extends React.Component {
         }
     }
 
-    // onPress = (item) => {
-    //     this.props.navigation.navigate('Workshop', {
-    //         user: this.props.user,
-    //         item: item,
-    //     })
-    //   }
+    goToWorkshop = async (item) => {
+        item.primaryInstructor = this.state.teacher;
+        this.props.navigation.navigate('Workshop', {
+            user: this.state.user,
+            item: item,
+        });
+    }
 
     render(){
-        const {params} = this.props.navigation.state;
         return(
             <ScrollView style={styles.container}>
                 <Text style={styles.nameContainer}>
@@ -37,8 +37,9 @@ class TeacherInfo extends React.Component {
                 <View style={styles.insideContainer}>
                     <Text style={styles.infoHeader}>Workshops</Text>
                     {this.state.teacher.workshops.map((workshop) =>
-                        <Text style={styles.workshop} key={workshop.id}>{workshop.title}</Text>
-                    )}                    
+                        <Text style={styles.workshop} key={workshop.id} onPress={() => this.goToWorkshop(workshop)}>{workshop.title}</Text>
+                    )}
+                    
 
                     <Text style={[styles.infoHeader, {marginTop: '5%'}]}>Bio</Text>
                     <Text style={styles.info}>{this.state.teacher.bio}</Text>
@@ -62,8 +63,8 @@ const styles = StyleSheet.create({
     },
     nameContainer: {
         backgroundColor: '#5d8da0',
-        height: heightPercentageToDP('6%'),
-        paddingTop: heightPercentageToDP('3%')/2,
+        height: hp('6%'),
+        paddingTop: hp('3%')/2,
         paddingLeft: '5%'
     },
     name: {
@@ -72,7 +73,6 @@ const styles = StyleSheet.create({
         fontSize: RFValue(22),
         textAlign: 'left',
     },
-
     workshop:{
         fontSize: RFValue(16),
         fontFamily: 'helvetica57',
@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
         fontSize: RFValue(20),
         fontFamily: 'helvetica77',
         color: '#f78f8f',
+        marginTop: '3%',
         marginBottom: '3%'
     },
     info: {

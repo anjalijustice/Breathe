@@ -15,6 +15,7 @@ export default class FavoritesScreen extends WorkshopsView {
         super(props);
         this.state = {
             user: props.navigation.getParam('user', {}),
+            data: {},
             isLoading: true,
             dateSelected: '11',
         }
@@ -34,7 +35,7 @@ export default class FavoritesScreen extends WorkshopsView {
     async add(item) {
         let favorites = this.state.data[getDayFromDateTime(item.startTime)] || [];
         favorites.push(item);
-        
+
         let newData = this.state.data;
         newData[getDayFromDateTime(item.startTime)] = favorites;
 
@@ -49,7 +50,7 @@ export default class FavoritesScreen extends WorkshopsView {
 
         let newData = this.state.data;
         newData[getDayFromDateTime(item.startTime)] = favorites;
-
+        
         this.setState({
             data: newData
         });

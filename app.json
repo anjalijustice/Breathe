@@ -2,7 +2,7 @@
   "expo": {
     "name": "BreatheFest",
     "slug": "breathe-app-slug",
-    "sdkVersion": "34.0.0",
+    "sdkVersion": "36.0.0",
     "platforms": [
       "ios",
       "android",
@@ -25,11 +25,11 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "app.breathe.Breathe",
-      "buildNumber": "1.2.0"
+      "buildNumber": "1.2.2"
     },
     "android": {
       "package": "com.breathe.Breathe",
-      "versionCode": 2,
+      "versionCode": 4,
       "permissions": []
     }
   }
