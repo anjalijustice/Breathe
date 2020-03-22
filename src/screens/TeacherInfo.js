@@ -36,14 +36,11 @@ class TeacherInfo extends React.Component {
                 </Text>
                 <View style={styles.insideContainer}>
                     <Text style={styles.infoHeader}>Workshops</Text>
-                    <View style={styles.workshops}>
-                        {this.state.teacher.workshops.map((workshop) =>
-                            <Text style={styles.workshop} key={workshop.id}>{workshop.title}</Text>
-                        )}
-                    </View>
-                    
+                    {this.state.teacher.workshops.map((workshop) =>
+                        <Text style={styles.workshop} key={workshop.id}>{workshop.title}</Text>
+                    )}                    
 
-                    <Text style={styles.infoHeader}>Bio</Text>
+                    <Text style={[styles.infoHeader, {marginTop: '5%'}]}>Bio</Text>
                     <Text style={styles.info}>{this.state.teacher.bio}</Text>
 
                     <Text style={styles.infoHeader}>Contact</Text>
@@ -75,9 +72,7 @@ const styles = StyleSheet.create({
         fontSize: RFValue(22),
         textAlign: 'left',
     },
-    workshops: {
-        marginBottom: '5%'
-    },
+
     workshop:{
         fontSize: RFValue(16),
         fontFamily: 'helvetica57',
