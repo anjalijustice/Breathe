@@ -25,7 +25,7 @@ class WorkshopScreen extends React.Component {
     async componentDidMount() {
         if (this.state.isFavorite == null) {
             let itemIsFavorite = await Services.Favorites.isFavorite(this.state.user.id, this.state.item.id);
-            this.setState({ isFavorite: itemIsFavorite })
+            this.setState({ isFavorite: itemIsFavorite });
         }
     }
 
