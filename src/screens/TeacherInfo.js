@@ -15,8 +15,7 @@ class TeacherInfo extends React.Component {
         this.state = {
             user: props.navigation.getParam('user', {}),
             isLoading: true,
-            teacher: props.navigation.getParam('teacher', {}),
-            isFavorite: props.navigation.getParam('isFavorite', false),
+            teacher: props.navigation.getParam('teacher', {})
         }
     }
 
