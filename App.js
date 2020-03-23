@@ -28,6 +28,7 @@ const RootStack = createStackNavigator(
   {
     initialRouteName: 'Home',
     defaultNavigationOptions: {
+      headerBackTitle: null,
       headerStyle: {
         backgroundColor: '#fac6c4',
         height: hp('10%'),
@@ -37,7 +38,7 @@ const RootStack = createStackNavigator(
         fontWeight: 'bold',
         fontSize: 32,
         color: '#5d8da0',
-        fontFamily: 'chelseaMarketReg',
+        fontFamily: 'chelseaMarketReg'
       },
   },
 })
