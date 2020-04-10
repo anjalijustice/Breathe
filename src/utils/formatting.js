@@ -5,3 +5,11 @@ export function formatLocation (inputString) {
     // return inputString.replace('_', ' ');
     // Use this if you still want locations to be all caps
 }
+
+export function formatDescription (description) {
+    return removeTags(description);
+}
+
+function removeTags (str) {
+    return str == null || str === '' ? str : str.replace( /(<([^>]+)>)/ig, '');
+}

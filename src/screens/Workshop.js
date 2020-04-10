@@ -1,7 +1,7 @@
 import React from 'react';
 import Services from '../services';
 import {StyleSheet, View, Text, ScrollView, TouchableOpacity, Image} from 'react-native';
-import { formatLocation } from '../utils/formatting';
+import { formatLocation, formatDescription } from '../utils/formatting';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import { getTimeFromDateTime, getDayFromDateTime } from '../../src/utils/dateTime';
 import { RFValue } from "react-native-responsive-fontsize";
@@ -111,7 +111,7 @@ class WorkshopScreen extends React.Component {
                         <Text style={styles.info}>{formatLocation(params.item.location)}</Text>
                     </Text>
 
-                    <Text style={styles.description}>{params.item.description}</Text>
+                    <Text style={styles.description}>{formatDescription(params.item.description)}</Text>
             </View>
             </ScrollView>
         )
