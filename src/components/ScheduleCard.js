@@ -98,13 +98,13 @@ const styles = StyleSheet.create({
     textAlign: 'left'
 },
   cardText: {
-    fontSize: RFValue(16),
+    fontSize: RFValue(14),
     color: '#5d8da0',
     fontFamily: 'helvetica77',
     marginRight: 55,
 },
   cardSubText: {
-    fontSize: RFValue(14),
+    fontSize: RFValue(13),
     color: '#5d8da0',
     fontFamily: 'helvetica57',
 },

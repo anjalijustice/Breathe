@@ -70,26 +70,26 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     buttonText: {
-        fontSize: RFValue(24),
+        fontSize: RFValue(20),
         fontFamily: 'helvetica77',
         color: 'white',
         textAlign: 'center',
 
     },
     textSelected: {
-        fontSize: RFValue(24),
+        fontSize: RFValue(20),
         textAlign: 'center',
         color: '#fac6c4',
         fontFamily: 'helvetica77',
     },
     buttonDay: {
-        fontSize: RFValue(20),
+        fontSize: RFValue(18),
         textAlign: 'center',
         fontFamily: 'helvetica77',
         color: 'white',
     },
     daySelected: {
-        fontSize: RFValue(20),
+        fontSize: RFValue(18),
         textAlign: 'center',
         color: '#fac6c4',
         fontFamily: 'helvetica77',
@@ -100,6 +100,6 @@ const styles = StyleSheet.create({
         color: '#fac6c4',
         fontSize: RFValue(22),
         marginTop: 8,
-        marginBottom: 0,
+        marginBottom: 5,
     }
 });
