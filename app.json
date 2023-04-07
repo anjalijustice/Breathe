@@ -2,7 +2,7 @@
   "expo": {
     "name": "BreatheFest",
     "slug": "breathe-app-slug",
-    "sdkVersion": "36.0.0",
+    "sdkVersion": "48.0.0",
     "platforms": [
       "ios",
       "android",

@@ -9,11 +9,11 @@ class ScheduleScreen extends WorkshopsView {
     constructor(props) {
         super(props);
         this.state = {
-            user: props.navigation.getParam('user', {}),
+            user: props.route.params.user ?? {},
             isLoading: true,
             dateSelected: '11',
             like: true,
-            data: props.navigation.getParam('workshopMap', {}),
+            data: props.route.params.workshopMap ?? {},
             favoriteIds: [],
         }
     }

@@ -24,7 +24,7 @@ export function getDayFromDateTime (dateTime) {
 
 export function sortByDay(workshops) {
     let workshopMap = {};
-    workshops.forEach(workshop => {
+    workshops?.forEach(workshop => {
         let day = getDayFromDateTime(workshop.startTime).toString();
         if (day in workshopMap) {
             workshopMap[day].push(workshop);

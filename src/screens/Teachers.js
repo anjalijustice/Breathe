@@ -1,6 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, Text, ActivityIndicator, FlatList, TouchableOpacity, ImageBackground } from 'react-native';
-import Services from '../services';
+import {StyleSheet, View, FlatList } from 'react-native';
 import TeacherCard from '../components/TeacherCard';
 
 export default class TeachersScreen extends React.Component {
@@ -12,8 +11,8 @@ export default class TeachersScreen extends React.Component {
         super(props);
         this.state = {
             isLoading: true,
-            data: props.navigation.getParam('teachers', []),
-            user: props.navigation.getParam('user', {}),
+            data: props.route.params.teachers ?? [],
+            user: props.route.params.user ?? {}
         }
       }
 

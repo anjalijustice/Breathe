@@ -1,14 +1,18 @@
+import { API_URL } from './contants';
+
 export default class UserService {
     static getUsers() {
-        return fetch('https://breathe-api.herokuapp.com/users').then((users) => {return users.json()});
+        return fetch(`${API_URL}/users`)
+          .then((users) => {return users.json()})
+          .catch((e) => console.log(e));
     }
     static getUser(installationId) {
-        return fetch('https://breathe-api.herokuapp.com/users/' + installationId)
+        return fetch(`${API_URL}/users/${installationId}`)
         .then(user => {return user.json()})
-        .catch(error => {return null})
+        .catch((e) => console.log(e));
     }
     static createUser(user) {
-        return fetch('https://breathe-api.herokuapp.com/users', {
+        return fetch(`${API_URL}/users`, {
             method: 'POST',
             headers: {
               Accept: 'application/json',
@@ -18,6 +22,7 @@ export default class UserService {
               user
             }),
           })
-          .then((user) => {return user.json()});
+          .then((user) => {return user.json()})
+          .catch((e) => console.log(e));
     }
 }

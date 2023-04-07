@@ -1,5 +1,9 @@
+import { API_URL } from './contants';
+
 export default class WorkshopService {
     static getWorkshops() {
-        return fetch('https://breathe-api.herokuapp.com/workshops').then((workshops) => {return workshops.json()});
+        return fetch(`${API_URL}/workshops`)
+            .then((workshops) => {return workshops.json()})
+            .catch((e) => {console.log(e); return [];});
     }
 }

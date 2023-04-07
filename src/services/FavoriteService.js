@@ -1,7 +1,9 @@
+import { API_URL } from './contants';
+
 export default class FavoriteService {
     static async createFavorite(userId, workshopId) {
         try {
-            const favorite = await fetch(`https://breathe-api.herokuapp.com/favorites?userId=${encodeURIComponent(userId)}&workshopId=${encodeURIComponent(workshopId)}`, {
+            const favorite = await fetch(`${API_URL}/favorites?userId=${encodeURIComponent(userId)}&workshopId=${encodeURIComponent(workshopId)}`, {
                 method: 'POST'
             });
             return favorite.json();
@@ -11,12 +13,12 @@ export default class FavoriteService {
         }
     }
     static async getFavoritesByUser(userId) {
-        const favorites = await fetch('https://breathe-api.herokuapp.com/favorites/' + userId);
+        const favorites = await fetch(`${API_URL}/favorites/${userId}`);
         return favorites.json();
     }
     static async deleteFavorite(userId, workshopId) {
         try {
-            return fetch(`https://breathe-api.herokuapp.com/favorites?userId=${encodeURIComponent(userId)}&workshopId=${encodeURIComponent(workshopId)}`, {
+            return fetch(`${API_URL}/favorites?userId=${encodeURIComponent(userId)}&workshopId=${encodeURIComponent(workshopId)}`, {
                 method: 'DELETE'
             });
         }
@@ -26,7 +28,7 @@ export default class FavoriteService {
     }
     static async isFavorite(userId, workshopId) {
         try {
-            const itemIsFavorite = await fetch(`https://breathe-api.herokuapp.com/favorites?userId=${encodeURIComponent(userId)}&workshopId=${encodeURIComponent(workshopId)}`);
+            const itemIsFavorite = await fetch(`${API_URL}/favorites?userId=${encodeURIComponent(userId)}&workshopId=${encodeURIComponent(workshopId)}`);
             return itemIsFavorite.json();
         }
         catch (error) {

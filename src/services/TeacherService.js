@@ -1,5 +1,9 @@
+import { API_URL } from './contants';
+
 export default class TeacherService {
     static getTeachers() {
-        return fetch('https://breathe-api.herokuapp.com/teachers').then((teachers) => {return teachers.json()});
+        return fetch(`${API_URL}/teachers`)
+            .then((teachers) => {return teachers.json()})
+            .catch((e) => {console.log(e); return [];});
     }
 }

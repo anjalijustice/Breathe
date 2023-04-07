@@ -1,49 +1,25 @@
 import React from 'react';
 import { StyleSheet, View, StatusBar, ActivityIndicator } from 'react-native';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import * as Font from 'expo-font';
 import { 
   HomeScreen, 
   ScheduleScreen, 
-  FoodScreen,
   MapScreen,
   FavoritesScreen,
   TeachersScreen,
   TeacherInfo,
   WorkshopScreen,
 } from 'breathe/src/screens/';
+import { LogBox } from 'react-native';
 
-const RootStack = createStackNavigator(
-  {
-    Home: HomeScreen,
-    SCHEDULE: ScheduleScreen,
-    Food: FoodScreen,
-    MAP: MapScreen,
-    FAVORITES: FavoritesScreen,
-    TEACHERS: TeachersScreen,
-    TeacherInfo: TeacherInfo,
-    Workshop: WorkshopScreen,
-  },
-  {
-    initialRouteName: 'Home',
-    defaultNavigationOptions: {
-      headerBackTitle: null,
-      headerStyle: {
-        backgroundColor: '#fac6c4',
-        height: hp('10%'),
-        borderBottomWidth: 0,
-      },
-      headerTitleStyle: {
-        fontWeight: 'bold',
-        fontSize: 32,
-        color: '#5d8da0',
-        fontFamily: 'chelseaMarketReg'
-      },
-  },
-})
+LogBox.ignoreLogs([
+  'Non-serializable values were found in the navigation state',
+]);
 
-const AppContainer = createAppContainer(RootStack);
+const Stack = createStackNavigator();
 
 export default class App extends React.Component {
   state = {
@@ -63,7 +39,35 @@ export default class App extends React.Component {
   render() {
     const {assetsLoaded} = this.state;
     if(assetsLoaded){
-      return <AppContainer />;
+      return (
+        <NavigationContainer>
+          <Stack.Navigator 
+            initialRouteName="Home" 
+            screenOptions={{
+              headerBackTitle: null,
+              headerStyle: {
+                backgroundColor: '#fac6c4',
+                height: hp('10%'),
+                borderBottomWidth: 0,
+              },
+              headerTitleStyle: {
+                fontWeight: 'bold',
+                fontSize: 32,
+                color: '#5d8da0',
+                fontFamily: 'chelseaMarketReg'
+              },
+            }}
+          >
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="SCHEDULE" component={ScheduleScreen} />
+            <Stack.Screen name="MAP" component={MapScreen} />
+            <Stack.Screen name="FAVORITES" component={FavoritesScreen} />
+            <Stack.Screen name="TEACHERS" component={TeachersScreen} />
+            <Stack.Screen name="TeacherInfo" component={TeacherInfo} />
+            <Stack.Screen name="Workshop" component={WorkshopScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      )
     }
     else{
       return (

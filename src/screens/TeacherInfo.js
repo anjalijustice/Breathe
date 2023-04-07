@@ -13,9 +13,9 @@ class TeacherInfo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: props.navigation.getParam('user', {}),
+            user: props.route.params.user ?? {},
             isLoading: true,
-            teacher: props.navigation.getParam('teacher', {})
+            teacher: props.route.params.teacher ?? {}
         }
     }
 

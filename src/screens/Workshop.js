@@ -13,12 +13,12 @@ class WorkshopScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: props.navigation.getParam('user', {}),
+            user: props.route.params.user ?? {},
             isLoading: true,
-            item: props.navigation.getParam('item', {}),
-            isFavorite: props.navigation.getParam('isFavorite', null),
-            addFavorite: props.navigation.getParam('addFavorite', this.addFavoriteDefault),
-            deleteFavorite: props.navigation.getParam('deleteFavorite', this.deleteFavoriteDefault),
+            item: props.route.params.item ?? {},
+            isFavorite: props.route.params.isFavorite ?? null,
+            addFavorite: props.route.params.addFavorite ?? this.addFavoriteDefault,
+            deleteFavorite: props.route.params.deleteFavorite ?? this.deleteFavoriteDefault,
         }
     }
 
@@ -73,7 +73,7 @@ class WorkshopScreen extends React.Component {
     }
 
     render(){
-        const {params} = this.props.navigation.state;
+        const {params} = this.props.route;
         return(
             <ScrollView style={styles.container}>
                 <View style={styles.insideContainer}>
