@@ -8,7 +8,7 @@
       "android",
       "web"
     ],
-    "version": "2.0.9",
+    "version": "2.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon2.png",
     "splash": {
@@ -26,7 +26,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "app.breathe.Breathe",
-      "buildNumber": "2.0.9",
+      "buildNumber": "2.1.0",
       "runtimeVersion": {
         "policy": "sdkVersion"
       }

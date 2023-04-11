@@ -66,14 +66,14 @@ class HomeScreen extends React.Component {
             :
             <View style={styles.buttonsContainer}>
                <ImageBackground source={require('../../assets/img/dust.png')} style={styles.backgroundImage}>
-                <View style={styles.buttons}>
                 <TouchableOpacity
                 activeOpacity = { .5 }
                 onPress={() => this.props.navigation.navigate('SCHEDULE', {user: this.state.user, workshopMap: this.state.workshopMap })}
                 >
-                <Text style={styles.TextStyle}> SCHEDULE </Text>       
-                </TouchableOpacity>
+                <View style={styles.buttons}>
+                <Text style={styles.TextStyle}> SCHEDULE </Text>
                 </View>
+                </TouchableOpacity>
                 <View style={styles.buttons}>
                 <TouchableOpacity
                 activeOpacity = { .5 }
@@ -82,22 +82,22 @@ class HomeScreen extends React.Component {
                 <Text style={styles.TextStyle}> FAVORITES </Text> 
                 </TouchableOpacity>
                 </View> 
-                <View style={styles.buttons}>
                 <TouchableOpacity
                 activeOpacity = { .5 }
                 onPress={() => this.props.navigation.navigate('TEACHERS', {user: this.state.user, teachers: this.state.teachers})}
                 >
-                <Text style={styles.TextStyle}> TEACHERS </Text>
-                </TouchableOpacity>
-                </View>    
                 <View style={styles.buttons}>
+                <Text style={styles.TextStyle}> TEACHERS </Text>
+                </View>
+                </TouchableOpacity>
                 <TouchableOpacity
                 activeOpacity = { .5 }
                 onPress={() => this.props.navigation.navigate('MAP')}
                 >
-                <Text style={styles.TextStyle}> MAP </Text>       
-                </TouchableOpacity>
+                <View style={styles.buttons}>
+                <Text style={styles.TextStyle}> MAP </Text>
                 </View>
+                </TouchableOpacity>
 
                 <View style={styles.logoContainer}>
                 <Image
