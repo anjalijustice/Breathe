@@ -47,7 +47,7 @@ export default class App extends React.Component {
               headerBackTitle: null,
               headerStyle: {
                 backgroundColor: '#fac6c4',
-                height: hp('10%'),
+                height: hp('12%'),
                 borderBottomWidth: 0,
               },
               headerTitleStyle: {

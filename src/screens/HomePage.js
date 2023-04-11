@@ -56,13 +56,6 @@ class HomeScreen extends React.Component {
       }
       this.setState({user: user});
     }
-
-    static navigationOptions = {
-        backgroundColor: '#dfeaef',
-        headerStyle: {
-          height: hp('10%')
-        },
-    };
  
     render(){
         return (
