@@ -8,7 +8,7 @@
       "android",
       "web"
     ],
-    "version": "2.1.0",
+    "version": "2.1.1",
     "orientation": "portrait",
     "icon": "./assets/icon2.png",
     "splash": {
@@ -26,13 +26,13 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "app.breathe.Breathe",
-      "buildNumber": "2.1.0",
+      "buildNumber": "2.1.1",
       "runtimeVersion": {
         "policy": "sdkVersion"
       }
     },
     "android": {
-      "package": "com.breathe.Breathe",
+      "package": "com.breathe.BreatheFestival",
       "versionCode": 5,
       "permissions": [],
       "runtimeVersion": {

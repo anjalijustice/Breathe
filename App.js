@@ -63,7 +63,7 @@ export default class App extends React.Component {
             <Stack.Screen name="MAP" component={MapScreen} />
             <Stack.Screen name="FAVORITES" component={FavoritesScreen} />
             <Stack.Screen name="TEACHERS" component={TeachersScreen} />
-            <Stack.Screen name="TeacherInfo" component={TeacherInfo} />
+            <Stack.Screen name="Teacher" component={TeacherInfo} />
             <Stack.Screen name="Workshop" component={WorkshopScreen} />
           </Stack.Navigator>
         </NavigationContainer>

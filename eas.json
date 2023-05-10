@@ -23,6 +23,15 @@
     }
   },
   "submit": {
-    "production": {}
+    "development": {
+      "android": {
+        "serviceAccountKeyPath": "./service-account.json"
+      }
+    },
+    "production": {
+      "android": {
+        "serviceAccountKeyPath": "./service-account.json"
+      }
+    }
   }
 }
