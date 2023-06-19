@@ -111,6 +111,11 @@ class WorkshopScreen extends React.Component {
                         <Text style={styles.info}>{formatLocation(params.item.location)}</Text>
                     </Text>
 
+                    <Text style={styles.infoContainer}>
+                        <Text style={styles.infoHeader}>Category: </Text>
+                        <Text style={styles.info}>{formatLocation(params.item.type)}</Text>
+                    </Text>
+
                     <Text style={styles.description}>{formatDescription(params.item.description)}</Text>
             </View>
             </ScrollView>
