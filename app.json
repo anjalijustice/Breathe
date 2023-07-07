@@ -2,13 +2,12 @@
   "expo": {
     "name": "BreatheFest",
     "slug": "breathe-app-slug",
-    "sdkVersion": "48.0.0",
     "platforms": [
       "ios",
       "android",
       "web"
     ],
-    "version": "2.1.1",
+    "version": "2.3.1",
     "orientation": "portrait",
     "icon": "./assets/icon2.png",
     "splash": {
@@ -26,14 +25,14 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "app.breathe.Breathe",
-      "buildNumber": "2.1.1",
+      "buildNumber": "2.3.1",
       "runtimeVersion": {
         "policy": "sdkVersion"
       }
     },
     "android": {
       "package": "com.breathe.BreatheFestival",
-      "versionCode": 5,
+      "versionCode": 7,
       "permissions": [],
       "runtimeVersion": {
         "policy": "sdkVersion"

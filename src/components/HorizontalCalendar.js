@@ -17,31 +17,31 @@ export default class HorizontalCalendar extends React.Component {
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity 
                         style={styles.button}
-                        onPress={this.onPress.bind(this, '11')}
-                    >
-                        <Text style={this.props.dateSelected == '11' ? styles.daySelected : styles.buttonDay}>THU</Text>
-                        <Text style={this.props.dateSelected == '11' ? styles.textSelected : styles.buttonText}>11</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity 
-                        style={styles.button}
-                        onPress={this.onPress.bind(this, '12')}
-                    >
-                        <Text style={this.props.dateSelected == '12' ? styles.daySelected : styles.buttonDay}>FRI</Text>    
-                        <Text style={this.props.dateSelected == '12' ? styles.textSelected : styles.buttonText}>12</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity 
-                        style={styles.button}
                         onPress={this.onPress.bind(this, '13')}
                     >
-                        <Text style={this.props.dateSelected == '13' ? styles.daySelected : styles.buttonDay}>SAT</Text>
+                        <Text style={this.props.dateSelected == '13' ? styles.daySelected : styles.buttonDay}>THU</Text>
                         <Text style={this.props.dateSelected == '13' ? styles.textSelected : styles.buttonText}>13</Text>
                     </TouchableOpacity>
                     <TouchableOpacity 
                         style={styles.button}
                         onPress={this.onPress.bind(this, '14')}
                     >
-                        <Text style={this.props.dateSelected == '14' ? styles.daySelected : styles.buttonDay}>SUN</Text>                   
+                        <Text style={this.props.dateSelected == '14' ? styles.daySelected : styles.buttonDay}>FRI</Text>    
                         <Text style={this.props.dateSelected == '14' ? styles.textSelected : styles.buttonText}>14</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity 
+                        style={styles.button}
+                        onPress={this.onPress.bind(this, '15')}
+                    >
+                        <Text style={this.props.dateSelected == '15' ? styles.daySelected : styles.buttonDay}>SAT</Text>
+                        <Text style={this.props.dateSelected == '15' ? styles.textSelected : styles.buttonText}>15</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity 
+                        style={styles.button}
+                        onPress={this.onPress.bind(this, '16')}
+                    >
+                        <Text style={this.props.dateSelected == '16' ? styles.daySelected : styles.buttonDay}>SUN</Text>                   
+                        <Text style={this.props.dateSelected == '16' ? styles.textSelected : styles.buttonText}>16</Text>
                     </TouchableOpacity>
 
                 </View>

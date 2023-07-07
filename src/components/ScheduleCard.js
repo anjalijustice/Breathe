@@ -55,6 +55,7 @@ export default class ScheduleCard extends React.Component {
       >
         <View style={styles.text}>
           <Text style={styles.cardText}>{this.props.item.title}</Text>
+          <Text style={styles.cardSubText}>{this.props.item.type}</Text>
           <Text style={styles.cardSubText}>{getTimeFromDateTime(this.props.item.startTime)} - {getTimeFromDateTime(this.props.item.endTime)}</Text>
         </View>
         <View style={styles.favorite}>

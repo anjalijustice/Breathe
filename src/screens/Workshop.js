@@ -6,6 +6,8 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-nati
 import { getTimeFromDateTime, getDayFromDateTime } from '../../src/utils/dateTime';
 import { RFValue } from "react-native-responsive-fontsize";
 
+const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+
 class WorkshopScreen extends React.Component {
     static navigationOptions = {
         title: 'Workshop',
@@ -66,7 +68,7 @@ class WorkshopScreen extends React.Component {
     }
 
     goToTeacher = async (teacher) => {
-        this.props.navigation.navigate('TeacherInfo', {
+        this.props.navigation.navigate('Teacher', {
             user: this.state.user,
             teacher: teacher,
         })
@@ -92,7 +94,7 @@ class WorkshopScreen extends React.Component {
                         </TouchableOpacity>
                     </View>
                     <Text style={styles.title}>{params.item.title}</Text>
-                    <Text style={styles.date}>{new Date(params.item.startTime).toLocaleString('en-us', {  weekday: 'long' })}, July {getDayFromDateTime(params.item.startTime)}</Text>
+                    <Text style={styles.date}>{weekday[new Date(params.item.startTime).getDay()]}, July {getDayFromDateTime(params.item.startTime)}</Text>
                     <Text style={styles.time}>{getTimeFromDateTime(params.item.startTime)} - {getTimeFromDateTime(params.item.endTime)}</Text>
                     <TouchableOpacity onPress={() => this.goToTeacher(params.item.primaryInstructor)}>
                         <Text style={styles.infoContainer}>

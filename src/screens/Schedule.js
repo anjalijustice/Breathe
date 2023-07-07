@@ -11,7 +11,7 @@ class ScheduleScreen extends WorkshopsView {
         this.state = {
             user: props.route.params.user ?? {},
             isLoading: true,
-            dateSelected: '11',
+            dateSelected: '13',
             like: true,
             data: props.route.params.workshopMap ?? {},
             favoriteIds: [],

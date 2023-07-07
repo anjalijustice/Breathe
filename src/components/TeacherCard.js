@@ -4,7 +4,7 @@ import { heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 export default class TeacherCard extends React.Component {
     onPress = (teacher) => {
-        this.props.navigation.navigate('TeacherInfo', {
+        this.props.navigation.navigate('Teacher', {
             user: this.props.user,
             teacher: teacher,
         })

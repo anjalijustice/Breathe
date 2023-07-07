@@ -17,7 +17,7 @@ export default class FavoritesScreen extends WorkshopsView {
             user: props.route.params.user ?? {},
             data: {},
             isLoading: true,
-            dateSelected: '11',
+            dateSelected: '13',
         }
     }
 
