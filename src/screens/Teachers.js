@@ -28,6 +28,7 @@ export default class TeachersScreen extends React.Component {
         return (
             <View style={styles.container}>
                 <FlatList 
+                    style={styles.flastList}
                     contentInset={{bottom: 60}}
                     contentContainerStyle={styles.flatList}
                     data={this.state.data.sort((prev, next)=>prev.fullName.localeCompare(next.fullName))}
@@ -55,7 +56,8 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     flastList: {
-        flex: 1
+        flex: 1,
+        width: '100%'
     },
     backgroundImage: {
         flex: 1,
